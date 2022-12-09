@@ -19,8 +19,9 @@ public class SplashActivity2 extends AppCompatActivity {
     ViewPager viewpager;
     DotsIndicator dot;
     ArrayList<Integer> arrayList = new ArrayList<>();
-    AppCompatButton nextbutton;
+    AppCompatButton nextbutton, startbutton;
     TextView skip;
+    int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class SplashActivity2 extends AppCompatActivity {
 
         viewpager = findViewById(R.id.viewpager);
             nextbutton = findViewById(R.id.nextbutton);
+            startbutton = findViewById(R.id.towelcomescreenbutton);
             dot = findViewById(R.id.dotindicator);
             skip = findViewById(R.id.skipped);
 
@@ -45,34 +47,54 @@ public class SplashActivity2 extends AppCompatActivity {
         });
 
 
-
-
-
         MyAdapter myAdapter
                 = new MyAdapter(SplashActivity2.this, arrayList);
         viewpager.setAdapter(myAdapter);
             dot.attachTo(viewpager);
-//        nextbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MyAdapter myAdapter1 = new MyAdapter(SplashActivity2.this, arrayList);
-//             //   nextbutton.setAdapter(myAdapter1);
-//            }
-//        });
-
-
-
 
         nextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inext = new Intent(SplashActivity2.this,WelcomeActivity.class);
-                startActivity(inext);
+//                Intent inext = new Intent(SplashActivity2.this,WelcomeActivity.class);
+//                startActivity(inext);
+
+                position = viewpager.getCurrentItem();
+                if(position <arrayList.size()){
+
+                    position++;
+                    viewpager.setCurrentItem(position);
+
+                }
+                if(position == arrayList.size()){
+
+                    loadWelcomeScreen();
+
+                }
+
 
             }
         });
 
 
+    startbutton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent inext = new Intent(SplashActivity2.this, WelcomeActivity.class);
+            startActivity(inext);
+        }
+    });
+
 
     }
+
+    private void loadWelcomeScreen() {
+        nextbutton.setVisibility(View.INVISIBLE);
+        startbutton.setVisibility(View.VISIBLE);
+    }
+
+
+
+
+
+
 }
