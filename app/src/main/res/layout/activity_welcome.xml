@@ -88,8 +88,7 @@
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_marginRight="@dimen/_30sdp"
         android:layout_marginTop="@dimen/_50sdp"
-        android:background="@drawable/rec2"
-        android:backgroundTint="#FFB039"
+        android:background="@drawable/sideline"
         android:textAllCaps="false"
         android:text="Register with Email"
         android:textSize="@dimen/_12sdp"
@@ -115,6 +114,7 @@
             />
 
         <TextView
+            android:id="@+id/signinText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In"

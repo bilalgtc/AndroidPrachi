@@ -2,6 +2,7 @@ package com.example.androidtestapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,11 +11,12 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.View;
 import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    TextView textView, textfacebook, textgoogle;
+    TextView textView, textfacebook, textgoogle, signin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
         textView = findViewById(R.id.welcometxt);
         textfacebook = findViewById(R.id.textfacebook);
         textgoogle = findViewById(R.id.textgoogle);
+        signin = findViewById(R.id.signinText);
 
         String text = "Welcome \nto ShopClues";
         SpannableString st = new SpannableString(text);
@@ -41,5 +44,15 @@ public class WelcomeActivity extends AppCompatActivity {
         st2.setSpan(boldspan2, 14, 20,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         textgoogle.setText(st2);
+
+
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inext = new Intent(WelcomeActivity.this, SigninActivity.class);
+                startActivity(inext);
+            }
+        });
+
     }
 }

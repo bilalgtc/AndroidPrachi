@@ -9,38 +9,55 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
-        android:layout_width="@dimen/_177sdp"
-        android:layout_height="@dimen/_350sdp"
+        android:layout_width="@dimen/_190sdp"
+        android:layout_height="@dimen/_380sdp"
         android:layout_marginTop="@dimen/_70sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dotindicator"
 
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_6sdp"
+        app:dotsColor="@color/white"
+        app:dotsSize="@dimen/_40sdp"
+        app:dotsSpacing="@dimen/_5sdp"
+        app:layout_constraintBottom_toTopOf="@+id/nextbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewpager"
+        app:progressMode="true"
+        app:selectedDotColor="#FFB039" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextbutton"
-        android:layout_width="321dp"
-        android:layout_height="57dp"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_42sdp"
         android:layout_marginBottom="@dimen/_40sdp"
-        android:background="@drawable/circular"
-        android:backgroundTint="#FFB039"
+        android:background="@drawable/sideline"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/skipped"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_18sdp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="@dimen/_18sdp"
         android:text="Skip"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
