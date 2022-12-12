@@ -19,18 +19,19 @@
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/dotindicator"
-
         android:layout_width="@dimen/_110sdp"
         android:layout_height="@dimen/_6sdp"
         app:dotsColor="@color/white"
-        app:dotsSize="@dimen/_40sdp"
-        app:dotsSpacing="@dimen/_5sdp"
+        app:dotsSize="@dimen/_20sdp"
+        app:dotsSpacing="@dimen/_2sdp"
+        app:dotsCornerRadius="@dimen/_200sdp"
         app:layout_constraintBottom_toTopOf="@+id/nextbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewpager"
-        app:progressMode="true"
-        app:selectedDotColor="#FFB039" />
+
+        app:selectedDotColor="#FFB039"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextbutton"

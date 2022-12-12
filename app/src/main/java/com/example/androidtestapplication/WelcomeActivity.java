@@ -1,6 +1,7 @@
 package com.example.androidtestapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 public class WelcomeActivity extends AppCompatActivity {
 
     TextView textView, textfacebook, textgoogle, signin;
+    AppCompatButton nextbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
         textfacebook = findViewById(R.id.textfacebook);
         textgoogle = findViewById(R.id.textgoogle);
         signin = findViewById(R.id.signinText);
+        nextbutton= findViewById(R.id.nextbutton);
 
         String text = "Welcome \nto ShopClues";
         SpannableString st = new SpannableString(text);
@@ -50,6 +53,14 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent inext = new Intent(WelcomeActivity.this, SigninActivity.class);
+                startActivity(inext);
+            }
+        });
+
+        nextbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inext= new Intent(WelcomeActivity.this, SignupActivity.class);
                 startActivity(inext);
             }
         });
