@@ -10,6 +10,8 @@
     tools:context=".SplashActivity">
 
 
+
+
     <ImageView
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_120sdp"

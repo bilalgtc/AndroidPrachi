@@ -56,8 +56,11 @@ public class SplashActivity2 extends AppCompatActivity {
         nextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
 //                Intent inext = new Intent(SplashActivity2.this,WelcomeActivity.class);
 //                startActivity(inext);
+
 
                 position = viewpager.getCurrentItem();
                 if(position <arrayList.size()){
@@ -99,7 +102,6 @@ public class SplashActivity2 extends AppCompatActivity {
     });
 
     }
-
     private void loadWelcomeScreen() {
         skip.setVisibility(View.INVISIBLE);
             nextbutton.setVisibility(View.INVISIBLE);
