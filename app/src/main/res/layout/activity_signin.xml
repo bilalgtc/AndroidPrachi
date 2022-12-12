@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#06AB8D"
-
     android:layout_gravity="center"
     tools:context=".SigninActivity">
+
+
 
     <TextView
         android:id="@+id/welcometxt"
