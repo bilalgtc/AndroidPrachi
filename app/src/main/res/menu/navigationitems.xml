@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<item android:id="@+id/dashboard"
+      android:title="Dashboard"
+      android:icon="@drawable/dashboard"
+    />
+
+    <item android:id="@+id/becomeseller"
+        android:title="Become Seller"
+        android:icon="@drawable/becomeseller"
+        />
+    <item android:id="@+id/helpcenter"
+        android:title="Help Center"
+        android:icon="@drawable/help"
+        />
+    <item android:id="@+id/categories"
+        android:title="Categories"
+        android:icon="@drawable/categories"
+        />
+    <item android:id="@+id/allproducts"
+        android:title="All Products"
+        android:icon="@drawable/allproducts"
+        />
+    <item android:id="@+id/newrelease"
+        android:title="New Release"
+        android:icon="@drawable/newrelease"
+        />
+    <item android:id="@+id/promotion"
+        android:title="Promotion"
+        android:icon="@drawable/promotion"
+        />
+    <item android:id="@+id/end"
+        android:title="Logout"
+        android:icon="@drawable/logout"
+        />
+</menu>
