@@ -20,7 +20,7 @@ public class SplashActivity2 extends AppCompatActivity {
     DotsIndicator dot;
     ArrayList<Integer> arrayList = new ArrayList<>();
     AppCompatButton nextbutton, startbutton;
-    TextView skip;
+    TextView skip, done;
     int position = 0;
 
     @Override
@@ -33,6 +33,7 @@ public class SplashActivity2 extends AppCompatActivity {
             startbutton = findViewById(R.id.towelcomescreenbutton);
             dot = findViewById(R.id.dotindicator);
             skip = findViewById(R.id.skipped);
+            done= findViewById(R.id.done);
 
         arrayList.add(R.drawable.group1);
         arrayList.add(R.drawable.group2);
@@ -71,10 +72,23 @@ public class SplashActivity2 extends AppCompatActivity {
 
                 }
 
+                if(position == arrayList.size()-1){
+                        skip.setVisibility(View.INVISIBLE);
+                    done.setVisibility(View.VISIBLE);
+                    startbutton.setVisibility(View.VISIBLE);
+                }
+
 
             }
         });
 
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inext = new Intent(SplashActivity2.this, WelcomeActivity.class);
+                startActivity(inext);
+            }
+        });
 
     startbutton.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -84,17 +98,13 @@ public class SplashActivity2 extends AppCompatActivity {
         }
     });
 
-
     }
 
     private void loadWelcomeScreen() {
-        nextbutton.setVisibility(View.INVISIBLE);
-        startbutton.setVisibility(View.VISIBLE);
+        skip.setVisibility(View.INVISIBLE);
+            nextbutton.setVisibility(View.INVISIBLE);
+            startbutton.setVisibility(View.VISIBLE);
+
     }
-
-
-
-
-
 
 }

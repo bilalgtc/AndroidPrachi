@@ -82,8 +82,9 @@
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_marginRight="@dimen/_22sdp"
                     android:src="@drawable/success"/>
             </LinearLayout>
@@ -131,8 +132,9 @@
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_marginRight="@dimen/_22sdp"
                     android:src="@drawable/success"/>
             </LinearLayout>
@@ -182,8 +184,9 @@
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_marginRight="@dimen/_22sdp"
                     android:src="@drawable/success"/>
             </LinearLayout>
@@ -232,9 +235,10 @@
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
                     android:layout_marginRight="@dimen/_22sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:src="@drawable/eye"/>
             </LinearLayout>
 
@@ -281,8 +285,9 @@
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_marginRight="@dimen/_22sdp"
                     android:src="@drawable/eye"/>
             </LinearLayout>
