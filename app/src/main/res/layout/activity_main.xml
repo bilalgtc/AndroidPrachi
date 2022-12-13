@@ -4,15 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
     tools:context=".MainActivity"
     android:id="@+id/drawerlayout">
 
-   <include layout="@layout/app_barmain"
+
+   <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:orientation="vertical">
+
+   <include layout="@layout/app_barmain"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/_52sdp"
        />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/_20sdp"
+          android:layout_marginLeft="@dimen/_16sdp"
+          android:text="New Product"
+          android:textStyle="bold"
+          android:fontFamily="@font/poppins"
+          android:textColor="#000"
+          android:textSize="@dimen/_13sdp"
+
+          />
+
+
+
+
+   </LinearLayout>
 
 
    <com.google.android.material.navigation.NavigationView
@@ -23,9 +47,8 @@
        android:id="@+id/navigationdrawer"
         app:headerLayout="@layout/headerlayout"
        app:menu="@menu/navigationitems"
-       app:itemIconSize="@dimen/_18sdp"
+       app:itemIconSize="@dimen/_20sdp"
        app:itemIconTint="#8B9E9E"
-       android:paddingLeft="@dimen/_9sdp"
        app:itemTextColor="#8B9E9E"
        >
 

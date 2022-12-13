@@ -27,10 +27,19 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationdrawer);
+        //NavigationView navigationView = findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.setItemIconTintList();
         toolbar = findViewById(R.id.toolbar);
-        closeimg = findViewById(R.id.closenavigation);
         // TO SET TOOLBAR
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        closeimg = findViewById(R.id.closenavigation);
+
+
+
+
+
         //TO PERFORM OPEN CLOSE OPERATIONS
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,   R.string.open_drawer, R.string.close_drawer);
@@ -38,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.addDrawerListener(toggle);
                 toggle.syncState();
 
+        // Customized Icon
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.drawericon);
 
                 navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
