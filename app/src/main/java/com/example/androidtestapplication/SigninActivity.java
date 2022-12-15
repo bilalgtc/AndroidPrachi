@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,7 +22,8 @@ public class SigninActivity extends AppCompatActivity {
     TextView signuptext;
     ImageView valid, eye;
     EditText et1, et2;
-    String emailpattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
     AppCompatButton signupbutton;
 
 
@@ -35,6 +39,29 @@ public class SigninActivity extends AppCompatActivity {
         signuptext = findViewById(R.id.signuptext);
         signupbutton = findViewById(R.id.signinbutton);
 
+
+
+        //Password Visibility //
+            eye.setImageResource(R.drawable.eye);
+        eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(et2.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                    // If Password is visible then hide //
+                    et2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    eye.setImageResource(R.drawable.eye);
+                }else{
+                    et2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    eye.setImageResource(R.drawable.invisibleeye);
+                }
+            }
+        });
+// Password Visibility SetUp//
+
+
+        String name=et2.getText().toString();
+
+
         signuptext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,41 +72,298 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+
         et1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                validateemail();
             }
         });
 
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  validateemail(et1);
-               // signingup();
+
             }
         });
+
+        et2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validatepassword();
+            }
+        });
+
     }
 
-    private boolean validateemail(EditText et1){
+
+
+    // Validation Part //
+
+    private boolean validateemail() {
         String emailinput = et1.getText().toString();
 
-        if(!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()){
-            valid.setVisibility(View.VISIBLE);
+        if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
+            valid.setImageResource(R.drawable.success);
             return true;
-        }else{
-            Toast.makeText(getApplicationContext(),"Invalid", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
+            valid.setVisibility(View.INVISIBLE);
             return false;
         }
 
+
     }
+
+    private void validatepassword() {
+        int desiredinput = 8;
+        String passwordinput = et2.getText().toString();
+            if (passwordinput.length()>=8){
+                eye.setImageResource(R.drawable.eye);
+            }else
+            {
+                eye.setImageResource(R.drawable.invisibleeye);
+            }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    public final static boolean isValidEmail(EditText et1) {
 //        String emailinput = et1.getText().toString();
 //
 //        return !emailinput.isEmpty(et1) && android.util.Patterns.EMAIL_ADDRESS.matcher(et1).matches();
 //    }
 
-}
+//}
 
 
 

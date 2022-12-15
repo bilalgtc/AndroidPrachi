@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
       RecyclerView recyclerView;
       RecyclerView.LayoutManager layoutManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         addproductbutton = findViewById(R.id.addproductbutton);
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationdrawer);
@@ -49,8 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Intext passing in Activity //
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inext = new Intent(MainActivity.this, ProductDetailActivity.class);
+                startActivity(inext);
+            }
+        });
 
-     //Navigation Bar Setup start //
+                //Navigation Bar Setup start //
 
         //NavigationView navigationView = findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
@@ -117,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
 

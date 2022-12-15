@@ -100,8 +100,6 @@
                    android:layout_width="@dimen/_12sdp"
                    android:layout_height="@dimen/_12sdp"
                    android:layout_marginRight="@dimen/_22sdp"
-                   android:src="@drawable/success"
-                   android:visibility="invisible"
                    />
            </LinearLayout>
 
@@ -141,6 +139,7 @@
 
                 <EditText
                     android:id="@+id/et2signin"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginLeft="@dimen/_22sdp"
@@ -148,14 +147,13 @@
                     android:textColor="#000"
                     android:layout_weight="1"
                     />
-
                 <ImageView
                     android:id="@+id/showpassword"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_14sdp"
                     android:layout_height="@dimen/_14sdp"
-                    android:layout_marginRight="@dimen/_22sdp"
-                    android:src="@drawable/eye"
-                    android:visibility="invisible" />
+                    android:layout_marginRight="@dimen/_22sdp"/>
+
+
             </LinearLayout>
 
             <View
