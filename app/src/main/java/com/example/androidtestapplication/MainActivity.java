@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
       DrawerLayout drawerLayout;
       NavigationView navigationView;
       Toolbar toolbar;
-      ImageView closeimg;
+      ImageView closenav;
       RecyclerView recyclerView;
       RecyclerView.LayoutManager layoutManager;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        closenav = findViewById(R.id.closenavigation);
         addproductbutton = findViewById(R.id.addproductbutton);
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationdrawer);
@@ -71,13 +71,15 @@ public class MainActivity extends AppCompatActivity {
         // TO SET TOOLBAR
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        closeimg = findViewById(R.id.closenavigation);
+        closenav = findViewById(R.id.closenavigation);
         //TO PERFORM OPEN CLOSE OPERATIONS
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,   R.string.open_drawer, R.string.close_drawer);
 
                 drawerLayout.addDrawerListener(toggle);
                 toggle.syncState();
+
+
 
         // Customized Icon
 
@@ -88,26 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                         drawerLayout.closeDrawer(GravityCompat.START);
-
                              return  true;
                     }
                 });
 
-//    public void onclose(Boolean ){
-//            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-//                closeimg.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-//                    }
-//                });
-//            } else{
-//                super.;
-//            }
-//            return true;
-//        }
+
         // Navigation bar Set Up Done //
 
 
@@ -115,13 +103,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-                "Applestore", "$999.99", R.drawable.pencil, R.drawable.dustbin));
+                "Applestore", "$999.99"));
         arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
-                "Samsung store", "$711.99", R.drawable.pencil, R.drawable.dustbin));
+                "Samsung store", "$711.99"));
         arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-                "Uniqlo Store", "$86.00", R.drawable.pencil, R.drawable.dustbin));
+                "Uniqlo Store", "$86.00"));
         arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
-                "Gucci", "$211.00", R.drawable.pencil, R.drawable.dustbin));
+                "Gucci", "$211.00"));
+        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
+                "Applestore", "$999.99"));
+        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
+                "Samsung store", "$711.99"));
+        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
+                "Uniqlo Store", "$86.00"));
+        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
+                "Gucci", "$211.00"));
+
 
 
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(this, arrdesign);

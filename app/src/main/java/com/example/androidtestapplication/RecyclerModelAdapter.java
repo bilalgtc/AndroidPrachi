@@ -35,8 +35,6 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         holder.productname.setText(arrdesign.get(position).modelname);
         holder.companyname.setText(arrdesign.get(position).comapnyname);
         holder.price.setText(arrdesign.get(position).price);
-        holder.imagepencil.setImageResource(arrdesign.get(position).imagepencil);
-        holder.imagedustbin.setImageResource(arrdesign.get(position).imagedustbin);
     }
 
     @Override
@@ -55,8 +53,6 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
             productname = view.findViewById(R.id.textview1);
             companyname = view.findViewById(R.id.textview2);
             price = view.findViewById(R.id.textview3);
-            imagepencil = view.findViewById(R.id.imageviewpencil);
-            imagedustbin = view.findViewById(R.id.imageviewdustbin);
 
         }
 

@@ -29,6 +29,7 @@
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_110sdp"
             android:scaleType="centerCrop"
+            android:layout_marginTop="0dp"
             android:src="@drawable/img1"
             android:adjustViewBounds="true"
             />
