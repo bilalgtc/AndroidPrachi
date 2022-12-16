@@ -13,39 +13,46 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
     AppCompatButton addproductbutton;
     ArrayList<ModelClass> arrdesign = new ArrayList<>();
-      DrawerLayout drawerLayout;
-      NavigationView navigationView;
-      Toolbar toolbar;
-      ImageView closenav;
-      RecyclerView recyclerView;
-      RecyclerView.LayoutManager layoutManager;
-
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    ImageView closenav;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    Inflater inflater;
+    ViewGroup container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        closenav = findViewById(R.id.closenavigation);
         addproductbutton = findViewById(R.id.addproductbutton);
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationdrawer);
-     recyclerView = findViewById(R.id.recyclerview);
-     layoutManager = new GridLayoutManager(this,2);
+        recyclerView = findViewById(R.id.recyclerview);
+        layoutManager = new GridLayoutManager(this, 2);
 
 
-     // Add Product Button //
+        // CloseNav Drawerlayout//
+
+
+        // Add Product Button //
         addproductbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-                //Navigation Bar Setup start //
+        //Navigation Bar Setup start //
 
         //NavigationView navigationView = findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
@@ -74,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
         closenav = findViewById(R.id.closenavigation);
         //TO PERFORM OPEN CLOSE OPERATIONS
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar,   R.string.open_drawer, R.string.close_drawer);
+                this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
-                drawerLayout.addDrawerListener(toggle);
-                toggle.syncState();
-
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
 
         // Customized Icon
@@ -87,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.drawericon);
 
-                navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                             return  true;
-                    }
-                });
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
 
         // Navigation bar Set Up Done //
@@ -108,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
                 "Samsung store", "$711.99"));
         arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
                 "Uniqlo Store", "$86.00"));
-        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
+        arrdesign.add(new ModelClass(R.drawable.img5, "Eyeglasses Gucci",
                 "Gucci", "$211.00"));
         arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
                 "Applestore", "$999.99"));
-        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
+        arrdesign.add(new ModelClass(R.drawable.img5, "Samsung z flip",
                 "Samsung store", "$711.99"));
         arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
                 "Uniqlo Store", "$86.00"));
@@ -120,14 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 "Gucci", "$211.00"));
 
 
-
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(this, arrdesign);
         recyclerView.setAdapter(adapter);
 
 
     }
-
-
-
-
 }
