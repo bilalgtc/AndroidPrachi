@@ -24,7 +24,7 @@ public class SigninActivity extends AppCompatActivity {
     EditText et1, et2;
 
 
-    AppCompatButton signupbutton;
+    AppCompatButton signinbutton;
 
 
     @Override
@@ -37,7 +37,7 @@ public class SigninActivity extends AppCompatActivity {
         valid = findViewById(R.id.validimg);
         eye = findViewById(R.id.showpassword);
         signuptext = findViewById(R.id.signuptext);
-        signupbutton = findViewById(R.id.signinbutton);
+        signinbutton = findViewById(R.id.signinbutton);
 
 
 
@@ -80,7 +80,7 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
-        signupbutton.setOnClickListener(new View.OnClickListener() {
+        signinbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
