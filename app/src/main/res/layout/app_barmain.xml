@@ -38,7 +38,8 @@
 </com.google.android.material.appbar.AppBarLayout>
 
 
-    <include layout="@layout/maincontent_layout" />
+    <include layout="@layout/maincontent_layout"
+        />
 
 
 </LinearLayout>

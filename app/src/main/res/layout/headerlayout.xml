@@ -18,7 +18,9 @@
             android:layout_alignParentBottom="true"
             android:text="Mas"
             android:textColor="#06AB8D"
-            android:textSize="@dimen/_27sdp" />
+            android:textSize="@dimen/_27sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            />
 
         <TextView
             android:id="@+id/txt2"
@@ -30,7 +32,9 @@
             android:gravity="bottom"
             android:text="sar"
             android:textColor="#FFB039"
-            android:textSize="@dimen/_27sdp" />
+            android:textSize="@dimen/_27sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            />
 
         <ImageView
             android:id="@+id/closenavigation"
@@ -38,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_60sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_38sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
             android:src="@drawable/close" />
 
 

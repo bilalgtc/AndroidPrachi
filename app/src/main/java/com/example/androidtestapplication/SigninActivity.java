@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,7 +23,7 @@ public class SigninActivity extends AppCompatActivity {
     TextView signuptext;
     ImageView valid, eye;
     EditText et1, et2;
-
+    DBHelper db;
 
     AppCompatButton signinbutton;
 
@@ -59,6 +60,8 @@ public class SigninActivity extends AppCompatActivity {
 // Password Visibility SetUp//
 
 
+        // EditText String Validation //
+
         String name=et2.getText().toString();
 
 
@@ -72,27 +75,89 @@ public class SigninActivity extends AppCompatActivity {
             }
         });
 
+et1.addTextChangedListener(new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        et1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validateemail();
-            }
-        });
+    }
 
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        Log.e("hh",""+charSequence.toString());
+        String emailinput = et1.getText().toString();
+
+        if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
+            valid.setImageResource(R.drawable.success);
+            valid.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
+            valid.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+});
+et2.addTextChangedListener(new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    String password = et2.getText().toString();
+    if(password.length() < 8){
+        Toast.makeText(SigninActivity.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
+    }else{
+        Toast.makeText(SigninActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+});
+
+
+        // EditText String Validation SetUp //
+
+
+
+        // Authentication Part //
+        db = new DBHelper(this);
         signinbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = et1.getText().toString();
+                String password = et2.getText().toString();
+
+                if(email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(SigninActivity.this, "Please enter Credentials", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                   boolean check =  db.checkuser(email, password);
+                   if(check == true){
+                       Intent inext = new Intent(getApplicationContext(), MainActivity.class);
+                       startActivity(inext);
+                   }
+                   else
+                   {
+                       Toast.makeText(SigninActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                   }
+
+                }
 
             }
         });
+// Authenticate //
 
-        et2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validatepassword();
-            }
-        });
 
     }
 
@@ -100,32 +165,31 @@ public class SigninActivity extends AppCompatActivity {
 
     // Validation Part //
 
-    private boolean validateemail() {
-        String emailinput = et1.getText().toString();
-
-        if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
-            valid.setImageResource(R.drawable.success);
-            return true;
-        } else {
-            Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
-            valid.setVisibility(View.INVISIBLE);
-            return false;
-        }
-
-
-    }
-
-    private void validatepassword() {
-        int desiredinput = 8;
-        String passwordinput = et2.getText().toString();
-            if (passwordinput.length()>=8){
-                eye.setImageResource(R.drawable.eye);
-            }else
-            {
-                eye.setImageResource(R.drawable.invisibleeye);
-            }
-
-    }
+ //   private boolean validateemail() {
+ //       String emailinput = et1.getText().toString();
+//        if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
+//            valid.setImageResource(R.drawable.success);
+//            return true;
+//        } else {
+//            Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
+//            valid.setVisibility(View.INVISIBLE);
+//            return false;
+//        }
+//
+//return false;
+//    }
+//
+//    private boolean validatepassword() {
+//        int desiredinput = 8;
+//        String passwordinput = et2.getText().toString();
+//            if (passwordinput.length()>=8){
+//               return true;
+//            }else
+//            {
+//                return false;
+//            }
+//
+//    }
 }
 
 
