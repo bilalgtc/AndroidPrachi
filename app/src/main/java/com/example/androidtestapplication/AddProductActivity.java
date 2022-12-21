@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,7 +31,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class AddProductActivity extends AppCompatActivity {
 
@@ -39,7 +43,6 @@ public class AddProductActivity extends AppCompatActivity {
     RadioButton rb1, rb2, rb3, rb4;
     ImageView back, addimage;
     AppCompatButton addproductbutton;
-    Bitmap bitmap;
     int SELECT_IMAGE_CODE =1;
     // Permission Constants //
     private static final int  REQUEST_CAM_CODE = 100;
@@ -56,8 +59,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     // DATABASE
     CRUD_DATA database;
-    ProductAddDatabase db;
-    DatabaseAddProduct databaseAddProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +81,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         // Initialize DATABASE
         database = new CRUD_DATA(this);
-        databaseAddProduct = new DatabaseAddProduct(this);
-        db = new ProductAddDatabase(this);
+
 
         //Init permissions arrays //
         camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -104,19 +105,19 @@ public class AddProductActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
                     case  R.id.rb1 :
-                        databaseAddProduct.radiooption(COLOR = 0);
+                       // databaseAddProduct.radiooption(COLOR = 0);
                         Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
                     break;
                     case R.id.rb2:
-                        databaseAddProduct.radiooption(COLOR = 1);
+                      //  databaseAddProduct.radiooption(COLOR = 1);
                         Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rb3:
-                        databaseAddProduct.radiooption(COLOR = 2);
+                       // databaseAddProduct.radiooption(COLOR = 2);
                         Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rb4:
-                        databaseAddProduct.radiooption(COLOR = 3);
+                      //  databaseAddProduct.radiooption(COLOR = 3);
                         Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -295,9 +296,13 @@ public class AddProductActivity extends AppCompatActivity {
                 if(resultCode == RESULT_OK){
                     // picked from gallery //
                    if(requestCode == IMAGE_PICK_GALLERY_CODE){
-                       Bundle extras = data.getExtras();
-                       bitmap = (Bitmap) extras.get("data");
-                    //   databaseAddProduct.imagestore(bitmap);
+
+
+
+                       //     Bundle extras = data.getExtras();
+                       //bitmap = (Bitmap) extras.get("data");
+
+                    //  databaseAddProduct.imagestore(bitmap);
                              //   imageUri = data.getData();
                               //  bitmap = (Bitmap) imageUri.get("Data");
                             //    String[]  media = {MediaStore.Images.Media.DATA};
@@ -312,20 +317,36 @@ public class AddProductActivity extends AppCompatActivity {
 
                    }
                    else if(requestCode == IMAGE_PICK_CAMERA_CODE){
-                                //imageUri = data.getData();
+//                                imageUri = data.getData();
                        Bundle extras = data.getExtras();
-                       bitmap = (Bitmap) extras.get("data");
-                    //   databaseAddProduct.imagestore(bitmap);
-//                       try {
-//                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//                       } catch (IOException e) {
-//                           e.printStackTrace();
-//                       }
+                       Bitmap bitmap = (Bitmap) extras.get("data");
+
+                       ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                       bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                       byte[] byteArray = stream.toByteArray();
+
+                       Log.e("Byteimagearray",""+byteArray.toString());
+                      // Bundle extras = data.getExtras();
+
+                      // Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(imageUri));
+                    //   bitmap.compress(Bitmap.CompressFormat.PNG, 0 , byteArrayOutputStream)
+
+                       //bitmap = (Bitmap) extras.get("data");
+                     //  database.storeimage(bitmap);
                    }
 
                 } else {
                     Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
                 }
-
     }
+
+//    public  class util{
+//        public Bitmap getImage(byte[] image){
+//            return BitmapFactory.decodeByteArray(image, 0, image.length);
+//        }
+//       // public static byte[] getbytes(InputStream inputStream) throws IOException{
+//         //   ByteArrayInputStream byteb
+       // }
+ //   }
+
 }
