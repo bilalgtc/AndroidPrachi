@@ -16,7 +16,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +30,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class AddProductActivity extends AppCompatActivity {
 
     EditText et1product, et2product, et3product , details1, details2;
@@ -35,6 +39,7 @@ public class AddProductActivity extends AppCompatActivity {
     RadioButton rb1, rb2, rb3, rb4;
     ImageView back, addimage;
     AppCompatButton addproductbutton;
+    Bitmap bitmap;
     int SELECT_IMAGE_CODE =1;
     // Permission Constants //
     private static final int  REQUEST_CAM_CODE = 100;
@@ -47,7 +52,12 @@ public class AddProductActivity extends AppCompatActivity {
     private String[] storagepermissions;
     // Variables contain data to save//
     Uri imageUri;
+    int COLOR;
 
+    // DATABASE
+    CRUD_DATA database;
+    ProductAddDatabase db;
+    DatabaseAddProduct databaseAddProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,11 @@ public class AddProductActivity extends AppCompatActivity {
         addimage = findViewById(R.id.addimage);
         addproductbutton = findViewById(R.id.addproductbutton);
 
+        // Initialize DATABASE
+        database = new CRUD_DATA(this);
+        databaseAddProduct = new DatabaseAddProduct(this);
+        db = new ProductAddDatabase(this);
+
         //Init permissions arrays //
         camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -80,12 +95,58 @@ public class AddProductActivity extends AppCompatActivity {
                 startActivity(inext);
             }
         });
+
+
+        // RadioGroup Button //
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case  R.id.rb1 :
+                        databaseAddProduct.radiooption(COLOR = 0);
+                        Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
+                    break;
+                    case R.id.rb2:
+                        databaseAddProduct.radiooption(COLOR = 1);
+                        Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.rb3:
+                        databaseAddProduct.radiooption(COLOR = 2);
+                        Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.rb4:
+                        databaseAddProduct.radiooption(COLOR = 3);
+                        Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+//                if(rb1.isChecked()){
+//                    databaseAddProduct.radiooption()
+//                }
+
+            }
+        });
+
 // Intent for Main Activity SetUp//
         // DATABASE //
 
      addproductbutton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
+
+             String PRODUCTNAME = et1product.getText().toString();
+             String STORE = et2product.getText().toString();
+             String PRICE = et3product.getText().toString();
+
+             boolean ds  =  database.addData(PRODUCTNAME, STORE, PRICE);
+             if(ds == true){
+                 Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+             }
+             else{
+                 Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+             }
+
 
          }
      });
@@ -105,6 +166,8 @@ public class AddProductActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     private void imagepickdialogue() {
         // Options to Display in Dailogue //
@@ -229,7 +292,40 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+                if(resultCode == RESULT_OK){
+                    // picked from gallery //
+                   if(requestCode == IMAGE_PICK_GALLERY_CODE){
+                       Bundle extras = data.getExtras();
+                       bitmap = (Bitmap) extras.get("data");
+                    //   databaseAddProduct.imagestore(bitmap);
+                             //   imageUri = data.getData();
+                              //  bitmap = (Bitmap) imageUri.get("Data");
+                            //    String[]  media = {MediaStore.Images.Media.DATA};
 
+//                       try {
+//                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                       } catch (IOException e) {
+//                           e.printStackTrace();
+//                       }
+
+
+
+                   }
+                   else if(requestCode == IMAGE_PICK_CAMERA_CODE){
+                                //imageUri = data.getData();
+                       Bundle extras = data.getExtras();
+                       bitmap = (Bitmap) extras.get("data");
+                    //   databaseAddProduct.imagestore(bitmap);
+//                       try {
+//                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                       } catch (IOException e) {
+//                           e.printStackTrace();
+//                       }
+                   }
+
+                } else {
+                    Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
+                }
 
     }
 }
