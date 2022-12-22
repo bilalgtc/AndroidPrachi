@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#06AB8D"
+    android:orientation="vertical"
+    tools:context=".LandingPage">
+
+        <TextView
+            android:id="@+id/welcometxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome \nto ShopClues "
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_bold"
+            android:textSize="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_30sdp"/>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/_37sdp"
+         android:background="@drawable/rec2"
+         android:layout_marginTop="@dimen/_30sdp"
+         android:layout_marginLeft="@dimen/_30sdp"
+         android:layout_marginRight="@dimen/_30sdp"
+         android:gravity="center"
+         android:orientation="horizontal">
+
+             <ImageView
+                 android:layout_width="@dimen/_15sdp"
+                 android:layout_height="@dimen/_15sdp"
+                 android:layout_marginRight="@dimen/_10sdp"
+                 android:src="@drawable/welcomefb" />
+
+
+             <TextView
+                 android:id="@+id/textfacebook"
+                 android:layout_width="wrap_content"
+                 android:layout_height="@dimen/_26sdp"
+                 android:text="Continue with Facebook"
+                 android:gravity="center"
+                 android:textSize="@dimen/_14sdp"
+                 android:textColor="#06AB8D"
+                 />
+
+
+     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_37sdp"
+        android:background="@drawable/rec2"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:background="@color/white"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:src="@drawable/googlevector" />
+
+
+        <TextView
+            android:id="@+id/textgoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_26sdp"
+            android:text="Continue with Google"
+            android:layout_marginRight="@dimen/_18sdp"
+            android:gravity="center"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="#06AB8D"
+            />
+
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nextbutton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:background="@drawable/sideline"
+        android:text="Register with Email"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account? "
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            />
+
+        <TextView
+            android:id="@+id/signinText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

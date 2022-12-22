@@ -1,8 +1,9 @@
-package com.example.androidtestapplication;
+package com.example.androidtestapplication.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -54,10 +55,10 @@ public class CRUD_DATA extends SQLiteOpenHelper {
             }
         }
 
-     public  boolean storeimage(Byte[] IMAGE){
+     public  boolean storeimage(Byte[] IMAGE)throws SQLiteException {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        //contentValues.put(COLUMN6, IMAGE);
+       // contentValues.put(COLUMN6, IMAGE);
        // Bitmap bitmap = (Bitmap) BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
         Long result = db.insert(TableName, null, contentValues);
         if(result == -1){

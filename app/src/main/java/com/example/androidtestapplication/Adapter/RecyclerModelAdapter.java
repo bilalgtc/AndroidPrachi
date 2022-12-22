@@ -1,4 +1,4 @@
-package com.example.androidtestapplication;
+package com.example.androidtestapplication.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidtestapplication.ModelClass;
+import com.example.androidtestapplication.R;
+
 import java.util.ArrayList;
 
 public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdapter.ViewHolder> {
-     Context context;
-    ArrayList<ModelClass> arrdesign;
-    RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign){
+   public   Context context;
+    public  ArrayList<ModelClass> arrdesign;
+  public   RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign){
         this.context = context;
         this.arrdesign = arrdesign;
     }

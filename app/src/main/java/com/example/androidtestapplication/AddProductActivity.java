@@ -1,9 +1,7 @@
 package com.example.androidtestapplication;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -15,15 +13,10 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,10 +24,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import com.example.androidtestapplication.Database.CRUD_DATA;
+
 import java.io.IOException;
-import java.io.InputStream;
 
 public class AddProductActivity extends AppCompatActivity {
 
@@ -296,6 +288,12 @@ public class AddProductActivity extends AppCompatActivity {
                 if(resultCode == RESULT_OK){
                     // picked from gallery //
                    if(requestCode == IMAGE_PICK_GALLERY_CODE){
+                       imageUri = data.getData();
+                       try {
+                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                       } catch (IOException e) {
+                           e.printStackTrace();
+                       }
 
 
 
@@ -317,15 +315,22 @@ public class AddProductActivity extends AppCompatActivity {
 
                    }
                    else if(requestCode == IMAGE_PICK_CAMERA_CODE){
-//                                imageUri = data.getData();
-                       Bundle extras = data.getExtras();
-                       Bitmap bitmap = (Bitmap) extras.get("data");
+                                imageUri = data.getData();
+                       try {
+                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                       } catch (IOException e) {
+                           e.printStackTrace();
+                       }
 
-                       ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                       bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                       byte[] byteArray = stream.toByteArray();
 
-                       Log.e("Byteimagearray",""+byteArray.toString());
+                       //   Bundle extras = data.getExtras();
+                     //  Bitmap bitmap = (Bitmap) extras.get("data");
+
+//                       ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                       bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                       byte[] byteArray = stream.toByteArray();
+
+                      // Log.e("Byteimagearray",""+byteArray.toString());
                       // Bundle extras = data.getExtras();
 
                       // Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(imageUri));

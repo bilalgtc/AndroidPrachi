@@ -11,14 +11,15 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SigninActivity extends AppCompatActivity {
+import com.example.androidtestapplication.Database.DBHelper;
+
+public class SigninPage extends AppCompatActivity {
 
     TextView signuptext;
     ImageView valid, eye;
@@ -31,7 +32,7 @@ public class SigninActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.signinpage);
 
         et1 = findViewById(R.id.et1signin);
         et2 = findViewById(R.id.et2signin);
@@ -69,7 +70,7 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent inext = new Intent(SigninActivity.this, SignupActivity.class);
+                Intent inext = new Intent(SigninPage.this, LoginPage.class);
                 startActivity(inext);
 
             }
@@ -111,9 +112,9 @@ et2.addTextChangedListener(new TextWatcher() {
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
     String password = et2.getText().toString();
     if(password.length() < 8){
-        Toast.makeText(SigninActivity.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SigninPage.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
     }else{
-        Toast.makeText(SigninActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SigninPage.this, "Login Successfully", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -139,7 +140,7 @@ et2.addTextChangedListener(new TextWatcher() {
                 String password = et2.getText().toString();
 
                 if(email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(SigninActivity.this, "Please enter Credentials", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SigninPage.this, "Please enter Credentials", Toast.LENGTH_SHORT).show();
                 }
                 else{
                    boolean check =  db.checkuser(email, password);
@@ -149,7 +150,7 @@ et2.addTextChangedListener(new TextWatcher() {
                    }
                    else
                    {
-                       Toast.makeText(SigninActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(SigninPage.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                    }
 
                 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#06AB8D"
     android:layout_gravity="center"
-    tools:context=".SigninActivity">
+    tools:context=".SigninPage">
 
 
 
@@ -67,10 +67,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_marginLeft="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/poppins"
             android:text="Your Email Address"
+            android:textSize="@dimen/_10sdp"
             android:textColor="#8B9E9E" />
 
        <LinearLayout
@@ -88,8 +89,8 @@
                    android:id="@+id/et1signin"
                    android:inputType="textEmailAddress"
                    android:layout_width="match_parent"
-                   android:layout_height="@dimen/_40sdp"
-                   android:layout_marginLeft="@dimen/_22sdp"
+                   android:layout_height="@dimen/_36sdp"
+                   android:layout_marginLeft="@dimen/_24sdp"
                    android:textColor="#000"
                    android:background="#00000000"
                    android:layout_weight="1"
@@ -107,8 +108,8 @@
                android:layout_width="match_parent"
                android:layout_height="@dimen/_1sdp"
                android:background="#CCCCCC"
-               android:layout_marginRight="@dimen/_22sdp"
-               android:layout_marginLeft="@dimen/_22sdp"
+               android:layout_marginRight="@dimen/_24sdp"
+               android:layout_marginLeft="@dimen/_24sdp"
                />
 
 
@@ -119,10 +120,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_marginLeft="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/poppins"
             android:text="Password"
+            android:textSize="@dimen/_10sdp"
             android:textColor="#8B9E9E" />
 
 
@@ -141,8 +143,8 @@
                     android:id="@+id/et2signin"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginLeft="@dimen/_22sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginLeft="@dimen/_24sdp"
                     android:background="#00000000"
                     android:textColor="#000"
                     android:layout_weight="1"
@@ -160,8 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:background="#CCCCCC"
-                android:layout_marginRight="@dimen/_22sdp"
-                android:layout_marginLeft="@dimen/_22sdp"
+                android:layout_marginRight="@dimen/_24sdp"
+                android:layout_marginLeft="@dimen/_24sdp"
                 />
 
 
@@ -181,13 +183,13 @@
                 android:layout_height="@dimen/_12sdp"
                 android:buttonTint="#06AB8D"
                 android:background="@drawable/rec2"
-                android:layout_marginLeft="@dimen/_22sdp" />
+                android:layout_marginLeft="@dimen/_24sdp" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:layout_marginLeft="@dimen/_3sdp"
                 android:fontFamily="@font/poppins"
                 android:text="Remember me" />
@@ -201,9 +203,9 @@
                 android:layout_height="wrap_content"
                 android:text="Forgot Password?"
                 android:fontFamily="@font/poppins"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textColor="#FF8933"
-                android:layout_marginRight="@dimen/_22sdp"
+                android:layout_marginRight="@dimen/_24sdp"
                 />
 
 </LinearLayout>
@@ -224,10 +226,10 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signinbutton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginLeft="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_40sdp"
-            android:layout_marginRight="@dimen/_22sdp"
+            android:layout_marginRight="@dimen/_24sdp"
             android:background="@drawable/rec2"
             android:backgroundTint="#FFB039"
             android:fontFamily="@font/poppins"
@@ -244,9 +246,10 @@
             android:layout_height="wrap_content"
             android:text="or continue with"
             android:gravity="center"
+            android:textSize="@dimen/_13sdp"
             android:fontFamily="@font/poppins"
             android:textColor="#000"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             />
 
         <LinearLayout
@@ -258,14 +261,14 @@
         >
 
             <ImageView
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_42sdp"
+                android:layout_height="@dimen/_42sdp"
                 android:src="@drawable/fb"
                 android:layout_marginRight="@dimen/_20sdp"/>
 
             <ImageView
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_42sdp"
+                android:layout_height="@dimen/_42sdp"
                 android:src="@drawable/google"
                 android:layout_marginLeft="@dimen/_20sdp"/>
 
@@ -285,6 +288,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000"
                 android:fontFamily="@font/poppins"
+                android:textSize="@dimen/_12sdp"
                 android:text="Don’t have an account?"></TextView>
 
 
@@ -293,6 +297,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  Sign Up"
+                android:textSize="@dimen/_12sdp"
                 android:fontFamily="@font/poppins"
                 android:textColor="#FF8933"></TextView>
 

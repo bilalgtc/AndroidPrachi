@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent inext = new Intent(SplashActivity.this, SplashActivity2.class);
+                Intent inext = new Intent(SplashActivity.this, IntroductionPage.class);
                 startActivity(inext);
 
             }

@@ -11,14 +11,15 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SignupActivity extends AppCompatActivity {
+import com.example.androidtestapplication.Database.DBHelper;
+
+public class LoginPage extends AppCompatActivity {
 
     EditText ed1, ed2, ed3, ed4, ed5;
     AppCompatButton signupbutton;
@@ -30,7 +31,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.loginpage);
         ed1 = findViewById(R.id.edittxt1signup);
         ed2 = findViewById(R.id.edittxt2signup);
         ed3 = findViewById(R.id.edittxt3signup);
@@ -53,7 +54,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent inext = new Intent(SignupActivity.this, SigninActivity.class);
+                Intent inext = new Intent(LoginPage.this, SigninPage.class);
                 startActivity(inext);
 
             }
@@ -188,7 +189,7 @@ public class SignupActivity extends AppCompatActivity {
                 String confirmpassword = ed5.getText().toString();
 
                 if(name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()){
-                    Toast.makeText(SignupActivity.this, "Please fill all the mentioned fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPage.this, "Please fill all the mentioned fields", Toast.LENGTH_SHORT).show();
 
                 }else {
                     if (password.equals(confirmpassword)) {
@@ -197,20 +198,20 @@ public class SignupActivity extends AppCompatActivity {
                        if(uservalidation == false){
                                  Boolean registraion = database.registeruser( name, email, phonenumber, password);
                                  if(registraion == true){
-                                     Toast.makeText(SignupActivity.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
-                                     Intent inext = new Intent(SignupActivity.this, SigninActivity.class);
+                                     Toast.makeText(LoginPage.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
+                                     Intent inext = new Intent(LoginPage.this, SigninPage.class);
                                        startActivity(inext);
                                  }
                                  else
                                  {
-                                     Toast.makeText(SignupActivity.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(LoginPage.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
                                  }
                        }else{
-                           Toast.makeText(SignupActivity.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(LoginPage.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
                        }
 
                     } else {
-                        Toast.makeText(SignupActivity.this, "Password don't matches", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginPage.this, "Password don't matches", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
