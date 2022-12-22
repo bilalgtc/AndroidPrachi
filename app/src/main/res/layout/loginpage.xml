@@ -14,8 +14,9 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/poppins"
+        android:textStyle="bold"
         android:textSize="@dimen/_25sdp"
         android:textColor="@color/white"
         />
@@ -38,7 +39,7 @@
         android:layout_height="762dp"
         android:layout_below="@+id/signintxt"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:background="@drawable/cardview"
         android:orientation="vertical">
 
@@ -75,7 +76,7 @@
                         <EditText
                             android:id="@+id/edittxt1signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_36sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
@@ -125,7 +126,7 @@
                         <EditText
                             android:id="@+id/edittxt2signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_36sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
@@ -176,7 +177,7 @@
                         <EditText
                             android:id="@+id/edittxt3signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_36sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
@@ -228,7 +229,7 @@
                         <EditText
                             android:id="@+id/edittxt4signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_36sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
@@ -279,7 +280,7 @@
                         <EditText
                             android:id="@+id/edittxt5signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_36sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"

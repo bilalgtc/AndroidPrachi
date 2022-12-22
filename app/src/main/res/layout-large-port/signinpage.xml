@@ -17,7 +17,8 @@
         android:text="Welcome"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/poppins"
+        android:textStyle="bold"
         android:textSize="@dimen/_22sdp"
         android:textColor="@color/white"
         />
