@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#06AB8D"
     android:layout_gravity="center"
-    tools:context=".SigninPage">
+    tools:context=".Signin">
 
     <TextView
         android:id="@+id/welcometxt"
@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/_18sdp"
         android:fontFamily="@font/poppins"
         android:textStyle="bold"
-        android:textSize="@dimen/_22sdp"
+        android:textSize="@dimen/_25sdp"
         android:textColor="@color/white"
         />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
         android:text="Enter your personal details to create your acount"
-        android:textSize="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:textColor="@color/white"
         />
@@ -39,7 +39,7 @@
         android:layout_height="762dp"
         android:layout_below="@+id/signintxt"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/_17sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:background="@drawable/cardview"
         android:orientation="vertical">
 
@@ -56,8 +56,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_24sdp"
-                    android:textSize="@dimen/_9sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_22sdp"
                     android:fontFamily="@font/poppins"
                     android:text="Full Name"
                     android:textColor="#8B9E9E" />
@@ -76,7 +76,7 @@
                         <EditText
                             android:id="@+id/edittxt1signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_28sdp"
+                            android:layout_height="@dimen/_31sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:textSize="@dimen/_12sdp"
@@ -110,7 +110,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
                     android:text="E-mail Address"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:textColor="#8B9E9E" />
 
                 <LinearLayout
@@ -127,10 +127,10 @@
                         <EditText
                             android:id="@+id/edittxt2signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_28sdp"
+                            android:layout_height="@dimen/_31sdp"
+                            android:textSize="@dimen/_12sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/_12sdp"
                             android:background="#00000000"
                             android:textColor="#000" />
 
@@ -160,7 +160,7 @@
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:text="Phone Number"
                     android:textColor="#8B9E9E" />
 
@@ -175,6 +175,17 @@
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
                         android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edittxt3signup"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_31sdp"
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_marginLeft="@dimen/_24sdp"
+                            android:layout_weight="1"
+                            android:background="#00000000"
+                            android:inputType="number"
+                            android:textColor="#000" />
 
                         <ImageView
                             android:id="@+id/imageview3"
@@ -202,7 +213,7 @@
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:text="Password"
                     android:textColor="#8B9E9E" />
 
@@ -221,7 +232,7 @@
                         <EditText
                             android:id="@+id/edittxt4signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_28sdp"
+                            android:layout_height="@dimen/_31sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:textSize="@dimen/_12sdp"
@@ -254,7 +265,7 @@
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:text="Confirm Password"
                     android:textColor="#8B9E9E" />
 
@@ -273,10 +284,10 @@
                         <EditText
                             android:id="@+id/edittxt5signup"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_28sdp"
+                            android:textSize="@dimen/_12sdp"
+                            android:layout_height="@dimen/_31sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/_12sdp"
                             android:background="#00000000"
                             android:inputType="textPassword"
                             android:textColor="#000" />
@@ -302,9 +313,12 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
+                    style="?android:attr/borderlessButtonStyle"
+                    android:fadingEdgeLength="0dp"
+                    android:elevation="0dp"
                     android:id="@+id/signupbutton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:layout_marginLeft="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginRight="@dimen/_30sdp"
@@ -326,7 +340,7 @@
                     android:gravity="center"
                     android:text="or continue with"
                     android:textColor="#000"
-                    android:textSize="@dimen/_10sdp" />
+                    android:textSize="@dimen/_11sdp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -363,7 +377,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
                         android:text="Have an account?"
-                        android:textSize="@dimen/_10sdp"
                         android:textColor="#000"></TextView>
 
 
@@ -373,22 +386,9 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
                         android:text="  Sign In"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_10sdp"
                         android:textColor="#FF8933"></TextView>
 
                 </LinearLayout>
-
-                <EditText
-                    android:id="@+id/edittxt3signup"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginLeft="@dimen/_24sdp"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:inputType="number"
-                    android:textColor="#000"
-                    android:textSize="@dimen/_12sdp" />
             </LinearLayout>
         </ScrollView>
 

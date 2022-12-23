@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#06AB8D"
-    tools:context=".IntroductionPage">
+    tools:context=".Introduction">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
@@ -34,6 +34,8 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
+        style="?android:attr/borderlessButtonStyle"
+        android:fadingEdgeLength="0dp"
         android:elevation="0dp"
         android:id="@+id/nextbutton"
         android:layout_width="@dimen/_250sdp"

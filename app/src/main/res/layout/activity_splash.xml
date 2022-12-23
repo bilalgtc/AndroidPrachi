@@ -7,7 +7,7 @@
     android:background="#06AB8D"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SplashActivity">
+    tools:context=".Splash">
 
 
 

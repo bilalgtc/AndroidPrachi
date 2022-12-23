@@ -14,7 +14,7 @@ import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.TextView;
 
-public class LandingPage extends AppCompatActivity {
+public class Landing extends AppCompatActivity {
 
     TextView textView, textfacebook, textgoogle, signin;
     AppCompatButton nextbutton;
@@ -22,7 +22,7 @@ public class LandingPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.landingpage);
+        setContentView(R.layout.landing);
         textView = findViewById(R.id.welcometxt);
         textfacebook = findViewById(R.id.textfacebook);
         textgoogle = findViewById(R.id.textgoogle);
@@ -51,7 +51,7 @@ public class LandingPage extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inext = new Intent(LandingPage.this, SigninPage.class);
+                Intent inext = new Intent(Landing.this, Signin.class);
                 startActivity(inext);
             }
         });
@@ -59,7 +59,7 @@ public class LandingPage extends AppCompatActivity {
         nextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inext= new Intent(LandingPage.this, LoginPage.class);
+                Intent inext= new Intent(Landing.this, Signup.class);
                 startActivity(inext);
             }
         });

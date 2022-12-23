@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.androidtestapplication.Database.DBHelper;
 
-public class LoginPage extends AppCompatActivity {
+public class Signup extends AppCompatActivity {
 
     EditText ed1, ed2, ed3, ed4, ed5;
     AppCompatButton signupbutton;
@@ -31,7 +31,7 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loginpage);
+        setContentView(R.layout.signup);
         ed1 = findViewById(R.id.edittxt1signup);
         ed2 = findViewById(R.id.edittxt2signup);
         ed3 = findViewById(R.id.edittxt3signup);
@@ -54,7 +54,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent inext = new Intent(LoginPage.this, SigninPage.class);
+                Intent inext = new Intent(Signup.this, Signin.class);
                 startActivity(inext);
 
             }
@@ -189,7 +189,7 @@ public class LoginPage extends AppCompatActivity {
                 String confirmpassword = ed5.getText().toString();
 
                 if(name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()){
-                    Toast.makeText(LoginPage.this, "Please fill all the mentioned fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Signup.this, "Please fill all the mentioned fields", Toast.LENGTH_SHORT).show();
 
                 }else {
                     if (password.equals(confirmpassword)) {
@@ -198,20 +198,20 @@ public class LoginPage extends AppCompatActivity {
                        if(uservalidation == false){
                                  Boolean registraion = database.registeruser( name, email, phonenumber, password);
                                  if(registraion == true){
-                                     Toast.makeText(LoginPage.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
-                                     Intent inext = new Intent(LoginPage.this, SigninPage.class);
+                                     Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
+                                     Intent inext = new Intent(Signup.this, Signin.class);
                                        startActivity(inext);
                                  }
                                  else
                                  {
-                                     Toast.makeText(LoginPage.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
+                                     Toast.makeText(Signup.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
                                  }
                        }else{
-                           Toast.makeText(LoginPage.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(Signup.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
                        }
 
                     } else {
-                        Toast.makeText(LoginPage.this, "Password don't matches", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signup.this, "Password don't matches", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

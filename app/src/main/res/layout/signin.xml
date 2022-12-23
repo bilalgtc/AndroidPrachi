@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#06AB8D"
     android:layout_gravity="center"
-    tools:context=".SigninPage">
+    tools:context=".Signin">
 
 
 
@@ -90,9 +90,10 @@
                    android:id="@+id/et1signin"
                    android:inputType="textEmailAddress"
                    android:layout_width="match_parent"
-                   android:layout_height="@dimen/_32sdp"
+                   android:layout_height="@dimen/_31sdp"
                    android:layout_marginLeft="@dimen/_24sdp"
                    android:textColor="#000"
+                   android:textSize="@dimen/_12sdp"
                    android:background="#00000000"
                    android:layout_weight="1"
                   />
@@ -144,10 +145,11 @@
                     android:id="@+id/et2signin"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_height="@dimen/_31sdp"
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:background="#00000000"
                     android:textColor="#000"
+                    android:textSize="@dimen/_12sdp"
                     android:layout_weight="1"
                     />
                 <ImageView
@@ -179,12 +181,16 @@
             android:orientation="horizontal"
            >
 
-            <CheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="@dimen/_12sdp"
                 android:layout_height="@dimen/_12sdp"
-                android:buttonTint="#06AB8D"
-                android:background="@drawable/rec2"
-                android:layout_marginLeft="@dimen/_24sdp" />
+                android:id="@+id/checkbox"
+                android:checked="false"
+                android:layout_marginLeft="@dimen/_24sdp"
+                app:useMaterialThemeColors="false"
+                android:button="@drawable/customcheckbox"/>
+
+
 
 
             <TextView
@@ -225,6 +231,9 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            style="?android:attr/borderlessButtonStyle"
+            android:fadingEdgeLength="0dp"
+            android:elevation="0dp"
             android:id="@+id/signinbutton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_38sdp"
@@ -247,7 +256,7 @@
             android:layout_height="wrap_content"
             android:text="or continue with"
             android:gravity="center"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_11sdp"
             android:fontFamily="@font/poppins"
             android:textColor="#000"
             android:layout_marginTop="@dimen/_30sdp"
@@ -289,7 +298,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000"
                 android:fontFamily="@font/poppins"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:text="Don’t have an account?"></TextView>
 
 
@@ -298,7 +307,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  Sign Up"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:fontFamily="@font/poppins"
                 android:textColor="#FF8933"></TextView>
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#06AB8D"
     android:layout_gravity="center"
-    tools:context=".SigninPage">
+    tools:context=".Signin">
 
 
 
@@ -88,9 +88,10 @@
                         <EditText
                             android:id="@+id/et1signin"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_28sdp"
+                            android:layout_height="@dimen/_26sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
+                            android:textSize="@dimen/_12sdp"
                             android:background="#00000000"
                             android:inputType="textEmailAddress"
                             android:textColor="#000" />
@@ -138,9 +139,10 @@
                         <EditText
                             android:id="@+id/et2signin"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_28sdp"
+                            android:layout_height="@dimen/_26sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
+                            android:textSize="@dimen/_12sdp"
                             android:background="#00000000"
                             android:inputType="textPassword"
                             android:textColor="#000" />
@@ -171,13 +173,14 @@
                     android:layout_marginTop="@dimen/_40sdp"
                     android:orientation="horizontal">
 
-                    <CheckBox
+                    <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
+                        android:id="@+id/checkbox"
+                        android:checked="false"
                         android:layout_marginLeft="@dimen/_24sdp"
-                        android:background="@drawable/rec2"
-                        android:buttonTint="#06AB8D" />
-
+                        app:useMaterialThemeColors="false"
+                        android:button="@drawable/customcheckbox"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -217,6 +220,9 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
+                    style="?android:attr/borderlessButtonStyle"
+                    android:fadingEdgeLength="0dp"
+                    android:elevation="0dp"
                     android:id="@+id/signinbutton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_32sdp"

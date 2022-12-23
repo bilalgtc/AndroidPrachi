@@ -31,22 +31,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginPage"
+            android:name=".Signup"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SigninPage"
-            android:exported="true">
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".LandingPage"
+            android:name=".Signin"
             android:exported="true">
 
             <meta-data
@@ -54,7 +46,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".IntroductionPage"
+            android:name=".Landing"
             android:exported="true">
 
             <meta-data
@@ -62,7 +54,15 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".Introduction"
+            android:exported="true">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

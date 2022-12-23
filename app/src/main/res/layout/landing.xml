@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#06AB8D"
     android:orientation="vertical"
-    tools:context=".LandingPage">
+    tools:context=".Landing">
 
         <TextView
             android:id="@+id/welcometxt"
@@ -15,23 +15,23 @@
         android:text="Welcome \nto ShopClues "
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_bold"
-            android:textSize="@dimen/_22sdp"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:textSize="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_70sdp"
             android:layout_marginLeft="@dimen/_30sdp"/>
 
      <LinearLayout
          android:layout_width="match_parent"
-         android:layout_height="@dimen/_38sdp"
+         android:layout_height="wrap_content"
          android:background="@drawable/rec2"
-         android:layout_marginTop="@dimen/_30sdp"
+         android:layout_marginTop="@dimen/_57sdp"
          android:layout_marginLeft="@dimen/_30sdp"
          android:layout_marginRight="@dimen/_30sdp"
          android:gravity="center"
          android:orientation="horizontal">
 
              <ImageView
-                 android:layout_width="@dimen/_15sdp"
-                 android:layout_height="@dimen/_15sdp"
+                 android:layout_width="@dimen/_19sdp"
+                 android:layout_height="@dimen/_19sdp"
                  android:layout_marginRight="@dimen/_10sdp"
                  android:src="@drawable/welcomefb" />
 
@@ -39,7 +39,7 @@
              <TextView
                  android:id="@+id/textfacebook"
                  android:layout_width="wrap_content"
-                 android:layout_height="@dimen/_22sdp"
+                 android:layout_height="@dimen/_40sdp"
                  android:text="Continue with Facebook"
                  android:gravity="center"
                  android:textSize="@dimen/_14sdp"
@@ -50,7 +50,7 @@
      </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_38sdp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rec2"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_marginRight="@dimen/_30sdp"
@@ -59,8 +59,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
             android:background="@color/white"
             android:layout_marginRight="@dimen/_10sdp"
             android:src="@drawable/googlevector" />
@@ -69,7 +69,7 @@
         <TextView
             android:id="@+id/textgoogle"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_22sdp"
+            android:layout_height="@dimen/_40sdp"
             android:text="Continue with Google"
             android:layout_marginRight="@dimen/_18sdp"
             android:gravity="center"
@@ -80,28 +80,32 @@
 
     </LinearLayout>
 
-
     <androidx.appcompat.widget.AppCompatButton
+        style="?android:attr/borderlessButtonStyle"
+        android:fadingEdgeLength="0dp"
+        android:elevation="0dp"
         android:id="@+id/nextbutton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_35sdp"
         android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_40sdp"
         android:background="@drawable/sideline"
-        android:text="Register with Email"
         android:textAllCaps="false"
+        android:text="Register with Email"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="@dimen/_11sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_70sdp"
         android:layout_gravity="center">
 
         <TextView
@@ -109,7 +113,7 @@
             android:layout_height="wrap_content"
             android:text="Already have an account? "
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_13sdp"
             />
 
         <TextView
@@ -119,7 +123,7 @@
             android:text="Sign In"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_13sdp"
             />
 
 

@@ -14,7 +14,7 @@ import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 
-public class IntroductionPage extends AppCompatActivity {
+public class Introduction extends AppCompatActivity {
 
     ViewPager viewpager;
     DotsIndicator dot;
@@ -28,7 +28,7 @@ public class IntroductionPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.introductionpage);
+        setContentView(R.layout.introduction);
 
         viewpager = findViewById(R.id.viewpager);
         nextbutton = findViewById(R.id.nextbutton);
@@ -44,14 +44,14 @@ public class IntroductionPage extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inext = new Intent(IntroductionPage.this, LandingPage.class);
+                Intent inext = new Intent(Introduction.this, Landing.class);
                 startActivity(inext);
             }
         });
 
 
         MyAdapter myAdapter
-                = new MyAdapter(IntroductionPage.this, arrayList, text);
+                = new MyAdapter(Introduction.this, arrayList, text);
         viewpager.setAdapter(myAdapter);
         dot.attachTo(viewpager);
 
@@ -114,7 +114,7 @@ public class IntroductionPage extends AppCompatActivity {
 //                       skip.setText("Done");
 //                       nextbutton.setText("Start");
 
-                    Intent inext = new Intent(IntroductionPage.this, LandingPage.class);
+                    Intent inext = new Intent(Introduction.this, Landing.class);
                     startActivity(inext);
                 }
 
