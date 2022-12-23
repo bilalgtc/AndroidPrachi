@@ -177,7 +177,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:orientation="horizontal"
            >
 
@@ -238,7 +238,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginLeft="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginRight="@dimen/_24sdp"
             android:background="@drawable/rec2"
             android:backgroundTint="#FFB039"
@@ -259,7 +259,7 @@
             android:textSize="@dimen/_11sdp"
             android:fontFamily="@font/poppins"
             android:textColor="#000"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_25sdp"
             />
 
         <LinearLayout
