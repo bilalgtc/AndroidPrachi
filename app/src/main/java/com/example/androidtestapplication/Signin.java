@@ -92,7 +92,6 @@ et1.addTextChangedListener(new TextWatcher() {
             valid.setImageResource(R.drawable.success);
             valid.setVisibility(View.VISIBLE);
         } else {
-            Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
             valid.setVisibility(View.INVISIBLE);
         }
     }
@@ -114,7 +113,7 @@ et2.addTextChangedListener(new TextWatcher() {
     if(password.length() < 8){
         Toast.makeText(Signin.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
     }else{
-        Toast.makeText(Signin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+
     }
 
 

@@ -136,7 +136,7 @@ public class Signup extends AppCompatActivity {
                     valid2.setImageResource(R.drawable.success);
                     valid2.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
+
                     valid2.setVisibility(View.INVISIBLE);
                 }
             }
