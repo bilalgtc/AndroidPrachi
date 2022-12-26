@@ -173,14 +173,13 @@
                     android:layout_marginTop="@dimen/_25sdp"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.checkbox.MaterialCheckBox
+                    <ImageView
                         android:layout_width="@dimen/_12sdp"
                         android:layout_height="@dimen/_12sdp"
                         android:id="@+id/checkbox"
-                        android:checked="false"
+                        android:src="@drawable/checkbox"
                         android:layout_marginLeft="@dimen/_24sdp"
-                        app:useMaterialThemeColors="false"
-                        android:button="@drawable/customcheckbox"/>
+                        />
 
 
                     <TextView

@@ -22,10 +22,10 @@ import com.example.androidtestapplication.Database.DBHelper;
 public class Signin extends AppCompatActivity {
 
     TextView signuptext;
-    ImageView valid, eye;
+    ImageView valid, eye, checkbox1, tick;
     EditText et1, et2;
     DBHelper db;
-
+    int a = 0;
     AppCompatButton signinbutton;
 
 
@@ -40,6 +40,7 @@ public class Signin extends AppCompatActivity {
         eye = findViewById(R.id.showpassword);
         signuptext = findViewById(R.id.signuptext);
         signinbutton = findViewById(R.id.signinbutton);
+        checkbox1= findViewById(R.id.checkbox);
 
 
 
@@ -158,38 +159,30 @@ et2.addTextChangedListener(new TextWatcher() {
         });
 // Authenticate //
 
+        //CHECKBOX SETUP //
+        checkbox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    if( a == 0){
+                        checkbox1.setImageResource(R.drawable.checkbox);
+                        a++;
+                    }else {
+                        checkbox1.setImageResource(R.drawable.tick);
+                        a--;
+                    }
+
+//                if(v == checkbox){
+//                    checkbox.setImageResource(R.drawable.tick);
+//
+//                }
+
+            }
+        });
+
 
     }
 
-
-
-    // Validation Part //
-
- //   private boolean validateemail() {
- //       String emailinput = et1.getText().toString();
-//        if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
-//            valid.setImageResource(R.drawable.success);
-//            return true;
-//        } else {
-//            Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_SHORT).show();
-//            valid.setVisibility(View.INVISIBLE);
-//            return false;
-//        }
-//
-//return false;
-//    }
-//
-//    private boolean validatepassword() {
-//        int desiredinput = 8;
-//        String passwordinput = et2.getText().toString();
-//            if (passwordinput.length()>=8){
-//               return true;
-//            }else
-//            {
-//                return false;
-//            }
-//
-//    }
 }
 
 

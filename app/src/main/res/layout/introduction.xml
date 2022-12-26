@@ -7,9 +7,10 @@
     android:background="#06AB8D"
     tools:context=".Introduction">
 
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
-        android:layout_width="@dimen/_170sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_310sdp"
         android:layout_marginTop="@dimen/_90sdp"
         app:layout_constraintEnd_toEndOf="parent"

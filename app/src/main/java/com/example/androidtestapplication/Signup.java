@@ -178,7 +178,7 @@ public class Signup extends AppCompatActivity {
 
 
         // SQLite Sign Up part start //
-             database = new DBHelper(this);
+        database = new DBHelper(this);
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,11 +189,16 @@ public class Signup extends AppCompatActivity {
                 String confirmpassword = ed5.getText().toString();
 
                 if(name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()){
-                    Toast.makeText(Signup.this, "Please fill all the mentioned fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Signup.this, "Please fill all the mentioned fields correctly", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } if( phonenumber.length() != 10 ){
+                    Toast.makeText(Signup.this, "Enter 10 Digit phone number", Toast.LENGTH_SHORT).show();
+                }if( !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    Toast.makeText(Signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
                     if (password.equals(confirmpassword)) {
-
                        boolean uservalidation =   database.uservalidation(email);
                        if(uservalidation == false){
                                  Boolean registraion = database.registeruser( name, email, phonenumber, password);

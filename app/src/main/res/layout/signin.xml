@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Welcome"
         android:layout_marginLeft="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/poppins"
         android:textStyle="bold"
         android:textSize="@dimen/_25sdp"
@@ -48,7 +48,7 @@
 
     <LinearLayout
         android:layout_below="@+id/signintxt"
-        android:layout_marginTop="@dimen/_150sdp"
+        android:layout_marginTop="@dimen/_145sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_410sdp"
         android:layout_alignParentBottom="true"
@@ -90,7 +90,7 @@
                    android:id="@+id/et1signin"
                    android:inputType="textEmailAddress"
                    android:layout_width="match_parent"
-                   android:layout_height="@dimen/_31sdp"
+                   android:layout_height="@dimen/_25sdp"
                    android:layout_marginLeft="@dimen/_24sdp"
                    android:textColor="#000"
                    android:textSize="@dimen/_12sdp"
@@ -145,7 +145,7 @@
                     android:id="@+id/et2signin"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_31sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:background="#00000000"
                     android:textColor="#000"
@@ -181,14 +181,21 @@
             android:orientation="horizontal"
            >
 
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <ImageView
                 android:layout_width="@dimen/_12sdp"
                 android:layout_height="@dimen/_12sdp"
                 android:id="@+id/checkbox"
-                android:checked="false"
+                android:src="@drawable/checkbox"
                 android:layout_marginLeft="@dimen/_24sdp"
-                app:useMaterialThemeColors="false"
-                android:button="@drawable/customcheckbox"/>
+                />
+<!--            <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--                android:layout_width="@dimen/_12sdp"-->
+<!--                android:layout_height="@dimen/_12sdp"-->
+<!--                android:id="@+id/checkbox"-->
+<!--                android:checked="false"-->
+<!--                android:layout_marginLeft="@dimen/_24sdp"-->
+<!--                app:useMaterialThemeColors="false"-->
+<!--                android:button="@drawable/customcheckbox"/>-->
 
 
 
@@ -218,15 +225,6 @@
 </LinearLayout>
 
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginLeft="@dimen/_50sdp"-->
-<!--                android:text="Forgot Password?"-->
-<!--                android:layout_marginRight="@dimen/_28sdp"-->
-<!--                android:fontFamily="@font/poppins"-->
-<!--                android:textColor="#FF8933" />-->
-
 
         </LinearLayout>
 
@@ -251,16 +249,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="or continue with"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textSize="@dimen/_11sdp"
-            android:fontFamily="@font/poppins"
-            android:textColor="#000"
             android:layout_marginTop="@dimen/_25sdp"
-            />
+            android:layout_gravity="center">
+
+            <View
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="#CCCCCC"
+                android:layout_marginLeft="@dimen/_17sdp"
+                android:layout_marginRight="@dimen/_14sdp"
+                android:layout_gravity="center"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="or continue with"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins"/>
+
+            <View
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="#CCCCCC"
+                android:layout_marginRight="@dimen/_17sdp"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
