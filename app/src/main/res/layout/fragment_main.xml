@@ -3,8 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#F5F5F5">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:text="New Product"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins"
+        android:textColor="#000"
+        android:textSize="@dimen/_13sdp"
+
+        />
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_40sdp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_collapseMode="parallax"
+        app:spanCount="2"
+        tools:listitem="@layout/shoprow">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
 </FrameLayout>

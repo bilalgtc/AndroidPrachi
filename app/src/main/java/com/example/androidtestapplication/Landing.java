@@ -29,7 +29,7 @@ public class Landing extends AppCompatActivity {
         setContentView(R.layout.landing);
 
 
-
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.appdefault));
 
         textView = findViewById(R.id.welcometxt);
         textfacebook = findViewById(R.id.textfacebook);

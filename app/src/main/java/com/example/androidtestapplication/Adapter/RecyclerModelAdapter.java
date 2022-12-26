@@ -46,7 +46,7 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView image, imagepencil, imagedustbin;
+        ImageView image;
         TextView productname, companyname, price;
 
         public ViewHolder(View view){

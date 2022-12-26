@@ -29,6 +29,7 @@ public class Introduction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.introduction);
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.appdefault));
 
         viewpager = findViewById(R.id.viewpager);
         nextbutton = findViewById(R.id.nextbutton);

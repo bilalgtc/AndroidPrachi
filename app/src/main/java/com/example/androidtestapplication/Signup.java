@@ -204,7 +204,7 @@ public class Signup extends AppCompatActivity {
                                  Boolean registraion = database.registeruser( name, email, phonenumber, password);
                                  if(registraion == true){
                                      Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
-                                     Intent inext = new Intent(Signup.this, Signin.class);
+                                     Intent inext = new Intent(Signup.this, MainActivity.class);
                                        startActivity(inext);
                                  }
                                  else

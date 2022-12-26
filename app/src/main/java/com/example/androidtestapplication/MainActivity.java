@@ -57,20 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //Intext passing in Activity //
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent inext = new Intent(MainActivity.this, ProductDetailActivity.class);
-                startActivity(inext);
-            }
-        });
 
         //Navigation Bar Setup start //
 
-        //NavigationView navigationView = findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
-        //navigationView.setItemIconTintList();
+
         toolbar = findViewById(R.id.toolbar);
         // TO SET TOOLBAR
         toolbar.setTitle("");
@@ -111,16 +101,16 @@ public class MainActivity extends AppCompatActivity {
                 "Samsung store", "$711.99"));
         arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
                 "Uniqlo Store", "$86.00"));
-        arrdesign.add(new ModelClass(R.drawable.img5, "Eyeglasses Gucci",
-                "Gucci", "$211.00"));
-        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-                "Applestore", "$999.99"));
-        arrdesign.add(new ModelClass(R.drawable.img5, "Samsung z flip",
-                "Samsung store", "$711.99"));
-        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-                "Uniqlo Store", "$86.00"));
-        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
-                "Gucci", "$211.00"));
+//        arrdesign.add(new ModelClass(R.drawable.img5, "Eyeglasses Gucci",
+//                "Gucci", "$211.00"));
+//        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
+//                "Applestore", "$999.99"));
+//        arrdesign.add(new ModelClass(R.drawable.img5, "Samsung z flip",
+//                "Samsung store", "$711.99"));
+//        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
+//                "Uniqlo Store", "$86.00"));
+//        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
+//                "Gucci", "$211.00"));
 
 
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(this, arrdesign);
