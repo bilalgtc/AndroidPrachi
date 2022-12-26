@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.androidtestapplication.Database.CRUD_DATA;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -291,9 +292,11 @@ public class AddProductActivity extends AppCompatActivity {
                        imageUri = data.getData();
                        try {
                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+
                        } catch (IOException e) {
                            e.printStackTrace();
                        }
+
 
 
 
@@ -318,9 +321,14 @@ public class AddProductActivity extends AppCompatActivity {
                                 imageUri = data.getData();
                        try {
                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+
+
                        } catch (IOException e) {
                            e.printStackTrace();
                        }
+
+
+//
 
 
                        //   Bundle extras = data.getExtras();
@@ -353,5 +361,19 @@ public class AddProductActivity extends AppCompatActivity {
 //         //   ByteArrayInputStream byteb
        // }
  //   }
+//    public class DbBitmapUtility {
 
+    // convert from bitmap to byte array
+//    public byte[] getBytes(Bitmap bitmap) {
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+//        return stream.toByteArray();
+//    }
+//
+//      // convert from byte array to bitmap
+/////                   public static Bitmap getImage(byte[] image) {
+////                     return BitmapFactory.decodeByteArray(image, 0, image.length);
+////                       }
+////                    }
+//}
 }

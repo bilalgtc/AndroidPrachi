@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 
 import androidx.annotation.Nullable;
 
+import kotlin.jvm.internal.Ref;
+
 public class CRUD_DATA extends SQLiteOpenHelper {
     private static final String DATABASENAME = "ABOUTPRODUCT";
     private  static final String  TableName = "TESTDATA";
@@ -67,5 +69,7 @@ public class CRUD_DATA extends SQLiteOpenHelper {
             return true;
         }
      }
+
+
 
 }
