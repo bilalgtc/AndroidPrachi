@@ -2,37 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<item android:id="@+id/dashboard"
-      android:title="Dashboard"
-      android:icon="@drawable/dashboard"
-    />
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/dashboard"
+        android:title="Dashboard" />
 
-    <item android:id="@+id/becomeseller"
-        android:title="Become Seller"
+    <item
+        android:id="@+id/becomeseller"
         android:icon="@drawable/becomeseller"
-        />
-    <item android:id="@+id/helpcenter"
-        android:title="Help Center"
+        android:title="Become Seller" />
+
+    <item
+        android:id="@+id/helpcenter"
         android:icon="@drawable/help"
-        />
-    <item android:id="@+id/categories"
-        android:title="Categories"
+        android:title="Help Center" />
+    <item
+        android:id="@+id/categories"
         android:icon="@drawable/categories"
-        />
-    <item android:id="@+id/allproducts"
-        android:title="All Products"
+        android:title="Categories" />
+    <item
+        android:id="@+id/allproducts"
         android:icon="@drawable/allproducts"
-        />
-    <item android:id="@+id/newrelease"
-        android:title="New Release"
+        android:title="All Products" />
+    <item
+        android:id="@+id/newrelease"
         android:icon="@drawable/newrelease"
-        />
-    <item android:id="@+id/promotion"
-        android:title="Promotion"
+        android:title="New Release" />
+    <item
+        android:id="@+id/promotion"
         android:icon="@drawable/promotion"
-        />
-    <item android:id="@+id/end"
-        android:title="Logout"
+        android:title="Promotion" />
+    <item
+        android:id="@+id/end"
         android:icon="@drawable/logout"
-        />
+        android:title="Logout" />
 </menu>

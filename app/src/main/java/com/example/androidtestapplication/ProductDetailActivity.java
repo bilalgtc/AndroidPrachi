@@ -14,7 +14,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     ImageView backbtn;
     AppCompatButton green, black, blue, silver;
-    boolean  click;
+    boolean click;
 
 
     @Override
@@ -84,11 +84,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-
-
-
-
-
 
 
     }

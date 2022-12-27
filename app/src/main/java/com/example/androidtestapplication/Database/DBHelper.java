@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean registeruser(String fullname, String emailaddress, String phonenumber, String password ){
+    public boolean registeruser(String fullname, String emailaddress, String phonenumber, String password) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -44,27 +44,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
         long result = db.insert(TABLE_NAME, null, contentValues);
-        if(result == -1)
-            return  false;
+        if (result == -1)
+            return false;
         else
             return true;
     }
-    public boolean uservalidation(String emailaddress){
+
+    public boolean uservalidation(String emailaddress) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from USERDETAILS where EMAIL = ?", new String[] {emailaddress});
-        if(cursor.getCount()>0){
-            return  true;
-        }else{
+        Cursor cursor = db.rawQuery("select * from USERDETAILS where EMAIL = ?", new String[]{emailaddress});
+        if (cursor.getCount() > 0) {
+            return true;
+        } else {
             return false;
         }
     }
 
 
-    public boolean checkuser(String emailaddress, String password){
+    public boolean checkuser(String emailaddress, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from USERDETAILS  where  EMAIL = ? and PASSWORD = ?" , new String[] {emailaddress, password});
+        Cursor cursor = db.rawQuery("select * from USERDETAILS  where  EMAIL = ? and PASSWORD = ?", new String[]{emailaddress, password});
 
-        if(cursor.getCount()>0)
+        if (cursor.getCount() > 0)
             return true;
         else
             return false;

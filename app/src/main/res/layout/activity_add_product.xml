@@ -4,43 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#06AB8D"
+    android:orientation="vertical"
     tools:context=".AddProductActivity">
 
 
     <ImageView
+        android:id="@+id/addproductbackbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:src="@drawable/backimg"
-   android:id="@+id/addproductbackbutton"
-        />
+        android:src="@drawable/backimg" />
 
     <TextView
         android:id="@+id/welcometxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Product"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/poppins"
-        android:textStyle="bold"
-        android:textSize="@dimen/_23sdp"
+        android:text="Add Product"
         android:textColor="@color/white"
-        />
+        android:textSize="@dimen/_23sdp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/signintxt"
-        android:layout_below="@id/welcometxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add description of your product"
-        android:textSize="@dimen/_14sdp"
+        android:layout_below="@id/welcometxt"
         android:layout_marginLeft="@dimen/_15sdp"
+        android:text="Add description of your product"
         android:textColor="@color/white"
-        />
+        android:textSize="@dimen/_14sdp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,8 +47,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/cardview">
+            android:background="@drawable/cardview"
+            android:orientation="vertical">
 
 
             <TextView
@@ -337,13 +334,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/cardview"
-        android:layout_marginTop="@dimen/_15sdp">
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/cardview">
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

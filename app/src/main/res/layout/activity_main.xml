@@ -2,71 +2,80 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
-    android:id="@+id/drawerlayout">
+    tools:context=".MainActivity">
 
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:orientation="vertical"
-       android:background="#F5F5F5">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:orientation="vertical">
+
+
+        <include
+            layout="@layout/app_barmain"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_52sdp"
+
+            />
+
+        <FrameLayout
+            android:id="@+id/linearframelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
 
 
-   <include layout="@layout/app_barmain"
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/_52sdp"
-       />
+        </FrameLayout>
+
+        <!--      <TextView-->
+        <!--          android:layout_width="match_parent"-->
+        <!--          android:layout_height="wrap_content"-->
+        <!--          android:layout_marginTop="@dimen/_20sdp"-->
+        <!--          android:layout_marginLeft="@dimen/_16sdp"-->
+        <!--          android:text="New Product"-->
+        <!--          android:textStyle="bold"-->
+        <!--          android:fontFamily="@font/poppins"-->
+        <!--          android:textColor="#000"-->
+        <!--          android:textSize="@dimen/_13sdp"-->
+
+        <!--          />-->
 
 
-<!--      <TextView-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"-->
-<!--          android:layout_marginTop="@dimen/_20sdp"-->
-<!--          android:layout_marginLeft="@dimen/_16sdp"-->
-<!--          android:text="New Product"-->
-<!--          android:textStyle="bold"-->
-<!--          android:fontFamily="@font/poppins"-->
-<!--          android:textColor="#000"-->
-<!--          android:textSize="@dimen/_13sdp"-->
-
-<!--          />-->
+        <!--      <androidx.recyclerview.widget.RecyclerView-->
+        <!--          android:id="@+id/recyclerview"-->
+        <!--          android:layout_width="match_parent"-->
+        <!--          android:layout_height="match_parent"-->
+        <!--          android:layout_marginTop="@dimen/_15sdp"-->
+        <!--          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+        <!--          app:layout_collapseMode="parallax"-->
+        <!--          app:spanCount="2"-->
+        <!--          tools:listitem="@layout/shoprow">-->
 
 
-<!--      <androidx.recyclerview.widget.RecyclerView-->
-<!--          android:id="@+id/recyclerview"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="match_parent"-->
-<!--          android:layout_marginTop="@dimen/_15sdp"-->
-<!--          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-<!--          app:layout_collapseMode="parallax"-->
-<!--          app:spanCount="2"-->
-<!--          tools:listitem="@layout/shoprow">-->
+        <!--      </androidx.recyclerview.widget.RecyclerView>-->
 
 
-<!--      </androidx.recyclerview.widget.RecyclerView>-->
+    </LinearLayout>
 
 
-   </LinearLayout>
-
-
-   <com.google.android.material.navigation.NavigationView
-       android:layout_width="wrap_content"
-       android:layout_height="match_parent"
-       android:layout_gravity="start"
-       android:fitsSystemWindows="true"
-       android:id="@+id/navigationdrawer"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationdrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/headerlayout"
-       app:menu="@menu/navigationitems"
-       app:itemIconSize="@dimen/_20sdp"
-       app:itemIconTint="#8B9E9E"
-       app:itemTextColor="#8B9E9E"
-       >
+        app:itemIconSize="@dimen/_20sdp"
+        app:itemIconTint="#8B9E9E"
+        app:itemTextColor="#8B9E9E"
+        app:menu="@menu/navigationitems">
 
-   </com.google.android.material.navigation.NavigationView>
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

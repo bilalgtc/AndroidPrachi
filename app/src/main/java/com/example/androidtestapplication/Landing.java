@@ -35,23 +35,23 @@ public class Landing extends AppCompatActivity {
         textfacebook = findViewById(R.id.textfacebook);
         textgoogle = findViewById(R.id.textgoogle);
         signin = findViewById(R.id.signinText);
-        nextbutton= findViewById(R.id.nextbutton);
+        nextbutton = findViewById(R.id.nextbutton);
 
         String text = "Welcome \nto ShopClues";
         SpannableString st = new SpannableString(text);
         ForegroundColorSpan fcsyellow = new ForegroundColorSpan(Color.parseColor("#FFB74A"));
-        st.setSpan(fcsyellow, 11,21, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        st.setSpan(fcsyellow, 11, 21, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         textView.setText(st);
 
         String text1 = "Continue with Facebook";
         SpannableString st1 = new SpannableString(text1);
         StyleSpan boldspan = new StyleSpan(Typeface.BOLD);
-        st1.setSpan(boldspan, 14, 22,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        st1.setSpan(boldspan, 14, 22, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textfacebook.setText(st1);
         String text2 = "Continue with Google";
         SpannableString st2 = new SpannableString(text2);
         StyleSpan boldspan2 = new StyleSpan(Typeface.BOLD);
-        st2.setSpan(boldspan2, 14, 20,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        st2.setSpan(boldspan2, 14, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         textgoogle.setText(st2);
 
@@ -67,7 +67,7 @@ public class Landing extends AppCompatActivity {
         nextbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inext= new Intent(Landing.this, Signup.class);
+                Intent inext = new Intent(Landing.this, Signup.class);
                 startActivity(inext);
             }
         });

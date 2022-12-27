@@ -22,7 +22,7 @@ public class Introduction extends AppCompatActivity {
     AppCompatButton nextbutton;
     TextView skip;
     int position = 0;
-    String[] text = {"Shop online any \ntime any where", "Get your order\nwithin 24 hours", "Exclusive reward\nand cashback" };
+    String[] text = {"Shop online any \ntime any where", "Get your order\nwithin 24 hours", "Exclusive reward\nand cashback"};
 
 
     @Override

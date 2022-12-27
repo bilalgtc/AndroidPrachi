@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,15 +26,15 @@ import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
     AppCompatButton addproductbutton;
-    ArrayList<ModelClass> arrdesign = new ArrayList<>();
+    // ArrayList<ModelClass> arrdesign = new ArrayList<>();
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     ImageView closenav;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    Inflater inflater;
-    ViewGroup container;
+    // RecyclerView recyclerView;
+    //  RecyclerView.LayoutManager layoutManager;
+    // Inflater inflater;
+    //  ViewGroup container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
         addproductbutton = findViewById(R.id.addproductbutton);
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.navigationdrawer);
-        recyclerView = findViewById(R.id.recyclerview);
-        layoutManager = new GridLayoutManager(this, 2);
-
+        //    recyclerView = findViewById(R.id.recyclerview);
+        //   layoutManager = new GridLayoutManager(this, 2);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.linearframelayout, new MainFragment()).addToBackStack(null).commit();
 
         // CloseNav Drawerlayout//
 
@@ -95,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
         // RecyclerView SetUp //
 
 
-        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-                "Applestore", "$999.99"));
-        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
-                "Samsung store", "$711.99"));
-        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-                "Uniqlo Store", "$86.00"));
+//        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
+//                "Applestore", "$999.99"));
+//        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
+//                "Samsung store", "$711.99"));
+//        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
+//                "Uniqlo Store", "$86.00"));
 //        arrdesign.add(new ModelClass(R.drawable.img5, "Eyeglasses Gucci",
 //                "Gucci", "$211.00"));
 //        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
@@ -111,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
 //                "Uniqlo Store", "$86.00"));
 //        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
 //                "Gucci", "$211.00"));
-
-
-        RecyclerModelAdapter adapter = new RecyclerModelAdapter(this, arrdesign);
-        recyclerView.setAdapter(adapter);
+//
+//
+//        RecyclerModelAdapter adapter = new RecyclerModelAdapter(this, arrdesign);
+//        recyclerView.setAdapter(adapter);
 
 
     }

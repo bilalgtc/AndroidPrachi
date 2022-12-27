@@ -42,7 +42,7 @@ public class Signup extends AppCompatActivity {
         valid3 = findViewById(R.id.imageview3);
         eye = findViewById(R.id.imageview4);
         eye2 = findViewById(R.id.imageview5);
-       signupbutton = findViewById(R.id.signupbutton);
+        signupbutton = findViewById(R.id.signupbutton);
 
 
         // Next Activity Inent Passing for Previous Activity //
@@ -66,11 +66,11 @@ public class Signup extends AppCompatActivity {
         eye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ed4.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                if (ed4.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
                     // If Password is visible then hide //
                     ed4.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     eye.setImageResource(R.drawable.eye);
-                }else{
+                } else {
                     ed4.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     eye.setImageResource(R.drawable.invisibleeye);
                 }
@@ -79,11 +79,11 @@ public class Signup extends AppCompatActivity {
         eye2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ed5.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                if (ed5.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
                     // If Password is visible then hide //
                     ed5.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     eye2.setImageResource(R.drawable.eye);
-                }else{
+                } else {
                     ed5.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     eye2.setImageResource(R.drawable.invisibleeye);
                 }
@@ -104,13 +104,13 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("hh",""+charSequence.toString());
+                Log.e("hh", "" + charSequence.toString());
                 String name = ed1.getText().toString();
-                if(!name.isEmpty() ){
+                if (!name.isEmpty()) {
                     valid1.setImageResource(R.drawable.success);
                     valid1.setVisibility(View.VISIBLE);
 
-                } else{
+                } else {
                     valid1.setVisibility(View.INVISIBLE);
                 }
 
@@ -130,7 +130,7 @@ public class Signup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("hh",""+charSequence.toString());
+                Log.e("hh", "" + charSequence.toString());
                 String email = ed2.getText().toString();
                 if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     valid2.setImageResource(R.drawable.success);
@@ -155,10 +155,10 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String phonenumber = ed3.getText().toString();
-                if(phonenumber.length() >9){
+                if (phonenumber.length() > 9) {
                     valid3.setImageResource(R.drawable.success);
                     valid3.setVisibility(View.VISIBLE);
-                } else{
+                } else {
                     valid3.setVisibility(View.INVISIBLE);
                 }
             }
@@ -173,10 +173,6 @@ public class Signup extends AppCompatActivity {
 // View Validation SetUp //
 
 
-
-
-
-
         // SQLite Sign Up part start //
         database = new DBHelper(this);
         signupbutton.setOnClickListener(new View.OnClickListener() {
@@ -188,32 +184,30 @@ public class Signup extends AppCompatActivity {
                 String password = ed4.getText().toString();
                 String confirmpassword = ed5.getText().toString();
 
-                if(name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()){
+                if (name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
                     Toast.makeText(Signup.this, "Please fill all the mentioned fields correctly", Toast.LENGTH_SHORT).show();
 
-                } if( phonenumber.length() != 10 ){
-                    Toast.makeText(Signup.this, "Enter 10 Digit phone number", Toast.LENGTH_SHORT).show();
-                }if( !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    Toast.makeText(Signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
                 }
-
-                else {
+                if (phonenumber.length() != 10) {
+                    Toast.makeText(Signup.this, "Enter 10 Digit phone number", Toast.LENGTH_SHORT).show();
+                }
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(Signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
+                } else {
                     if (password.equals(confirmpassword)) {
-                       boolean uservalidation =   database.uservalidation(email);
-                       if(uservalidation == false){
-                                 Boolean registraion = database.registeruser( name, email, phonenumber, password);
-                                 if(registraion == true){
-                                     Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
-                                     Intent inext = new Intent(Signup.this, MainActivity.class);
-                                       startActivity(inext);
-                                 }
-                                 else
-                                 {
-                                     Toast.makeText(Signup.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
-                                 }
-                       }else{
-                           Toast.makeText(Signup.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
-                       }
+                        boolean uservalidation = database.uservalidation(email);
+                        if (uservalidation == false) {
+                            Boolean registraion = database.registeruser(name, email, phonenumber, password);
+                            if (registraion == true) {
+                                Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
+                                Intent inext = new Intent(Signup.this, MainActivity.class);
+                                startActivity(inext);
+                            } else {
+                                Toast.makeText(Signup.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(Signup.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
+                        }
 
                     } else {
                         Toast.makeText(Signup.this, "Password don't matches", Toast.LENGTH_SHORT).show();
@@ -223,7 +217,6 @@ public class Signup extends AppCompatActivity {
         });
 
         // SQLite Sign Up part  end//
-
 
 
     }

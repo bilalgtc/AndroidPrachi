@@ -40,20 +40,19 @@ public class Signin extends AppCompatActivity {
         eye = findViewById(R.id.showpassword);
         signuptext = findViewById(R.id.signuptext);
         signinbutton = findViewById(R.id.signinbutton);
-        checkbox1= findViewById(R.id.checkbox);
-
+        checkbox1 = findViewById(R.id.checkbox);
 
 
         //Password Visibility //
-            eye.setImageResource(R.drawable.eye);
+        eye.setImageResource(R.drawable.eye);
         eye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(et2.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                if (et2.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
                     // If Password is visible then hide //
                     et2.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     eye.setImageResource(R.drawable.eye);
-                }else{
+                } else {
                     et2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     eye.setImageResource(R.drawable.invisibleeye);
                 }
@@ -64,7 +63,7 @@ public class Signin extends AppCompatActivity {
 
         // EditText String Validation //
 
-        String name=et2.getText().toString();
+        String name = et2.getText().toString();
 
 
         signuptext.setOnClickListener(new View.OnClickListener() {
@@ -77,58 +76,57 @@ public class Signin extends AppCompatActivity {
             }
         });
 
-et1.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        et1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    }
+            }
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        Log.e("hh",""+charSequence.toString());
-        String emailinput = et1.getText().toString();
+                Log.e("hh", "" + charSequence.toString());
+                String emailinput = et1.getText().toString();
 
-        if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
-            valid.setImageResource(R.drawable.success);
-            valid.setVisibility(View.VISIBLE);
-        } else {
-            valid.setVisibility(View.INVISIBLE);
-        }
-    }
+                if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
+                    valid.setImageResource(R.drawable.success);
+                    valid.setVisibility(View.VISIBLE);
+                } else {
+                    valid.setVisibility(View.INVISIBLE);
+                }
+            }
 
-    @Override
-    public void afterTextChanged(Editable editable) {
+            @Override
+            public void afterTextChanged(Editable editable) {
 
-    }
-});
-et2.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+        });
+        et2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-    }
+            }
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    String password = et2.getText().toString();
-    if(password.length() < 8){
-        Toast.makeText(Signin.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
-    }else{
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String password = et2.getText().toString();
+                if (password.length() < 8) {
+                    Toast.makeText(Signin.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
+                } else {
 
-    }
+                }
 
 
-    }
+            }
 
-    @Override
-    public void afterTextChanged(Editable editable) {
+            @Override
+            public void afterTextChanged(Editable editable) {
 
-    }
-});
+            }
+        });
 
 
         // EditText String Validation SetUp //
-
 
 
         // Authentication Part //
@@ -139,19 +137,16 @@ et2.addTextChangedListener(new TextWatcher() {
                 String email = et1.getText().toString();
                 String password = et2.getText().toString();
 
-                if(email.isEmpty() || password.isEmpty()){
+                if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(Signin.this, "Please enter Credentials", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                   boolean check =  db.checkuser(email, password);
-                   if(check == true){
-                       Intent inext = new Intent(getApplicationContext(), MainActivity.class);
-                       startActivity(inext);
-                   }
-                   else
-                   {
-                       Toast.makeText(Signin.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                   }
+                } else {
+                    boolean check = db.checkuser(email, password);
+                    if (check == true) {
+                        Intent inext = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(inext);
+                    } else {
+                        Toast.makeText(Signin.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
 
@@ -164,13 +159,13 @@ et2.addTextChangedListener(new TextWatcher() {
             @Override
             public void onClick(View v) {
 
-                    if( a == 0){
-                        checkbox1.setImageResource(R.drawable.checkbox);
-                        a++;
-                    }else {
-                        checkbox1.setImageResource(R.drawable.tick);
-                        a--;
-                    }
+                if (a == 0) {
+                    checkbox1.setImageResource(R.drawable.checkbox);
+                    a++;
+                } else {
+                    checkbox1.setImageResource(R.drawable.tick);
+                    a--;
+                }
 
 //                if(v == checkbox){
 //                    checkbox.setImageResource(R.drawable.tick);
@@ -186,234 +181,6 @@ et2.addTextChangedListener(new TextWatcher() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //    public final static boolean isValidEmail(EditText et1) {
 //        String emailinput = et1.getText().toString();
 //
@@ -421,7 +188,6 @@ et2.addTextChangedListener(new TextWatcher() {
 //    }
 
 //}
-
 
 
 //       String  email = signintxt.getText().toString();

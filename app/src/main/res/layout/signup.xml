@@ -4,34 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#06AB8D"
     android:layout_gravity="center"
+    android:background="#06AB8D"
     tools:context=".Signin">
 
     <TextView
         android:id="@+id/welcometxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/poppins"
-        android:textStyle="bold"
-        android:textSize="@dimen/_25sdp"
+        android:text="Register"
         android:textColor="@color/white"
-        />
+        android:textSize="@dimen/_25sdp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/signintxt"
-        android:layout_below="@id/welcometxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/welcometxt"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:fontFamily="@font/poppins"
         android:text="Enter your personal details to create your acount"
-        android:textSize="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
         android:textColor="@color/white"
-        />
+        android:textSize="@dimen/_10sdp" />
 
 
     <LinearLayout
@@ -56,11 +54,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_24sdp"
-                    android:textSize="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_22sdp"
                     android:fontFamily="@font/poppins"
                     android:text="Full Name"
-                    android:textColor="#8B9E9E" />
+                    android:textColor="#8B9E9E"
+                    android:textSize="@dimen/_10sdp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,9 +77,9 @@
                             android:layout_height="@dimen/_25sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/_12sdp"
                             android:background="#00000000"
-                            android:textColor="#000" />
+                            android:textColor="#000"
+                            android:textSize="@dimen/_12sdp" />
 
                         <ImageView
                             android:id="@+id/imageview1"
@@ -110,8 +108,8 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
                     android:text="Email Address"
-                    android:textSize="@dimen/_10sdp"
-                    android:textColor="#8B9E9E" />
+                    android:textColor="#8B9E9E"
+                    android:textSize="@dimen/_10sdp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,11 +126,11 @@
                             android:id="@+id/edittxt2signup"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_25sdp"
-                            android:textSize="@dimen/_12sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
-                            android:textColor="#000" />
+                            android:textColor="#000"
+                            android:textSize="@dimen/_12sdp" />
 
                         <ImageView
                             android:id="@+id/imageview2"
@@ -160,9 +158,9 @@
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_10sdp"
                     android:text="Phone Number"
-                    android:textColor="#8B9E9E" />
+                    android:textColor="#8B9E9E"
+                    android:textSize="@dimen/_10sdp" />
 
 
                 <LinearLayout
@@ -180,12 +178,12 @@
                             android:id="@+id/edittxt3signup"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_25sdp"
-                            android:textSize="@dimen/_12sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
                             android:inputType="number"
-                            android:textColor="#000" />
+                            android:textColor="#000"
+                            android:textSize="@dimen/_12sdp" />
 
                         <ImageView
                             android:id="@+id/imageview3"
@@ -213,9 +211,9 @@
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_10sdp"
                     android:text="Password"
-                    android:textColor="#8B9E9E" />
+                    android:textColor="#8B9E9E"
+                    android:textSize="@dimen/_10sdp" />
 
 
                 <LinearLayout
@@ -235,10 +233,10 @@
                             android:layout_height="@dimen/_25sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
-                            android:textSize="@dimen/_12sdp"
                             android:background="#00000000"
                             android:inputType="textPassword"
-                            android:textColor="#000" />
+                            android:textColor="#000"
+                            android:textSize="@dimen/_12sdp" />
 
                         <ImageView
                             android:id="@+id/imageview4"
@@ -265,9 +263,9 @@
                     android:layout_marginLeft="@dimen/_24sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/poppins"
-                    android:textSize="@dimen/_10sdp"
                     android:text="Confirm Password"
-                    android:textColor="#8B9E9E" />
+                    android:textColor="#8B9E9E"
+                    android:textSize="@dimen/_10sdp" />
 
 
                 <LinearLayout
@@ -284,13 +282,13 @@
                         <EditText
                             android:id="@+id/edittxt5signup"
                             android:layout_width="match_parent"
-                            android:textSize="@dimen/_12sdp"
                             android:layout_height="@dimen/_25sdp"
                             android:layout_marginLeft="@dimen/_24sdp"
                             android:layout_weight="1"
                             android:background="#00000000"
                             android:inputType="textPassword"
-                            android:textColor="#000" />
+                            android:textColor="#000"
+                            android:textSize="@dimen/_12sdp" />
 
                         <ImageView
                             android:id="@+id/imageview5"
@@ -313,10 +311,8 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
-                    style="?android:attr/borderlessButtonStyle"
-                    android:fadingEdgeLength="0dp"
-                    android:elevation="0dp"
                     android:id="@+id/signupbutton"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginLeft="@dimen/_30sdp"
@@ -324,6 +320,8 @@
                     android:layout_marginRight="@dimen/_30sdp"
                     android:background="@drawable/rec2"
                     android:backgroundTint="#FFB039"
+                    android:elevation="0dp"
+                    android:fadingEdgeLength="0dp"
                     android:text="Sign Up"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -335,37 +333,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:layout_gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_80sdp"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="#CCCCCC"
-                        android:layout_marginLeft="@dimen/_17sdp"
-                        android:layout_marginRight="@dimen/_14sdp"
                         android:layout_gravity="center"
-                        />
+                        android:layout_marginLeft="@dimen/_24sdp"
+                        android:layout_marginRight="@dimen/_14sdp"
+                        android:background="#CCCCCC" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
                         android:text="or continue with"
-                        android:textSize="@dimen/_11sdp"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/poppins"/>
+                        android:textSize="@dimen/_11sdp" />
 
                     <View
-                        android:layout_width="@dimen/_80sdp"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="#CCCCCC"
-                        android:layout_marginRight="@dimen/_17sdp"
-                        android:layout_marginLeft="@dimen/_14sdp"
                         android:layout_gravity="center"
-                        />
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_marginRight="@dimen/_24sdp"
+                        android:background="#CCCCCC" />
                 </LinearLayout>
 
                 <LinearLayout

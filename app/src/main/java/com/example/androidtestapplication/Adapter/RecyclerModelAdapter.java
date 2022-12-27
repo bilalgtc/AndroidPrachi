@@ -16,9 +16,10 @@ import com.example.androidtestapplication.R;
 import java.util.ArrayList;
 
 public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdapter.ViewHolder> {
-   public   Context context;
-    public  ArrayList<ModelClass> arrdesign;
-  public   RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign){
+    public Context context;
+    public ArrayList<ModelClass> arrdesign;
+
+    public RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign) {
         this.context = context;
         this.arrdesign = arrdesign;
     }
@@ -45,11 +46,11 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         return arrdesign.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView productname, companyname, price;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view) {
             super(view);
 
             image = view.findViewById(R.id.imageview);

@@ -13,28 +13,26 @@
             android:id="@+id/txt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:fontFamily="@font/poppins_bold"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_bold"
             android:text="Mas"
             android:textColor="#06AB8D"
-            android:textSize="@dimen/_27sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            />
+            android:textSize="@dimen/_27sdp" />
 
         <TextView
             android:id="@+id/txt2"
-            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_toRightOf="@id/txt1"
             android:fontFamily="@font/poppins_bold"
             android:gravity="bottom"
             android:text="sar"
             android:textColor="#FFB039"
-            android:textSize="@dimen/_27sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            />
+            android:textSize="@dimen/_27sdp" />
 
         <ImageView
             android:id="@+id/closenavigation"
@@ -50,44 +48,44 @@
     </RelativeLayout>
 
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="bottom"-->
-<!--        android:layout_marginLeft="@dimen/_12sdp">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:gravity="bottom"-->
+    <!--        android:layout_marginLeft="@dimen/_12sdp">-->
 
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="Mas"-->
-<!--            android:gravity="bottom"-->
-<!--            android:textColor="#06AB8D"-->
-<!--            android:fontFamily="@font/poppins_bold"-->
-<!--            android:textSize="@dimen/_27sdp"/>-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="sar"-->
-<!--            android:textColor="#FFB039"-->
-<!--            android:gravity="bottom"-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:text="Mas"-->
+    <!--            android:gravity="bottom"-->
+    <!--            android:textColor="#06AB8D"-->
+    <!--            android:fontFamily="@font/poppins_bold"-->
+    <!--            android:textSize="@dimen/_27sdp"/>-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:text="sar"-->
+    <!--            android:textColor="#FFB039"-->
+    <!--            android:gravity="bottom"-->
 
-<!--            android:fontFamily="@font/poppins_bold"-->
-<!--            android:textSize="@dimen/_27sdp"/>-->
-
-
-<!--        <ImageView-->
-<!--            android:id="@+id/closenavigation"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity=""-->
-<!--            android:layout_marginTop="@dimen/_70sdp"-->
-<!--            android:layout_marginBottom="@dimen/_65sdp"-->
-<!--            android:src="@drawable/close" />-->
+    <!--            android:fontFamily="@font/poppins_bold"-->
+    <!--            android:textSize="@dimen/_27sdp"/>-->
 
 
-<!--    </LinearLayout>-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/closenavigation"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity=""-->
+    <!--            android:layout_marginTop="@dimen/_70sdp"-->
+    <!--            android:layout_marginBottom="@dimen/_65sdp"-->
+    <!--            android:src="@drawable/close" />-->
+
+
+    <!--    </LinearLayout>-->
 
 
 </LinearLayout>

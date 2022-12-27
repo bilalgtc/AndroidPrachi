@@ -22,24 +22,23 @@
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_6sdp"
         app:dotsColor="@color/white"
+        app:dotsCornerRadius="@dimen/_300sdp"
         app:dotsSize="@dimen/_15sdp"
         app:dotsSpacing="@dimen/_2sdp"
-        app:dotsCornerRadius="@dimen/_300sdp"
         app:layout_constraintBottom_toTopOf="@+id/nextbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewpager"
 
-        app:selectedDotColor="#FFB039"
-        />
+        app:selectedDotColor="#FFB039" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:elevation="0dp"
         android:id="@+id/nextbutton"
         android:layout_width="@dimen/_210sdp"
         android:layout_height="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_30sdp"
         android:background="@drawable/sideline"
+        android:elevation="0dp"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -49,21 +48,20 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:visibility="invisible"-->
-<!--        android:id="@+id/towelcomescreenbutton"-->
-<!--        android:layout_width="@dimen/_250sdp"-->
-<!--        android:layout_height="@dimen/_42sdp"-->
-<!--        android:layout_marginBottom="@dimen/_40sdp"-->
-<!--        android:background="@drawable/sideline"-->
-<!--        android:text="Start"-->
-<!--        android:textAllCaps="false"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="@dimen/_15sdp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:id="@+id/towelcomescreenbutton"-->
+    <!--        android:layout_width="@dimen/_250sdp"-->
+    <!--        android:layout_height="@dimen/_42sdp"-->
+    <!--        android:layout_marginBottom="@dimen/_40sdp"-->
+    <!--        android:background="@drawable/sideline"-->
+    <!--        android:text="Start"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="@dimen/_15sdp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <TextView
         android:id="@+id/skipped"
@@ -77,21 +75,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/done"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/_18sdp"-->
-<!--        android:layout_marginEnd="@dimen/_18sdp"-->
-<!--        android:text="Done"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:visibility="invisible"-->
-<!--        />-->
-
-
-
+    <!--    <TextView-->
+    <!--        android:id="@+id/done"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/_18sdp"-->
+    <!--        android:layout_marginEnd="@dimen/_18sdp"-->
+    <!--        android:text="Done"-->
+    <!--        android:textColor="#FFFFFF"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:visibility="invisible"-->
+    <!--        />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

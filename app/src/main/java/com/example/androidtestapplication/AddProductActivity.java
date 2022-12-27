@@ -31,20 +31,20 @@ import java.io.IOException;
 
 public class AddProductActivity extends AppCompatActivity {
 
-    EditText et1product, et2product, et3product , details1, details2;
+    EditText et1product, et2product, et3product, details1, details2;
     RadioGroup radioGroup;
     RadioButton rb1, rb2, rb3, rb4;
     ImageView back, addimage;
     AppCompatButton addproductbutton;
-    int SELECT_IMAGE_CODE =1;
+    int SELECT_IMAGE_CODE = 1;
     // Permission Constants //
-    private static final int  REQUEST_CAM_CODE = 100;
-    private static final int  REQUEST_GALLERY_CODE = 101;
+    private static final int REQUEST_CAM_CODE = 100;
+    private static final int REQUEST_GALLERY_CODE = 101;
     // image pick constants //
     private static final int IMAGE_PICK_CAMERA_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_CODE = 103;
     // arrays of permissions //
-    private String[]  camerapermissions;
+    private String[] camerapermissions;
     private String[] storagepermissions;
     // Variables contain data to save//
     Uri imageUri;
@@ -67,7 +67,7 @@ public class AddProductActivity extends AppCompatActivity {
         rb3 = findViewById(R.id.rb3);
         rb4 = findViewById(R.id.rb4);
         details1 = findViewById(R.id.details1);
-        details2= findViewById(R.id.details2);
+        details2 = findViewById(R.id.details2);
         back = findViewById(R.id.addproductbackbutton);
         addimage = findViewById(R.id.addimage);
         addproductbutton = findViewById(R.id.addproductbutton);
@@ -96,21 +96,21 @@ public class AddProductActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
-                    case  R.id.rb1 :
-                       // databaseAddProduct.radiooption(COLOR = 0);
+                switch (i) {
+                    case R.id.rb1:
+                        // databaseAddProduct.radiooption(COLOR = 0);
                         Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
-                    break;
+                        break;
                     case R.id.rb2:
-                      //  databaseAddProduct.radiooption(COLOR = 1);
+                        //  databaseAddProduct.radiooption(COLOR = 1);
                         Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rb3:
-                       // databaseAddProduct.radiooption(COLOR = 2);
+                        // databaseAddProduct.radiooption(COLOR = 2);
                         Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rb4:
-                      //  databaseAddProduct.radiooption(COLOR = 3);
+                        //  databaseAddProduct.radiooption(COLOR = 3);
                         Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -125,26 +125,24 @@ public class AddProductActivity extends AppCompatActivity {
 // Intent for Main Activity SetUp//
         // DATABASE //
 
-     addproductbutton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
+        addproductbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-             String PRODUCTNAME = et1product.getText().toString();
-             String STORE = et2product.getText().toString();
-             String PRICE = et3product.getText().toString();
+                String PRODUCTNAME = et1product.getText().toString();
+                String STORE = et2product.getText().toString();
+                String PRICE = et3product.getText().toString();
 
-             boolean ds  =  database.addData(PRODUCTNAME, STORE, PRICE);
-             if(ds == true){
-                 Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-             }
-             else{
-                 Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-             }
+                boolean ds = database.addData(PRODUCTNAME, STORE, PRICE);
+                if (ds == true) {
+                    Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
 
 
-         }
-     });
-
+            }
+        });
 
 
         // DATABASE SETUP//
@@ -162,34 +160,33 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
 
-
     private void imagepickdialogue() {
         // Options to Display in Dailogue //
         String[] options = {"Camera", "Gallery"};
         // Dailogue
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            // title
+        // title
         builder.setTitle("Pick Image From");
         // set items
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 // handle clicks
-                if(i == 0){
+                if (i == 0) {
                     // Camera Clicked
-                    if(!checkcamerapermissions()){
+                    if (!checkcamerapermissions()) {
                         requestcamerapermission();
-                    } else{
+                    } else {
                         // Permission already granted
                         pickFromCamera();
                     }
-                }else if(i == 1){
-                         if(!checkstoragepermission()){
-                             requeststoragepermission();
-                         }else{
-                             // Permission already granted
-                             pickFromGallery();
-                         }
+                } else if (i == 1) {
+                    if (!checkstoragepermission()) {
+                        requeststoragepermission();
+                    } else {
+                        // Permission already granted
+                        pickFromGallery();
+                    }
                 }
             }
         });
@@ -200,9 +197,9 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void pickFromGallery() {
         // INTENT TO PICK IMAGE FROM GALLERY, THE IMAGE WILL BE RETURNED IN ONACTIVITYRESULT METHOD
-     Intent galleryintent = new Intent(Intent.ACTION_PICK);
-     galleryintent.setType("image/*"); // we want only iMAGE;
-        startActivityForResult(galleryintent, IMAGE_PICK_GALLERY_CODE );
+        Intent galleryintent = new Intent(Intent.ACTION_PICK);
+        galleryintent.setType("image/*"); // we want only iMAGE;
+        startActivityForResult(galleryintent, IMAGE_PICK_GALLERY_CODE);
     }
 
     private void pickFromCamera() {
@@ -220,26 +217,28 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-    private  boolean checkstoragepermission(){
+    private boolean checkstoragepermission() {
         // Check if storage permission is enabled or not //
-            boolean result = ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) ==(PackageManager.PERMISSION_GRANTED);
-            return result;
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        return result;
     }
-    private void requeststoragepermission(){
+
+    private void requeststoragepermission() {
         // request the storage permission //
         ActivityCompat.requestPermissions(this, storagepermissions, REQUEST_GALLERY_CODE);
     }
 
-    private boolean checkcamerapermissions(){
+    private boolean checkcamerapermissions() {
         // Check if camera permission is enabled or not //
         boolean result = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA) ==(PackageManager.PERMISSION_GRANTED);
+                Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
         boolean result1 = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) ==(PackageManager.PERMISSION_GRANTED);
-        return  result && result1;
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        return result && result1;
     }
-    private void requestcamerapermission(){
+
+    private void requestcamerapermission() {
         // request the storage permission //
         ActivityCompat.requestPermissions(this, camerapermissions, REQUEST_CAM_CODE);
     }
@@ -247,33 +246,33 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            // Result of permission allowed/ Denied
+        // Result of permission allowed/ Denied
 
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_CAM_CODE: {
-                if(grantResults.length >0){
+                if (grantResults.length > 0) {
                     // If allowed returns true otherwise false //
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-                    if(cameraAccepted && storageAccepted){
+                    if (cameraAccepted && storageAccepted) {
                         // both permission allowed
                         pickFromCamera();
-                    }else{
+                    } else {
                         Toast.makeText(this, "Camera & Storage Permissions are required", Toast.LENGTH_SHORT).show();
                     }
                 }
 
             }
             break;
-            case REQUEST_GALLERY_CODE:{
-                if(grantResults.length >0){
+            case REQUEST_GALLERY_CODE: {
+                if (grantResults.length > 0) {
                     // If allowed returns true otherwise false //
                     boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if(storageAccepted){
+                    if (storageAccepted) {
                         // Storage Permission allowed
                         pickFromGallery();
-                    }else{
+                    } else {
                         Toast.makeText(this, "Storage Permission is required...", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -286,27 +285,25 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-                if(resultCode == RESULT_OK){
-                    // picked from gallery //
-                   if(requestCode == IMAGE_PICK_GALLERY_CODE){
-                       imageUri = data.getData();
-                       try {
-                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+        if (resultCode == RESULT_OK) {
+            // picked from gallery //
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                imageUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
 
-                       } catch (IOException e) {
-                           e.printStackTrace();
-                       }
-
-
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
-                       //     Bundle extras = data.getExtras();
-                       //bitmap = (Bitmap) extras.get("data");
+                //     Bundle extras = data.getExtras();
+                //bitmap = (Bitmap) extras.get("data");
 
-                    //  databaseAddProduct.imagestore(bitmap);
-                             //   imageUri = data.getData();
-                              //  bitmap = (Bitmap) imageUri.get("Data");
-                            //    String[]  media = {MediaStore.Images.Media.DATA};
+                //  databaseAddProduct.imagestore(bitmap);
+                //   imageUri = data.getData();
+                //  bitmap = (Bitmap) imageUri.get("Data");
+                //    String[]  media = {MediaStore.Images.Media.DATA};
 
 //                       try {
 //                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
@@ -315,42 +312,40 @@ public class AddProductActivity extends AppCompatActivity {
 //                       }
 
 
-
-                   }
-                   else if(requestCode == IMAGE_PICK_CAMERA_CODE){
-                                imageUri = data.getData();
-                       try {
-                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                imageUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
 
 
-                       } catch (IOException e) {
-                           e.printStackTrace();
-                       }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
 //
 
 
-                       //   Bundle extras = data.getExtras();
-                     //  Bitmap bitmap = (Bitmap) extras.get("data");
+                //   Bundle extras = data.getExtras();
+                //  Bitmap bitmap = (Bitmap) extras.get("data");
 
 //                       ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                       bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 //                       byte[] byteArray = stream.toByteArray();
 
-                      // Log.e("Byteimagearray",""+byteArray.toString());
-                      // Bundle extras = data.getExtras();
+                // Log.e("Byteimagearray",""+byteArray.toString());
+                // Bundle extras = data.getExtras();
 
-                      // Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(imageUri));
-                    //   bitmap.compress(Bitmap.CompressFormat.PNG, 0 , byteArrayOutputStream)
+                // Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(imageUri));
+                //   bitmap.compress(Bitmap.CompressFormat.PNG, 0 , byteArrayOutputStream)
 
-                       //bitmap = (Bitmap) extras.get("data");
-                     //  database.storeimage(bitmap);
-                   }
+                //bitmap = (Bitmap) extras.get("data");
+                //  database.storeimage(bitmap);
+            }
 
-                } else {
-                    Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
-                }
+        } else {
+            Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //    public  class util{
@@ -359,8 +354,8 @@ public class AddProductActivity extends AppCompatActivity {
 //        }
 //       // public static byte[] getbytes(InputStream inputStream) throws IOException{
 //         //   ByteArrayInputStream byteb
-       // }
- //   }
+    // }
+    //   }
 //    public class DbBitmapUtility {
 
     // convert from bitmap to byte array

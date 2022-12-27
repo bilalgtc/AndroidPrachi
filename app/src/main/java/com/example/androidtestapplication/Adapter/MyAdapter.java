@@ -15,17 +15,17 @@ import com.example.androidtestapplication.R;
 import java.util.ArrayList;
 
 public class MyAdapter extends PagerAdapter {
-Context context;
-ArrayList<Integer> arraylist;
-LayoutInflater layoutInflater;
-String[] text;
+    Context context;
+    ArrayList<Integer> arraylist;
+    LayoutInflater layoutInflater;
+    String[] text;
 
-public MyAdapter(Context context, ArrayList<Integer> arrayList, String[] text ){
-    this.context = context;
-    this.arraylist = arrayList;
-    this.text = text;
-    layoutInflater = LayoutInflater.from(context);
-}
+    public MyAdapter(Context context, ArrayList<Integer> arrayList, String[] text) {
+        this.context = context;
+        this.arraylist = arrayList;
+        this.text = text;
+        layoutInflater = LayoutInflater.from(context);
+    }
 
     @Override
     public int getCount() {
@@ -40,7 +40,7 @@ public MyAdapter(Context context, ArrayList<Integer> arrayList, String[] text ){
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-    View view = layoutInflater.inflate(R.layout.item, container, false);
+        View view = layoutInflater.inflate(R.layout.item, container, false);
         TextView txt1 = view.findViewById(R.id.textview);
         ImageView imageView = view.findViewById(R.id.img);
         imageView.setImageResource(arraylist.get(position));
@@ -51,6 +51,6 @@ public MyAdapter(Context context, ArrayList<Integer> arrayList, String[] text ){
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 }

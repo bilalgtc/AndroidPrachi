@@ -10,12 +10,12 @@ import androidx.annotation.Nullable;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    private  static final String DATABASE_NAME = "USER_RECORD";
-    private  static final String TABLE_NAME = "USER_DATA";
-    private  static final String COLUMN1 = "FULL_NAME";
-    private  static final String COLUMN2 = "EMAIL_ADDRESS";
-    private  static final String COLUMN3 = "PHONE_NUMBER";
-    private  static final String COLUMN4 = "PASSWORD";
+    private static final String DATABASE_NAME = "USER_RECORD";
+    private static final String TABLE_NAME = "USER_DATA";
+    private static final String COLUMN1 = "FULL_NAME";
+    private static final String COLUMN2 = "EMAIL_ADDRESS";
+    private static final String COLUMN3 = "PHONE_NUMBER";
+    private static final String COLUMN4 = "PASSWORD";
     //private  static final String COLUMN5 = "CONFIRM_PASSWORD";
 
     public DataBaseHelper(@Nullable Context context) {
@@ -36,40 +36,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public boolean registeruser(String fullname, String emailaddress, String phonenumber, String password) {
 
-    public boolean registeruser(String fullname, String emailaddress, String phonenumber, String password ){
-
-         SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-         contentValues.put(COLUMN1, fullname);
+        contentValues.put(COLUMN1, fullname);
         contentValues.put(COLUMN2, emailaddress);
         contentValues.put(COLUMN3, phonenumber);
         contentValues.put(COLUMN4, password);
 
 
         long result = db.insert(TABLE_NAME, null, contentValues);
-        if(result == -1)
-            return  false;
+        if (result == -1)
+            return false;
         else
             return true;
     }
 
-    public boolean uservalidation(String emailaddress){
+    public boolean uservalidation(String emailaddress) {
         SQLiteDatabase db = this.getWritableDatabase();
-          Cursor cursor = db.rawQuery("select * from user_data where EMAIL_ADDRESS = ?", new String[] {emailaddress});
-        if(cursor.getCount()>0){
-            return  true;
-        }else{
+        Cursor cursor = db.rawQuery("select * from user_data where EMAIL_ADDRESS = ?", new String[]{emailaddress});
+        if (cursor.getCount() > 0) {
+            return true;
+        } else {
             return false;
         }
     }
 
 
-    public boolean checkuser(String emailaddress, String password){
+    public boolean checkuser(String emailaddress, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from user_data where  EMAIL_ADDRESS= ? and PASSWORD = ?" , new String[] {emailaddress, password});
+        Cursor cursor = db.rawQuery("select * from user_data where  EMAIL_ADDRESS= ? and PASSWORD = ?", new String[]{emailaddress, password});
 
-        if(cursor.getCount()>0)
+        if (cursor.getCount() > 0)
             return true;
         else
             return false;
