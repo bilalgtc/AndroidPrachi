@@ -150,6 +150,8 @@
                     android:layout_marginLeft="@dimen/_22sdp"
                     android:background="@drawable/buttonclick"
                     android:text="Green"
+                    android:textColor="@color/white"
+                    android:backgroundTint="#01A688"
                     android:textAllCaps="false" />
 
                 <androidx.appcompat.widget.AppCompatButton

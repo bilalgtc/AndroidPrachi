@@ -1,5 +1,6 @@
 package com.example.androidtestapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
 
@@ -21,6 +23,7 @@ public class MainFragment extends Fragment {
     ArrayList<ModelClass> arrdesign = new ArrayList<>();
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    ImageView delete, update;
 
     // Inflater inflater;
     // ViewGroup container;
@@ -38,6 +41,8 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new GridLayoutManager(getContext(), 2);
+//        delete = view.findViewById(R.id.imageviewpencil);
+//        update = view.findViewById(R.id.imageviewdustbin);
 
 
         arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
@@ -61,6 +66,20 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
+//        // button
+//
+//        delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
         return view;
+        // Data Fetching
+
+
+
+
     }
 }
