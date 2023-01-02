@@ -48,7 +48,7 @@ public class AddProductActivity extends AppCompatActivity {
     private String[] storagepermissions;
     // Variables contain data to save//
     Uri imageUri;
-    int COLOR;
+    String COLOR;
 
     // DATABASE
     CRUD_DATA database;
@@ -92,44 +92,62 @@ public class AddProductActivity extends AppCompatActivity {
 
 
         // RadioGroup Button //
-
-        radioGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(rb1.isChecked()){
-
-                }
-            }
-        });
-
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//        radioGroup.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                switch (i) {
-//                    case R.id.rb1:
-//                        // databaseAddProduct.radiooption(COLOR = 0);
-//                        Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.rb2:
-//                        //  databaseAddProduct.radiooption(COLOR = 1);
-//                        Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.rb3:
-//                        // databaseAddProduct.radiooption(COLOR = 2);
-//                        Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.rb4:
-//                        //  databaseAddProduct.radiooption(COLOR = 3);
-//                        Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
-//                        break;
+//            public void onClick(View v) {
+//                String COLOR  = "";
+//                ContentValues contentValues = new ContentValues();
+//                if(rb1.isChecked()){
+//                    COLOR = "GREEN";
+//                    // contentValues.put("COLOR", rb1.getText().toString());
 //                }
-//
-////                if(rb1.isChecked()){
-////                    databaseAddProduct.radiooption()
-////                }
-//
+//                if(rb2.isChecked()){
+//                    //  contentValues.put("COLOR", rb2.getText().toString());
+//                    COLOR = "BLACK";
+//                }
+//                if(rb3.isChecked()){
+//                    // contentValues.put("COLOR", rb3.getText().toString());
+//                    COLOR = "SILVER";
+//                }
+//                if(rb4.isChecked()){
+//                    //  contentValues.put("COLOR", rb4.getText().toString());
+//                    COLOR = "BLUE";
+//                }
 //            }
 //        });
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                switch (i) {
+                    case R.id.rb1:
+                        // databaseAddProduct.radiooption(COLOR = 0);
+                        Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
+                        COLOR = rb1.getText().toString();
+
+                        break;
+                    case R.id.rb2:
+                        //  databaseAddProduct.radiooption(COLOR = 1);
+                        Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
+                        COLOR = rb2.getText().toString();
+                        break;
+                    case R.id.rb3:
+                        // databaseAddProduct.radiooption(COLOR = 2);
+                        Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
+                        COLOR = rb3.getText().toString();
+
+                        break;
+                    case R.id.rb4:
+                        //  databaseAddProduct.radiooption(COLOR = 3);
+                        Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
+                        COLOR = rb4.getText().toString();
+                        break;
+                }
+
+            }
+        });
 
 // Intent for Main Activity SetUp//
         // DATABASE //
@@ -305,7 +323,7 @@ public class AddProductActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-       //         database.storeimage(String.valueOf(imageUri));
+                //         database.storeimage(String.valueOf(imageUri));
 
                 //     Bundle extras = data.getExtras();
                 //bitmap = (Bitmap) extras.get("data");
@@ -329,7 +347,7 @@ public class AddProductActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-           //     database.storeimage(String.valueOf(imageUri));
+                //     database.storeimage(String.valueOf(imageUri));
 
 
 //
@@ -356,6 +374,7 @@ public class AddProductActivity extends AppCompatActivity {
             Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 //    public  class util{
 //        public Bitmap getImage(byte[] image){

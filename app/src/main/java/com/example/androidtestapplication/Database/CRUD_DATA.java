@@ -9,10 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.SyncStateContract;
+import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 
 import com.example.androidtestapplication.FetchRecord;
+import com.example.androidtestapplication.R;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import kotlin.jvm.internal.Ref;
 
 public class CRUD_DATA extends SQLiteOpenHelper {
+    RadioButton rb1, rb2, rb3, rb4;
     private static final String DATABASENAME = "ABOUTPRODUCT";
     private static final String TableName = "TESTDATA";
     private static final String COLUMN1 = "PRODUCTNAME";
@@ -31,14 +34,13 @@ public class CRUD_DATA extends SQLiteOpenHelper {
     //  private static final String COlUMN53 = "BLUE";
     private static final String COLUMN5 = "DETAILS";
     private static final String COLUMN6 = "IMAGE";
-
     public CRUD_DATA(@Nullable Context context) {
         super(context, DATABASENAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TableName + " ( PRODUCTNAME Text, STORE TEXT, PRICE Text, COlOR int , DETAILS TEXT, IMAGE String ) ");
+        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TableName + " ( PRODUCTNAME Text, STORE TEXT, PRICE Text, COlOR String , DETAILS TEXT, IMAGE String ) ");
 
 
     }
@@ -50,14 +52,16 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 
     }
 
-    public boolean addData(String PRODUCTNAME, String STORE, String PRICE,int COLOR ,String IMAGE) {
+    public boolean addData(String PRODUCTNAME, String STORE, String PRICE, String COLOR ,String IMAGE ) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+      ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN1, PRODUCTNAME);
         contentValues.put(COLUMN2, STORE);
         contentValues.put(COLUMN3, PRICE);
-        contentValues.put(COLUMN4, COLOR);
+        contentValues.put(COLUMN4, COLOR );
       contentValues.put(COLUMN6, IMAGE);
+
+
         long result = db.insert(TableName, null, contentValues);
         if (result == -1) {
             return false;
