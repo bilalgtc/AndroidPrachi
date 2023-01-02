@@ -94,29 +94,9 @@ public class MainActivity extends AppCompatActivity {
         // Navigation bar Set Up Done //
 
 
-        // RecyclerView SetUp //
 
 
-//        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-//                "Applestore", "$999.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
-//                "Samsung store", "$711.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-//                "Uniqlo Store", "$86.00"));
-//        arrdesign.add(new ModelClass(R.drawable.img5, "Eyeglasses Gucci",
-//                "Gucci", "$211.00"));
-//        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-//                "Applestore", "$999.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img5, "Samsung z flip",
-//                "Samsung store", "$711.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-//                "Uniqlo Store", "$86.00"));
-//        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
-//                "Gucci", "$211.00"));
-//
-//
-//        RecyclerModelAdapter adapter = new RecyclerModelAdapter(this, arrdesign);
-//        recyclerView.setAdapter(adapter);
+
 
 
     }

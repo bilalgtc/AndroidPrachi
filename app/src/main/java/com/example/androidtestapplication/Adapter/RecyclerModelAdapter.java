@@ -59,7 +59,8 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.image.setImageResource(arrdesign.get(position).image);
+      //  holder.imageview.setImageURI(arrdesign.get(position).setImage();
+       // holder.imageview.setImageResource(Integer.parseInt(arrdesign.get(position).image));
         holder.productname.setText(arrdesign.get(position).modelname);
         holder.companyname.setText(arrdesign.get(position).comapnyname);
         holder.price.setText(arrdesign.get(position).price);
@@ -71,13 +72,13 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
+        ImageView imageview;
         TextView productname, companyname, price;
 
         public ViewHolder(View view) {
             super(view);
 
-            image = view.findViewById(R.id.imageview);
+            imageview = view.findViewById(R.id.imageview);
             productname = view.findViewById(R.id.nametextview1);
             companyname = view.findViewById(R.id.companytextview2);
             price = view.findViewById(R.id.pricetextview3);

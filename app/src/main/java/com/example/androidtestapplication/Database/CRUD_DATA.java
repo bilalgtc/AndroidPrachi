@@ -4,22 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.provider.SyncStateContract;
 import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 
-import com.example.androidtestapplication.FetchRecord;
-import com.example.androidtestapplication.R;
+import com.example.androidtestapplication.ModelClass;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-
-import kotlin.jvm.internal.Ref;
+import java.util.jar.Attributes;
 
 public class CRUD_DATA extends SQLiteOpenHelper {
     RadioButton rb1, rb2, rb3, rb4;
@@ -34,6 +27,7 @@ public class CRUD_DATA extends SQLiteOpenHelper {
     //  private static final String COlUMN53 = "BLUE";
     private static final String COLUMN5 = "DETAILS";
     private static final String COLUMN6 = "IMAGE";
+
     public CRUD_DATA(@Nullable Context context) {
         super(context, DATABASENAME, null, 1);
     }
@@ -52,14 +46,14 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 
     }
 
-    public boolean addData(String PRODUCTNAME, String STORE, String PRICE, String COLOR ,String IMAGE ) {
+    public boolean addData(String PRODUCTNAME, String STORE, String PRICE, String COLOR, String IMAGE) {
         SQLiteDatabase db = this.getWritableDatabase();
-      ContentValues contentValues = new ContentValues();
+        ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN1, PRODUCTNAME);
         contentValues.put(COLUMN2, STORE);
         contentValues.put(COLUMN3, PRICE);
-        contentValues.put(COLUMN4, COLOR );
-      contentValues.put(COLUMN6, IMAGE);
+        contentValues.put(COLUMN4, COLOR);
+        contentValues.put(COLUMN6, IMAGE);
 
 
         long result = db.insert(TableName, null, contentValues);
@@ -70,53 +64,44 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         }
     }
 
-//    public boolean storeimage(String IMAGE) throws SQLiteException {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//            contentValues.put(COLUMN6, IMAGE);
-//
-////        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream();
-////        IMAGE.compress(Bitmap.CompressFormat.JPEG, 100, arrayInputStream);
-//
-//        //if(cursor.getCount()>0)
-//
-//        // Byte[] IMAGE = cursor.getBolb(1);
-//        // Bitmap bitmap = BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
-//
-//
-////        contentValues.put(COLUMN6, IMAGE);
-////        Bitmap bitmap = (Bitmap) BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
-////        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-////        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);    // Could be Bitmap.CompressFormat.PNG or Bitmap.CompressFormat.WEBP
-////        byte[] bai = baos.toByteArray();
-//        // contentValues.put( storeimage()  ,IMAGE);
-//        Long result = db.insert(TableName, null, contentValues);
-//        if (result == -1) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     // Fetch Data
 
-    public ArrayList<FetchRecord> FetchData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+
+    public ArrayList<ModelClass> FetchData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        //  ContentValues contentValues = new ContentValues();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TableName, null);
-        ArrayList<FetchRecord> records = new ArrayList<>();
+        ArrayList<ModelClass> arrdesign = new ArrayList<>();
         while (cursor.moveToNext()) {
-//                FetchRecord record = new FetchRecord();
-//                record.getName();
+
+            ModelClass model = new ModelClass();
+            model.image = cursor.getString(5);
+            model.modelname = cursor.getString(0);
+            model.comapnyname = cursor.getString(1);
+            model.price = cursor.getString(2);
+
+            arrdesign.add(model);
 
         }
 
 
-//        ArrayList<FetchRecord> recordsList = new ArrayList<>();
-//        // Qurey to select recored
-//
-//        String selectquery = "SELECT * FROM" + Constants.TableName + "Data";
-        return records;
+        return arrdesign;
+    }
+
+    public boolean updatedata(String Name, String Store, String Price, String Image) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN1, Name);
+        cv.put(COLUMN2, Store);
+        cv.put(COLUMN3, Price);
+        cv.put(COLUMN6, Image);
+
+
+        //  db.update(TableName, cv, updatedata());
+        return true;
+
     }
 
 

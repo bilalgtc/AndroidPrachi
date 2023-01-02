@@ -1,5 +1,7 @@
 package com.example.androidtestapplication;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +19,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -92,30 +95,6 @@ public class AddProductActivity extends AppCompatActivity {
 
 
         // RadioGroup Button //
-//        radioGroup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String COLOR  = "";
-//                ContentValues contentValues = new ContentValues();
-//                if(rb1.isChecked()){
-//                    COLOR = "GREEN";
-//                    // contentValues.put("COLOR", rb1.getText().toString());
-//                }
-//                if(rb2.isChecked()){
-//                    //  contentValues.put("COLOR", rb2.getText().toString());
-//                    COLOR = "BLACK";
-//                }
-//                if(rb3.isChecked()){
-//                    // contentValues.put("COLOR", rb3.getText().toString());
-//                    COLOR = "SILVER";
-//                }
-//                if(rb4.isChecked()){
-//                    //  contentValues.put("COLOR", rb4.getText().toString());
-//                    COLOR = "BLUE";
-//                }
-//            }
-//        });
-
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -162,6 +141,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
                 boolean ds = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
+
                 if (ds == true) {
                     Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 } else {
@@ -317,12 +297,14 @@ public class AddProductActivity extends AppCompatActivity {
             // picked from gallery //
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 imageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 //         database.storeimage(String.valueOf(imageUri));
 
                 //     Bundle extras = data.getExtras();
@@ -340,13 +322,14 @@ public class AddProductActivity extends AppCompatActivity {
 //                       }
 
 
-            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+            }
+            else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 imageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 //     database.storeimage(String.valueOf(imageUri));
 
 
@@ -373,6 +356,8 @@ public class AddProductActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
         }
+       // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
+
     }
 
 
