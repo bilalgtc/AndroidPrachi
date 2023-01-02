@@ -38,7 +38,7 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TableName + " ( PRODUCTNAME Text, STORE TEXT, PRICE Text, COlOR int , DETAILS TEXT, IMAGE Bolb) ");
+        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TableName + " ( PRODUCTNAME Text, STORE TEXT, PRICE Text, COlOR int , DETAILS TEXT, IMAGE String ) ");
 
 
     }
@@ -50,13 +50,14 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 
     }
 
-    public boolean addData(String PRODUCTNAME, String STORE, String PRICE) {
+    public boolean addData(String PRODUCTNAME, String STORE, String PRICE,int COLOR ,String IMAGE) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN1, PRODUCTNAME);
         contentValues.put(COLUMN2, STORE);
         contentValues.put(COLUMN3, PRICE);
-
+        contentValues.put(COLUMN4, COLOR);
+      contentValues.put(COLUMN6, IMAGE);
         long result = db.insert(TableName, null, contentValues);
         if (result == -1) {
             return false;
@@ -65,49 +66,46 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         }
     }
 
-    public boolean storeimage(Byte[] IMAGE) throws SQLiteException {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-
-
-//        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream();
-//        IMAGE.compress(Bitmap.CompressFormat.JPEG, 100, arrayInputStream);
-
-        //if(cursor.getCount()>0)
-
-       // Byte[] IMAGE = cursor.getBolb(1);
-       // Bitmap bitmap = BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
-
-
-//        contentValues.put(COLUMN6, IMAGE);
-//        Bitmap bitmap = (Bitmap) BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);    // Could be Bitmap.CompressFormat.PNG or Bitmap.CompressFormat.WEBP
-//        byte[] bai = baos.toByteArray();
-       // contentValues.put( storeimage()  ,IMAGE);
-        Long result = db.insert(TableName, null, contentValues);
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    public boolean storeimage(String IMAGE) throws SQLiteException {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//            contentValues.put(COLUMN6, IMAGE);
+//
+////        ByteArrayInputStream arrayInputStream = new ByteArrayInputStream();
+////        IMAGE.compress(Bitmap.CompressFormat.JPEG, 100, arrayInputStream);
+//
+//        //if(cursor.getCount()>0)
+//
+//        // Byte[] IMAGE = cursor.getBolb(1);
+//        // Bitmap bitmap = BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
+//
+//
+////        contentValues.put(COLUMN6, IMAGE);
+////        Bitmap bitmap = (Bitmap) BitmapFactory.decodeByteArray(IMAGE, 0, IMAGE.length);
+////        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+////        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);    // Could be Bitmap.CompressFormat.PNG or Bitmap.CompressFormat.WEBP
+////        byte[] bai = baos.toByteArray();
+//        // contentValues.put( storeimage()  ,IMAGE);
+//        Long result = db.insert(TableName, null, contentValues);
+//        if (result == -1) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     // Fetch Data
 
-    public ArrayList<FetchRecord> FetchData(){
+    public ArrayList<FetchRecord> FetchData() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-       Cursor cursor = db.rawQuery("SELECT * FROM " + TableName, null);
-       ArrayList<FetchRecord>  records = new ArrayList<>();
-       while (cursor.moveToNext()){
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TableName, null);
+        ArrayList<FetchRecord> records = new ArrayList<>();
+        while (cursor.moveToNext()) {
 //                FetchRecord record = new FetchRecord();
 //                record.getName();
 
-       }
-
-
+        }
 
 
 //        ArrayList<FetchRecord> recordsList = new ArrayList<>();
@@ -116,9 +114,6 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 //        String selectquery = "SELECT * FROM" + Constants.TableName + "Data";
         return records;
     }
-
-
-
 
 
 }

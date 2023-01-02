@@ -93,34 +93,43 @@ public class AddProductActivity extends AppCompatActivity {
 
         // RadioGroup Button //
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.rb1:
-                        // databaseAddProduct.radiooption(COLOR = 0);
-                        Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.rb2:
-                        //  databaseAddProduct.radiooption(COLOR = 1);
-                        Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.rb3:
-                        // databaseAddProduct.radiooption(COLOR = 2);
-                        Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.rb4:
-                        //  databaseAddProduct.radiooption(COLOR = 3);
-                        Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
-                        break;
+            public void onClick(View v) {
+                if(rb1.isChecked()){
+
                 }
-
-//                if(rb1.isChecked()){
-//                    databaseAddProduct.radiooption()
-//                }
-
             }
         });
+
+//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                switch (i) {
+//                    case R.id.rb1:
+//                        // databaseAddProduct.radiooption(COLOR = 0);
+//                        Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.rb2:
+//                        //  databaseAddProduct.radiooption(COLOR = 1);
+//                        Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.rb3:
+//                        // databaseAddProduct.radiooption(COLOR = 2);
+//                        Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.rb4:
+//                        //  databaseAddProduct.radiooption(COLOR = 3);
+//                        Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
+//                        break;
+//                }
+//
+////                if(rb1.isChecked()){
+////                    databaseAddProduct.radiooption()
+////                }
+//
+//            }
+//        });
 
 // Intent for Main Activity SetUp//
         // DATABASE //
@@ -133,7 +142,8 @@ public class AddProductActivity extends AppCompatActivity {
                 String STORE = et2product.getText().toString();
                 String PRICE = et3product.getText().toString();
 
-                boolean ds = database.addData(PRODUCTNAME, STORE, PRICE);
+
+                boolean ds = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
                 if (ds == true) {
                     Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 } else {
@@ -295,7 +305,7 @@ public class AddProductActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+       //         database.storeimage(String.valueOf(imageUri));
 
                 //     Bundle extras = data.getExtras();
                 //bitmap = (Bitmap) extras.get("data");
@@ -319,6 +329,7 @@ public class AddProductActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+           //     database.storeimage(String.valueOf(imageUri));
 
 
 //
