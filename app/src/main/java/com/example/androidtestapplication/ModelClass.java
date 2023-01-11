@@ -1,20 +1,37 @@
 package com.example.androidtestapplication;
 
 public class ModelClass {
-    public String image;
+    public String image, key, color;
     public String modelname, comapnyname, price;
 
 
     public ModelClass(){
 
     }
-    public ModelClass(String image, String modelname, String comapnyname, String price) {
-        this.image = image;
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public ModelClass(String image, String key, String color, String modelname, String comapnyname, String price) {
+        this.image = image;
+        this.key = key;
+        this.color = color;
         this.modelname = modelname;
         this.comapnyname = comapnyname;
         this.price = price;
+    }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getImage() {

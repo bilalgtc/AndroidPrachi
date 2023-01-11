@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.androidtestapplication.Database.CRUD_DATA;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,6 +41,7 @@ public class AddProductActivity extends AppCompatActivity {
     RadioButton rb1, rb2, rb3, rb4;
     ImageView back, addimage;
     AppCompatButton addproductbutton;
+    boolean flag;
     int SELECT_IMAGE_CODE = 1;
     // Permission Constants //
     private static final int REQUEST_CAM_CODE = 100;
@@ -51,7 +54,7 @@ public class AddProductActivity extends AppCompatActivity {
     private String[] storagepermissions;
     // Variables contain data to save//
     Uri imageUri;
-    String COLOR;
+    String COLOR, IdKey;
 
     // DATABASE
     CRUD_DATA database;
@@ -93,8 +96,50 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
 
+        Intent i = getIntent();
+        flag = i.getBooleanExtra("flag", false);
+        if (flag) {
+            IdKey = i.getStringExtra("IdKey");
+            String name = i.getStringExtra("Name");
+            et1product.setText(name);
+            String company = i.getStringExtra("Company");
+            et2product.setText(company);
+            String price = i.getStringExtra("Price");
+            et3product.setText(price);
+            String image = i.getStringExtra("image");
+            //  Log.e("image=====>",addimage);
+            //arrdesign.get(position).getImage());
+            //   addimage.setImageURI(Uri.parse(image));
 
-        // RadioGroup Button //
+            COLOR = i.getStringExtra("COLOR");
+//        if(COLOR.equals("Green")){
+//            rb1.setChecked(true);
+//        }
+////        else if (COLOR.equals(null)){
+////            rb1.setChecked(false);
+////        }
+//        if(COLOR.equals("Black")){
+//            rb2.setChecked(true);
+//        }
+////        else  if (COLOR.equals(null)){
+////            rb2.setChecked(false);
+////        }
+//        if(COLOR.equals("Silver")){
+//            rb3.setChecked(true);
+//        }
+////        else if(COLOR.equals(null)){
+////            rb3.setChecked(false);
+////        }
+//        if (COLOR.equals("Blue")){
+//            rb4.setChecked(true);
+//        }
+//        else if(COLOR.equals(null)){
+//            rb4.setChecked(false);
+//        }
+        }
+
+
+
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -135,18 +180,35 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 String PRODUCTNAME = et1product.getText().toString();
                 String STORE = et2product.getText().toString();
                 String PRICE = et3product.getText().toString();
 
+                    if(flag = true) {
+                        boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
 
-                boolean ds = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
+                        if (addData == true) {
+                            Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                        return;
+                    }
 
-                if (ds == true) {
-                    Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
+                    else  {
+                        boolean update = database.updatedata(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
+                        if (update == true) {
+                            Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(AddProductActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
+                        }
+                        return;
+                    }
 
 
             }
@@ -322,8 +384,7 @@ public class AddProductActivity extends AppCompatActivity {
 //                       }
 
 
-            }
-            else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 imageUri = data.getData();
 //                try {
 //                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
@@ -356,7 +417,7 @@ public class AddProductActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
         }
-       // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
+        // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
 
     }
 

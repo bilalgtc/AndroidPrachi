@@ -12,12 +12,12 @@ import androidx.annotation.Nullable;
 import com.example.androidtestapplication.ModelClass;
 
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 
 public class CRUD_DATA extends SQLiteOpenHelper {
     RadioButton rb1, rb2, rb3, rb4;
     private static final String DATABASENAME = "ABOUTPRODUCT";
     private static final String TableName = "TESTDATA";
+    private static final String  key = "IdKey";
     private static final String COLUMN1 = "PRODUCTNAME";
     private static final String COLUMN2 = "STORE";
     private static final String COLUMN3 = "PRICE";
@@ -34,7 +34,7 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TableName + " ( PRODUCTNAME Text, STORE TEXT, PRICE Text, COlOR String , DETAILS TEXT, IMAGE String ) ");
+        db.execSQL(" CREATE TABLE IF NOT EXISTS " + TableName + " ( IdKey Integer primary key autoincrement , PRODUCTNAME Text, STORE TEXT, PRICE Text, COlOR String , DETAILS TEXT, IMAGE String ) ");
 
 
     }
@@ -76,20 +76,19 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
 
             ModelClass model = new ModelClass();
-            model.image = cursor.getString(5);
-            model.modelname = cursor.getString(0);
-            model.comapnyname = cursor.getString(1);
-            model.price = cursor.getString(2);
+            model.image = cursor.getString(6);
+            model.modelname = cursor.getString(1);
+            model.comapnyname = cursor.getString(2);
+            model.price = cursor.getString(3);
+            model.color = cursor.getString(4);
 
             arrdesign.add(model);
 
         }
-
-
         return arrdesign;
     }
 
-    public boolean updatedata(String Name, String Store, String Price, String Image) {
+    public boolean updatedata( String Name, String Store, String Price, String Image, String COLOR) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -97,10 +96,17 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         cv.put(COLUMN2, Store);
         cv.put(COLUMN3, Price);
         cv.put(COLUMN6, Image);
+        cv.put(COLUMN4, COLOR);
 
+     //   db.update(TableName, cv, TableName , "name?" ,    );
+        long result = db.update(TableName , cv, "PRODUCTNAME" , new String[] {Name});
+        if(result == -1){
+            return false;
+        }else {
+            return true;
+        }
 
-        //  db.update(TableName, cv, updatedata());
-        return true;
+    //   db.update(TableName, cv, TableName , "name?" ,    );return true;
 
     }
 
