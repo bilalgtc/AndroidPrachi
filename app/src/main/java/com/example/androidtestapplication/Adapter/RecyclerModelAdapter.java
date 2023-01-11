@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidtestapplication.AddProductActivity;
 import com.example.androidtestapplication.ModelClass;
 import com.example.androidtestapplication.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -59,11 +60,14 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-      //  holder.imageview.setImageURI(arrdesign.get(position).setImage();
-       // holder.imageview.setImageResource(Integer.parseInt(arrdesign.get(position).image));
-        holder.productname.setText(arrdesign.get(position).modelname);
-        holder.companyname.setText(arrdesign.get(position).comapnyname);
-        holder.price.setText(arrdesign.get(position).price);
+        ModelClass model = arrdesign.get(position);
+        String image = model.getImage();
+        String name = model.getModelname();
+        String price = model.getPrice();
+        Picasso.get().load(image).into(holder.imageview);
+        holder.productname.setText(name);
+        holder.price.setText(price);
+
     }
 
     @Override

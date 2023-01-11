@@ -77,14 +77,14 @@
                     android:id="@+id/imageviewpencil"
                     android:layout_width="@dimen/_13sdp"
                     android:layout_height="@dimen/_13sdp"
-                    android:layout_marginLeft="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_70sdp"
                     android:src="@drawable/pencil" />
 
                 <ImageView
                     android:id="@+id/imageviewdustbin"
                     android:layout_width="@dimen/_13sdp"
                     android:layout_height="@dimen/_13sdp"
-                    android:layout_marginLeft="@dimen/_7sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:gravity="end"
                     android:src="@drawable/dustbin" />
 
