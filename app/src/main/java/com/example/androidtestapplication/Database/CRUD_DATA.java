@@ -27,6 +27,9 @@ public class CRUD_DATA extends SQLiteOpenHelper {
     //  private static final String COlUMN53 = "BLUE";
     private static final String COLUMN5 = "DETAILS";
     private static final String COLUMN6 = "IMAGE";
+    private static final String Idkey="id";
+
+    ModelClass modelClass;
 
     public CRUD_DATA(@Nullable Context context) {
         super(context, DATABASENAME, null, 1);
@@ -76,39 +79,64 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
 
             ModelClass model = new ModelClass();
+            model.IdKey= cursor.getString(0);
             model.image = cursor.getString(6);
             model.modelname = cursor.getString(1);
             model.comapnyname = cursor.getString(2);
             model.price = cursor.getString(3);
             model.color = cursor.getString(4);
-
             arrdesign.add(model);
 
         }
         return arrdesign;
     }
 
-    public boolean updatedata( String Name, String Store, String Price, String Image, String COLOR) {
+    public boolean updatedata(  String Idkey, String Name, String Store, String Price, String Image, String COLOR) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(key, Idkey);
         cv.put(COLUMN1, Name);
         cv.put(COLUMN2, Store);
         cv.put(COLUMN3, Price);
         cv.put(COLUMN6, Image);
         cv.put(COLUMN4, COLOR);
+//                  long result = db.update(TableName, cv, "key = ?", new String[]{Idkey});
+        long result = db.update(TableName, cv , Idkey + " = ? ", new String[]{Idkey});
+           if (result == -1) {
+               return false;
+           } else {
+               return true;
+           }
+       }
 
-     //   db.update(TableName, cv, TableName , "name?" ,    );
-        long result = db.update(TableName , cv, "PRODUCTNAME" , new String[] {Name});
-        if(result == -1){
-            return false;
-        }else {
-            return true;
-        }
 
-    //   db.update(TableName, cv, TableName , "name?" ,    );return true;
+       public  boolean deletedata(ModelClass modelClass){
+        SQLiteDatabase db = this.getWritableDatabase();
+                Cursor cursor = db.rawQuery("SELECT * FROM " + TableName, null);
+                if(cursor.getCount()>0){
+                    long result  = db.delete("TESTDATA", "Idkey = ?", new String[]{Idkey});
+                    if(result == -1)
+                        return false;
+                    else
+                        return true;
+                }
+                return true;
+       }
 
-    }
 
+//    public  void updatedata(String Idkey, String Name, String Store, String Price, String Image, String COLOR){
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//        cv.put(key, Idkey);
+//        cv.put(COLUMN1, Name);
+//        cv.put(COLUMN2, Store);
+//        cv.put(COLUMN3, Price);
+//        cv.put(COLUMN6, Image);
+//        cv.put(COLUMN4, COLOR);
+//        db.update(TableName, cv,  key +"=" + Idkey , null);
+//
+//    }
 
 }

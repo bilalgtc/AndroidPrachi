@@ -41,7 +41,7 @@ public class AddProductActivity extends AppCompatActivity {
     RadioButton rb1, rb2, rb3, rb4;
     ImageView back, addimage;
     AppCompatButton addproductbutton;
-    boolean flag;
+    private boolean isEditMode = false;
     int SELECT_IMAGE_CODE = 1;
     // Permission Constants //
     private static final int REQUEST_CAM_CODE = 100;
@@ -97,48 +97,45 @@ public class AddProductActivity extends AppCompatActivity {
         });
 
         Intent i = getIntent();
-        flag = i.getBooleanExtra("flag", false);
-        if (flag) {
-            IdKey = i.getStringExtra("IdKey");
-            String name = i.getStringExtra("Name");
-            et1product.setText(name);
-            String company = i.getStringExtra("Company");
-            et2product.setText(company);
-            String price = i.getStringExtra("Price");
-            et3product.setText(price);
-            String image = i.getStringExtra("image");
-            //  Log.e("image=====>",addimage);
-            //arrdesign.get(position).getImage());
-            //   addimage.setImageURI(Uri.parse(image));
+        isEditMode = i.getBooleanExtra("isEditMode", true);
 
+        if (isEditMode == true) {
+            // Update Data
+            IdKey = i.getStringExtra("IdKey");
+            //  Log.e(TAG + "onCreate: ID ", IdKey);
+            String name = i.getStringExtra("Name");
+            String company = i.getStringExtra("Company");
+            String price = i.getStringExtra("Price");
+            String image = i.getStringExtra("image");
+            Picasso.get().load(image);
             COLOR = i.getStringExtra("COLOR");
+            // Set Data
+            et1product.setText(name);
+            et2product.setText(company);
+            et3product.setText(price);
+
+        } else {
+            // add data
+
+        }
+
+//          startActivity(i);
+
 //        if(COLOR.equals("Green")){
 //            rb1.setChecked(true);
 //        }
-////        else if (COLOR.equals(null)){
-////            rb1.setChecked(false);
-////        }
+//
 //        if(COLOR.equals("Black")){
 //            rb2.setChecked(true);
 //        }
-////        else  if (COLOR.equals(null)){
-////            rb2.setChecked(false);
-////        }
-//        if(COLOR.equals("Silver")){
+//
+//        if(COLOR.equals("Silver")) {
 //            rb3.setChecked(true);
 //        }
-////        else if(COLOR.equals(null)){
-////            rb3.setChecked(false);
-////        }
-//        if (COLOR.equals("Blue")){
-//            rb4.setChecked(true);
-//        }
-//        else if(COLOR.equals(null)){
-//            rb4.setChecked(false);
-//        }
-        }
-
-
+//
+//            if (COLOR.equals("Blue")) {
+//                rb4.setChecked(true);
+//            }
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -147,25 +144,17 @@ public class AddProductActivity extends AppCompatActivity {
 
                 switch (i) {
                     case R.id.rb1:
-                        // databaseAddProduct.radiooption(COLOR = 0);
-                        Toast.makeText(AddProductActivity.this, "Green", Toast.LENGTH_SHORT).show();
                         COLOR = rb1.getText().toString();
 
                         break;
                     case R.id.rb2:
-                        //  databaseAddProduct.radiooption(COLOR = 1);
-                        Toast.makeText(AddProductActivity.this, "Black", Toast.LENGTH_SHORT).show();
                         COLOR = rb2.getText().toString();
                         break;
                     case R.id.rb3:
-                        // databaseAddProduct.radiooption(COLOR = 2);
-                        Toast.makeText(AddProductActivity.this, "Silver", Toast.LENGTH_SHORT).show();
                         COLOR = rb3.getText().toString();
 
                         break;
                     case R.id.rb4:
-                        //  databaseAddProduct.radiooption(COLOR = 3);
-                        Toast.makeText(AddProductActivity.this, "Blue", Toast.LENGTH_SHORT).show();
                         COLOR = rb4.getText().toString();
                         break;
                 }
@@ -180,35 +169,30 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 String PRODUCTNAME = et1product.getText().toString();
                 String STORE = et2product.getText().toString();
                 String PRICE = et3product.getText().toString();
 
-                    if(flag = true) {
-                        boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
+                if (isEditMode == false) {
+                    boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
 
-                        if (addData == true) {
-                            Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                        return;
+                    if (addData == true) {
+                        Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
-
-                    else  {
-                        boolean update = database.updatedata(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
-                        if (update == true) {
-                            Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(AddProductActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
-                        }
-                        return;
+                } else {
+                    boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
+                    if (update == true) {
+                        Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(AddProductActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
                     }
+                }
 
 
             }
@@ -289,8 +273,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     private boolean checkstoragepermission() {
         // Check if storage permission is enabled or not //
-        boolean result = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result;
     }
 
@@ -301,10 +284,8 @@ public class AddProductActivity extends AppCompatActivity {
 
     private boolean checkcamerapermissions() {
         // Check if camera permission is enabled or not //
-        boolean result = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
-        boolean result1 = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+        boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
 

@@ -1,7 +1,7 @@
 package com.example.androidtestapplication;
 
 public class ModelClass {
-    public String image, key, color;
+    public String image, IdKey, color;
     public String modelname, comapnyname, price;
 
 
@@ -9,17 +9,18 @@ public class ModelClass {
 
     }
 
-    public String getKey() {
-        return key;
+
+    public String getIdKey() {
+        return IdKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setIdKey(String idKey) {
+        IdKey = idKey;
     }
 
-    public ModelClass(String image, String key, String color, String modelname, String comapnyname, String price) {
+    public ModelClass(String IdKey , String image, String color, String modelname, String comapnyname, String price) {
         this.image = image;
-        this.key = key;
+        this.IdKey = IdKey;
         this.color = color;
         this.modelname = modelname;
         this.comapnyname = comapnyname;
@@ -65,6 +66,7 @@ public class ModelClass {
     public void setPrice(String price) {
         this.price = price;
     }
+
 
 
 }

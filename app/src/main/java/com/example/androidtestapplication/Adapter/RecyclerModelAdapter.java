@@ -1,5 +1,7 @@
 package com.example.androidtestapplication.Adapter;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -26,8 +28,8 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     public Context context;
     public ArrayList<ModelClass> arrdesign;
     ImageView delete, update;
-    String key, image, name, company, price, COLOR;
-    boolean flag;
+    String IdKey, image, name, company, price, COLOR;
+
 
     public RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign) {
         this.context = context;
@@ -35,16 +37,15 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ModelClass model = arrdesign.get(position);
-         key = model.getKey();
-         image = model.getImage();
-         name = model.getModelname();
-         company = model.getComapnyname();
-         price = model.getPrice();
-         COLOR = model.getColor();
+        IdKey = model.getIdKey();
+        image = model.getImage();
+        name = model.getModelname();
+        company = model.getComapnyname();
+        price = model.getPrice();
+        COLOR = model.getColor();
 
         Picasso.get().load(image).into(holder.imageview);
         holder.productname.setText(name);
@@ -56,32 +57,35 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
             public void onClick(View v) {
 
 
-                // To implement update query
                 Intent intent = new Intent(context, AddProductActivity.class);
-                intent.putExtra("IdKey", key );
-                intent.putExtra("Image", image );
-                intent.putExtra("Name", name );
-                intent.putExtra("Company", company );
-                intent.putExtra("Price", price );
-                intent.putExtra("COLOR", COLOR);
-                intent.putExtra("flag", true);
+                intent.putExtra("IdKey", arrdesign.get(position).getIdKey());
+               Log.e(TAG + "onCreate: ID ", IdKey);
+                intent.putExtra("Image", arrdesign.get(position).getImage());
+                intent.putExtra("Name", arrdesign.get(position).getModelname());
+                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
+                intent.putExtra("Price", arrdesign.get(position).getPrice());
+                intent.putExtra("COLOR", arrdesign.get(position).getColor());
 
-                Log.e("image=====>",arrdesign.get(position).getImage());
+                Log.e("image=====>", arrdesign.get(position).getImage());
+                intent.putExtra("isEditMode", true); // Update existing data
 
-                //    intent.putExtra("Color", color );
                 context.startActivity(intent);
-                //  Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // to perform deletion
+
+
                 Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
 
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
