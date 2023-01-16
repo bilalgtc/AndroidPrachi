@@ -46,6 +46,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent inext = new Intent(ProductDetailActivity.this, MainActivity.class);
                 startActivity(inext);
+                finish();
             }
         });
 
@@ -63,34 +64,41 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         productimage.setImageURI(Uri.parse(image));
         if(COLOR.equals("Green")){
+
             green.setBackground(getDrawable(R.drawable.buttonclick));
-            green.setBackgroundColor(Color.parseColor("#06AB8D"));
+           green.setBackgroundColor(Color.parseColor("#06AB8D"));
             green.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
             green.setBackground(getDrawable(R.drawable.buttonclick));
             green.setTextColor(Color.parseColor("#FF000000"));
         }
         if(COLOR.equals("Black")){
-            black.setBackground(getDrawable(R.drawable.buttonclick));
+
+             black.setBackground(getDrawable(R.drawable.buttonclick));
             black.setBackgroundColor(Color.parseColor("#06AB8D"));
             blue.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
+
             black.setBackground(getDrawable(R.drawable.buttonclick));
             black.setTextColor(Color.parseColor("#FF000000"));
         }
         if(COLOR.equals("Silver")){
+
             silver.setBackground(getDrawable(R.drawable.buttonclick));
             silver.setBackgroundColor(Color.parseColor("#06AB8D"));
             silver.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
+            silver.setEnabled(false);
             silver.setBackground(getDrawable(R.drawable.buttonclick));
             silver.setTextColor(Color.parseColor("#FF000000"));
         }
         if(COLOR.equals("Blue")){
-            blue.setBackground(getDrawable(R.drawable.buttonclick));
+            blue.setEnabled(true);
+           blue.setBackground(getDrawable(R.drawable.buttonclick));
             blue.setBackgroundColor(Color.parseColor("#06AB8D"));
             blue.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
+            blue.setEnabled(false);
             blue.setBackground(getDrawable(R.drawable.buttonclick));
             blue.setTextColor(Color.parseColor("#FF000000"));
         }

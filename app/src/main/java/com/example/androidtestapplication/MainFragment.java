@@ -3,7 +3,11 @@ package com.example.androidtestapplication;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
 import com.example.androidtestapplication.Database.CRUD_DATA;
@@ -34,14 +39,26 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
+            getFragmentManager().popBackStack();
+        } else {
+         //   finish();
+        }
 
-
+//        FragmentManager fm = getFragmentManager();
+//        FragmentManager fm = getFragmentManager();
+//
+//        FragmentTransaction ft = fm.beginTransaction();
+//        ft.addToBackStack(null);
+//        ft.commit();
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         data = new CRUD_DATA(getContext());
@@ -71,12 +88,32 @@ public class MainFragment extends Fragment {
 
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
         recyclerView.setAdapter(adapter);
+        //setupOnBackPressed();
 
         return view;
-
-
-
-
-
     }
+
+
+
+
 }
+//    MainFragment firstFragment = new MainFragment();
+//    getSupportFragmentManager().beginTransaction()
+//.replace(R.id.article_fragment, firstFragment)
+//.addToBackStack(null).commit();
+//
+////    private void setupOnBackPressed() {
+//        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+//            @Override
+//            public void handleOnBackPressed() {
+//                if(isEnabled()){
+//                    Toast.makeText(requireContext(), "Back", Toast.LENGTH_SHORT).show();
+//                    setEnabled(false);
+//                    requireActivity().onBackPressed();
+//                }
+//            }
+//        });
+
+
+
+

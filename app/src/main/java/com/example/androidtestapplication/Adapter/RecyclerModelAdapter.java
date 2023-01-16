@@ -63,6 +63,8 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
 
 
 
+
+
             }
         });
         ModelClass model = arrdesign.get(position);

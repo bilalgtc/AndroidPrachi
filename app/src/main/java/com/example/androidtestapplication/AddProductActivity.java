@@ -203,6 +203,7 @@ public class AddProductActivity extends AppCompatActivity {
                         Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -213,6 +214,7 @@ public class AddProductActivity extends AppCompatActivity {
                         Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(AddProductActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
                     }
