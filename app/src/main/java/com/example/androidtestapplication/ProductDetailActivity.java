@@ -5,28 +5,41 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
+import com.example.androidtestapplication.Database.CRUD_DATA;
+
+import java.util.ArrayList;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    ImageView backbtn;
+    ImageView backbtn, productimage;
+    TextView textView1, textView2, textView3;
     AppCompatButton green, black, blue, silver;
-    boolean click;
+    CRUD_DATA database;
+    RecyclerModelAdapter adapter;
+    public ArrayList<ModelClass> arrdesign;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-
+        productimage = findViewById(R.id.productdetailimage);
         backbtn = findViewById(R.id.backbtn);
-//        green= findViewById(R.id.greenbutton);
-//        black= findViewById(R.id.blackbutton);
-//        silver= findViewById(R.id.silverbutton);
-//        blue= findViewById(R.id.bluebutton);
+        textView1 = findViewById(R.id.productdetailtv1);
+        textView2 = findViewById(R.id.productdetailtv2);
+        textView3 = findViewById(R.id.productdetailtv3);
+        green = findViewById(R.id.greenbutton);
+        black = findViewById(R.id.blackbutton);
+        silver = findViewById(R.id.silverbutton);
+        blue = findViewById(R.id.bluebutton);
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,54 +49,52 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-//        green.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if( click = true) {
-//                    green.setBackgroundColor(Color.parseColor("#06AB8D"));
-//                    green.setTextColor(Color.parseColor("#FFFEFE"));
-//                } else{
-//                    click = false;
-//
-//                }
-//           }
-//        });
-//
-//        black.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//               if( click = true) {
-//                   black.setBackgroundColor(Color.parseColor("#06AB8D"));
-//                   black.setTextColor(Color.parseColor("#FFFEFE"));
-//               } else{
-//                   click = false;
-//               }
-//            }
-//        });
-//
-//        silver.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if( click = true) {
-//                    silver.setBackgroundColor(Color.parseColor("#06AB8D"));
-//                    silver.setTextColor(Color.parseColor("#FFFEFE"));
-//                }else{
-//                    click = false;
-//                }
-//            }
-//        });
-//
-//        blue.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if( click = true) {
-//                    blue.setBackgroundColor(Color.parseColor("#06AB8D"));
-//                    blue.setTextColor(Color.parseColor("#FFFEFE"));
-//                }else{
-//                    click =false;
-//                }
-//            }
-//        });
+        Intent i = getIntent();
+
+        String name = i.getStringExtra("Name");
+        String company = i.getStringExtra("Company");
+        String price = i.getStringExtra("Price");
+         String image = i.getStringExtra("Image");
+        String  COLOR = i.getStringExtra("COLOR");
+
+        textView1.setText(name);
+        textView2.setText(price);
+        textView3.setText(company);
+
+        productimage.setImageURI(Uri.parse(image));
+        if(COLOR.equals("Green")){
+            green.setBackground(getDrawable(R.drawable.buttonclick));
+            green.setBackgroundColor(Color.parseColor("#06AB8D"));
+            green.setTextColor(Color.parseColor("#FFFFFFFF"));
+        }else {
+            green.setBackground(getDrawable(R.drawable.buttonclick));
+            green.setTextColor(Color.parseColor("#FF000000"));
+        }
+        if(COLOR.equals("Black")){
+            black.setBackground(getDrawable(R.drawable.buttonclick));
+            black.setBackgroundColor(Color.parseColor("#06AB8D"));
+            blue.setTextColor(Color.parseColor("#FFFFFFFF"));
+        }else {
+            black.setBackground(getDrawable(R.drawable.buttonclick));
+            black.setTextColor(Color.parseColor("#FF000000"));
+        }
+        if(COLOR.equals("Silver")){
+            silver.setBackground(getDrawable(R.drawable.buttonclick));
+            silver.setBackgroundColor(Color.parseColor("#06AB8D"));
+            silver.setTextColor(Color.parseColor("#FFFFFFFF"));
+        }else {
+            silver.setBackground(getDrawable(R.drawable.buttonclick));
+            silver.setTextColor(Color.parseColor("#FF000000"));
+        }
+        if(COLOR.equals("Blue")){
+            blue.setBackground(getDrawable(R.drawable.buttonclick));
+            blue.setBackgroundColor(Color.parseColor("#06AB8D"));
+            blue.setTextColor(Color.parseColor("#FFFFFFFF"));
+        }else {
+            blue.setBackground(getDrawable(R.drawable.buttonclick));
+            blue.setTextColor(Color.parseColor("#FF000000"));
+        }
+
 
 
     }

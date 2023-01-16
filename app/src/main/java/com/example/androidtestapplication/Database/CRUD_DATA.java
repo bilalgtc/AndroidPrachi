@@ -22,9 +22,6 @@ public class CRUD_DATA extends SQLiteOpenHelper {
     private static final String COLUMN2 = "STORE";
     private static final String COLUMN3 = "PRICE";
     private static final String COLUMN4 = "COLOR";
-    // private static final String COlUMN51 = "BLACK";
-    ///  private static final String COlUMN52 = "SILVER";
-    //  private static final String COlUMN53 = "BLUE";
     private static final String COLUMN5 = "DETAILS";
     private static final String COLUMN6 = "IMAGE";
     private static final String Idkey="id";
@@ -91,18 +88,18 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         return arrdesign;
     }
 
-    public boolean updatedata(  String Idkey, String Name, String Store, String Price, String Image, String COLOR) {
+    public boolean updatedata(  String Idkey, String Name, String Store, String Price, String COLOR, String Image) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(key, Idkey);
+//        cv.put(key, Idkey);
         cv.put(COLUMN1, Name);
         cv.put(COLUMN2, Store);
         cv.put(COLUMN3, Price);
-        cv.put(COLUMN6, Image);
         cv.put(COLUMN4, COLOR);
+        cv.put(COLUMN6, Image);
 //                  long result = db.update(TableName, cv, "key = ?", new String[]{Idkey});
-        long result = db.update(TableName, cv , Idkey + " = ? ", new String[]{Idkey});
+        long result = db.update(TableName, cv , key + " = ? ", new String[]{Idkey});
            if (result == -1) {
                return false;
            } else {
@@ -111,11 +108,11 @@ public class CRUD_DATA extends SQLiteOpenHelper {
        }
 
 
-       public  boolean deletedata(ModelClass modelClass){
+       public  boolean deletedata(String Idkey){
         SQLiteDatabase db = this.getWritableDatabase();
                 Cursor cursor = db.rawQuery("SELECT * FROM " + TableName, null);
                 if(cursor.getCount()>0){
-                    long result  = db.delete("TESTDATA", "Idkey = ?", new String[]{Idkey});
+                    long result  = db.delete("TESTDATA", key + " = ?", new String[]{Idkey});
                     if(result == -1)
                         return false;
                     else
@@ -125,18 +122,5 @@ public class CRUD_DATA extends SQLiteOpenHelper {
        }
 
 
-//    public  void updatedata(String Idkey, String Name, String Store, String Price, String Image, String COLOR){
-//
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//        cv.put(key, Idkey);
-//        cv.put(COLUMN1, Name);
-//        cv.put(COLUMN2, Store);
-//        cv.put(COLUMN3, Price);
-//        cv.put(COLUMN6, Image);
-//        cv.put(COLUMN4, COLOR);
-//        db.update(TableName, cv,  key +"=" + Idkey , null);
-//
-//    }
 
 }

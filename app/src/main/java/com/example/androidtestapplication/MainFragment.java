@@ -27,6 +27,7 @@ public class MainFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ImageView delete, update;
    CRUD_DATA data;
+
     // Inflater inflater;
     // ViewGroup container;
     @Override
@@ -42,20 +43,15 @@ public class MainFragment extends Fragment {
 
 
 
-
-
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         data = new CRUD_DATA(getContext());
         ArrayList<ModelClass> arrdesign =  data.FetchData();
+
 
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new GridLayoutManager(getContext(), 2);
 
 
-//        delete = view.findViewById(R.id.imageviewpencil);
-//        update = view.findViewById(R.id.imageviewdustbin);
-
-//
 //        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
 //                "Applestore", "$999.99"));
 //        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
@@ -76,10 +72,8 @@ public class MainFragment extends Fragment {
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
         recyclerView.setAdapter(adapter);
 
-
-
         return view;
-        // Data Fetching
+
 
 
 

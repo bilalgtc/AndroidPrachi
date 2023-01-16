@@ -54,7 +54,8 @@ public class AddProductActivity extends AppCompatActivity {
     private String[] storagepermissions;
     // Variables contain data to save//
     Uri imageUri;
-    String COLOR, IdKey;
+    String COLOR, IdKey, image;
+
 
     // DATABASE
     CRUD_DATA database;
@@ -97,45 +98,59 @@ public class AddProductActivity extends AppCompatActivity {
         });
 
         Intent i = getIntent();
-        isEditMode = i.getBooleanExtra("isEditMode", true);
+        isEditMode = i.getBooleanExtra("isEditMode", false);
 
-        if (isEditMode == true) {
+        if (isEditMode) {
             // Update Data
             IdKey = i.getStringExtra("IdKey");
             //  Log.e(TAG + "onCreate: ID ", IdKey);
             String name = i.getStringExtra("Name");
             String company = i.getStringExtra("Company");
             String price = i.getStringExtra("Price");
-            String image = i.getStringExtra("image");
-            Picasso.get().load(image);
+            image = i.getStringExtra("Image");
+
+            // Log.e("image=====>", image);
+            if (image == null) {
+                Toast.makeText(this, "No image", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Picasso.get().load(image);
+            }
             COLOR = i.getStringExtra("COLOR");
             // Set Data
             et1product.setText(name);
             et2product.setText(company);
             et3product.setText(price);
 
+            if (COLOR.equals("Green")) {
+                rb1.setChecked(true);
+            } else {
+                rb1.setChecked(false);
+            }
+
+            if (COLOR.equals("Black")) {
+                rb2.setChecked(true);
+            } else {
+                rb2.setChecked(false);
+            }
+
+            if (COLOR.equals("Silver")) {
+                rb3.setChecked(true);
+            } else {
+                rb3.setChecked(false);
+            }
+
+            if (COLOR.equals("Blue")) {
+                rb4.setChecked(true);
+            } else {
+                rb4.setChecked(false);
+            }
+
+
         } else {
-            // add data
-
+            // Add Data
+            Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
         }
-
-//          startActivity(i);
-
-//        if(COLOR.equals("Green")){
-//            rb1.setChecked(true);
-//        }
-//
-//        if(COLOR.equals("Black")){
-//            rb2.setChecked(true);
-//        }
-//
-//        if(COLOR.equals("Silver")) {
-//            rb3.setChecked(true);
-//        }
-//
-//            if (COLOR.equals("Blue")) {
-//                rb4.setChecked(true);
-//            }
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -173,28 +188,36 @@ public class AddProductActivity extends AppCompatActivity {
                 String STORE = et2product.getText().toString();
                 String PRICE = et3product.getText().toString();
 
-                if (isEditMode == false) {
-                    boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
 
-                    if (addData == true) {
-                        Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                if (isEditMode) {
+
+                    if (imageUri == null) {
+                        Picasso.get().load(image);
+                    } else {
+                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
+                    }
+
+                    boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(image));
+
+                    if (update) {
+                        Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
-                    boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
-                    if (update == true) {
-                        Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                    boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
+                    if (addData) {
+                        Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(AddProductActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
+                Toast.makeText(AddProductActivity.this, "Clickeddddd", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -340,59 +363,10 @@ public class AddProductActivity extends AppCompatActivity {
             // picked from gallery //
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 imageUri = data.getData();
-//                try {
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
-
-                //         database.storeimage(String.valueOf(imageUri));
-
-                //     Bundle extras = data.getExtras();
-                //bitmap = (Bitmap) extras.get("data");
-
-                //  databaseAddProduct.imagestore(bitmap);
-                //   imageUri = data.getData();
-                //  bitmap = (Bitmap) imageUri.get("Data");
-                //    String[]  media = {MediaStore.Images.Media.DATA};
-
-//                       try {
-//                           Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//                       } catch (IOException e) {
-//                           e.printStackTrace();
-//                       }
-
 
             } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 imageUri = data.getData();
-//                try {
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                //     database.storeimage(String.valueOf(imageUri));
 
-
-//
-
-
-                //   Bundle extras = data.getExtras();
-                //  Bitmap bitmap = (Bitmap) extras.get("data");
-
-//                       ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                       bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                       byte[] byteArray = stream.toByteArray();
-
-                // Log.e("Byteimagearray",""+byteArray.toString());
-                // Bundle extras = data.getExtras();
-
-                // Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(imageUri));
-                //   bitmap.compress(Bitmap.CompressFormat.PNG, 0 , byteArrayOutputStream)
-
-                //bitmap = (Bitmap) extras.get("data");
-                //  database.storeimage(bitmap);
             }
 
         } else {
@@ -401,47 +375,6 @@ public class AddProductActivity extends AppCompatActivity {
         // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
 
     }
-
-
-//    public  class util{
-//        public Bitmap getImage(byte[] image){
-//            return BitmapFactory.decodeByteArray(image, 0, image.length);
-//        }
-//       // public static byte[] getbytes(InputStream inputStream) throws IOException{
-//         //   ByteArrayInputStream byteb
-    // }
-    //   }
-//    public class DbBitmapUtility {
-
-    // convert from bitmap to byte array
-//    public byte[] getBytes(Bitmap bitmap) {
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-//        return stream.toByteArray();
-//    }
-//
-//      // convert from byte array to bitmap
-/////                   public static Bitmap getImage(byte[] image) {
-////                     return BitmapFactory.decodeByteArray(image, 0, image.length);
-////                       }
-////                    }
-//}
-
-//public class DbBitmapUtility {
-//
-//    // convert from bitmap to byte array
-//    public static byte[] getBytes(Bitmap bitmap) {
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(CompressFormat.PNG, 0, stream);
-//        return stream.toByteArray();
-//    }
-//
-//    // convert from byte array to bitmap
-//    public static Bitmap getImage(byte[] image) {
-//        return BitmapFactory.decodeByteArray(image, 0, image.length);
-//    }
-//}
-// Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
 
 
 }
