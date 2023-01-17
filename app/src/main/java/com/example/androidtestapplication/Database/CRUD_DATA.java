@@ -46,13 +46,14 @@ public class CRUD_DATA extends SQLiteOpenHelper {
 
     }
 
-    public boolean addData(String PRODUCTNAME, String STORE, String PRICE, String COLOR, String IMAGE) {
+    public boolean addData(String PRODUCTNAME, String STORE, String PRICE, String COLOR, String DETAILS ,String IMAGE) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN1, PRODUCTNAME);
         contentValues.put(COLUMN2, STORE);
         contentValues.put(COLUMN3, PRICE);
         contentValues.put(COLUMN4, COLOR);
+        contentValues.put(COLUMN5, DETAILS);
         contentValues.put(COLUMN6, IMAGE);
 
 
@@ -82,13 +83,14 @@ public class CRUD_DATA extends SQLiteOpenHelper {
             model.comapnyname = cursor.getString(2);
             model.price = cursor.getString(3);
             model.color = cursor.getString(4);
+            model.Details = cursor.getString(5);
             arrdesign.add(model);
 
         }
         return arrdesign;
     }
 
-    public boolean updatedata(  String Idkey, String Name, String Store, String Price, String COLOR, String Image) {
+    public boolean updatedata(  String Idkey, String Name, String Store, String Price, String COLOR, String Details ,String Image) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -96,6 +98,7 @@ public class CRUD_DATA extends SQLiteOpenHelper {
         cv.put(COLUMN1, Name);
         cv.put(COLUMN2, Store);
         cv.put(COLUMN3, Price);
+        cv.put(COLUMN5, Details);
         cv.put(COLUMN4, COLOR);
         cv.put(COLUMN6, Image);
 //                  long result = db.update(TableName, cv, "key = ?", new String[]{Idkey});

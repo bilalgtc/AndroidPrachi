@@ -47,6 +47,7 @@ public class Introduction extends AppCompatActivity {
             public void onClick(View view) {
                 Intent inext = new Intent(Introduction.this, Landing.class);
                 startActivity(inext);
+                finish();
             }
         });
 
@@ -117,6 +118,8 @@ public class Introduction extends AppCompatActivity {
 
                     Intent inext = new Intent(Introduction.this, Landing.class);
                     startActivity(inext);
+
+                    finish();
                 }
 
 

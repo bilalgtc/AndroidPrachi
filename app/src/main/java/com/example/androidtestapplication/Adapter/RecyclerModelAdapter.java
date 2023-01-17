@@ -30,7 +30,7 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     public Context context;
     public ArrayList<ModelClass> arrdesign;
     ImageView delete, update;
-    String IdKey, image, name, company, price, COLOR;
+    String IdKey, image, name, company, price, COLOR, Details;
     boolean isEditMode = false;
     // DATABASE
     CRUD_DATA database;
@@ -59,10 +59,8 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
                      intent.putExtra("Company", arrdesign.get(position).getComapnyname());
                      intent.putExtra("Price", arrdesign.get(position).getPrice());
                      intent.putExtra("COLOR", arrdesign.get(position).getColor());
+                     intent.putExtra("Details", arrdesign.get(position).getDetails());
                context.startActivity(intent);
-
-
-
 
 
             }
@@ -74,11 +72,13 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         company = model.getComapnyname();
         price = model.getPrice();
         COLOR = model.getColor();
+        Details = model.getDetails();
 
         Picasso.get().load(image).into(holder.imageview);
         holder.productname.setText(name);
         holder.companyname.setText(company);
         holder.price.setText(price);
+
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +93,7 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
                 intent.putExtra("Company", arrdesign.get(position).getComapnyname());
                 intent.putExtra("Price", arrdesign.get(position).getPrice());
                 intent.putExtra("COLOR", arrdesign.get(position).getColor());
+                intent.putExtra("Details", arrdesign.get(position).getDetails());
                  //intent.putExtra("COLOR", );
 
                 Log.e("image=====>", arrdesign.get(position).getImage());
@@ -107,7 +108,7 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
             @Override
             public void onClick(View v) {
                 database.deletedata(IdKey);
-                arrdesign.remove(position);
+               arrdesign.remove(position);
                 notifyItemRemoved(position);
 
                 Toast.makeText(context, "Record Deleted", Toast.LENGTH_SHORT).show();

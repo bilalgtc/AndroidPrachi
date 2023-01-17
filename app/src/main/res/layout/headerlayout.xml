@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_38sdp"
+            android:layout_marginTop="@dimen/_42sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:src="@drawable/close" />
 

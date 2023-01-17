@@ -61,6 +61,7 @@ public class Landing extends AppCompatActivity {
             public void onClick(View view) {
                 Intent inext = new Intent(Landing.this, Signin.class);
                 startActivity(inext);
+                finish();
             }
         });
 
@@ -69,6 +70,7 @@ public class Landing extends AppCompatActivity {
             public void onClick(View view) {
                 Intent inext = new Intent(Landing.this, Signup.class);
                 startActivity(inext);
+                finish();
             }
         });
 

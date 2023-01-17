@@ -33,7 +33,7 @@
         android:icon="@drawable/promotion"
         android:title="Promotion" />
     <item
-        android:id="@+id/end"
+        android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout" />
 </menu>

@@ -1,7 +1,5 @@
 package com.example.androidtestapplication;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -11,19 +9,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -31,12 +27,11 @@ import android.widget.Toast;
 import com.example.androidtestapplication.Database.CRUD_DATA;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 public class AddProductActivity extends AppCompatActivity {
 
-    EditText et1product, et2product, et3product, details1, details2;
+
+    LinearLayout toviewimage;
+    EditText et1product, et2product, et3product, et4product;
     RadioGroup radioGroup;
     RadioButton rb1, rb2, rb3, rb4;
     ImageView back, addimage;
@@ -73,11 +68,11 @@ public class AddProductActivity extends AppCompatActivity {
         rb2 = findViewById(R.id.rb2);
         rb3 = findViewById(R.id.rb3);
         rb4 = findViewById(R.id.rb4);
-        details1 = findViewById(R.id.details1);
-        details2 = findViewById(R.id.details2);
+        et4product = findViewById(R.id.et4product);
         back = findViewById(R.id.addproductbackbutton);
         addimage = findViewById(R.id.addimage);
         addproductbutton = findViewById(R.id.addproductbutton);
+        toviewimage = findViewById(R.id.toviewimage);
 
         // Initialize DATABASE
         database = new CRUD_DATA(this);
@@ -116,11 +111,13 @@ public class AddProductActivity extends AppCompatActivity {
             } else {
                 Picasso.get().load(image);
             }
+            String Details = i.getStringExtra("Details");
             COLOR = i.getStringExtra("COLOR");
             // Set Data
             et1product.setText(name);
             et2product.setText(company);
             et3product.setText(price);
+            et4product.setText(Details);
 
             if (COLOR.equals("Green")) {
                 rb1.setChecked(true);
@@ -184,9 +181,11 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 String PRODUCTNAME = et1product.getText().toString();
                 String STORE = et2product.getText().toString();
                 String PRICE = et3product.getText().toString();
+                String Details = et4product.getText().toString();
 
 
                 if (isEditMode) {
@@ -196,32 +195,47 @@ public class AddProductActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
                     }
+                    if(PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty()  || Details.isEmpty() || image == null){
+                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    }else {
 
-                    boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(image));
+                        boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(image));
 
-                    if (update) {
-                        Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        if (update) {
+
+                            Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                 } else {
-                    boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, String.valueOf(imageUri));
-                    if (addData) {
-                        Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(AddProductActivity.this, "Updation Failed", Toast.LENGTH_SHORT).show();
+
+                    if(PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty()  || Details.isEmpty() || imageUri == null){
+                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+
+                        boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(imageUri));
+                        if (addData) {
+                          //  validStr(PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
+                            Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(AddProductActivity.this, "Updation Failed None of the field should be empty", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-                Toast.makeText(AddProductActivity.this, "Clickeddddd", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AddProductActivity.this, "Clickeddddd", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
         // DATABASE SETUP//
@@ -237,6 +251,8 @@ public class AddProductActivity extends AppCompatActivity {
         });
 
     }
+
+
 
 
     private void imagepickdialogue() {
@@ -365,6 +381,7 @@ public class AddProductActivity extends AppCompatActivity {
             // picked from gallery //
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 imageUri = data.getData();
+             //   toviewimage.setBackgroundResource( imageUri);
 
             } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 imageUri = data.getData();

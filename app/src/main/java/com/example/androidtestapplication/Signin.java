@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +28,10 @@ public class Signin extends AppCompatActivity {
     DBHelper db;
     int a = 0;
     AppCompatButton signinbutton;
+    private  static final  String SPNAME = "mypref";
+    private static final String  KEYNAME = "email";
+    private static final String  KEYPASSWORD = "password";
+     SharedPreferences sp;
 
 
     @Override
@@ -41,6 +46,20 @@ public class Signin extends AppCompatActivity {
         signuptext = findViewById(R.id.signuptext);
         signinbutton = findViewById(R.id.signinbutton);
         checkbox1 = findViewById(R.id.checkbox);
+
+
+        // Share Preference
+        sp = getSharedPreferences(SPNAME, MODE_PRIVATE );
+        // when open activity first check shared preferance data available  or not
+        String email = sp.getString(KEYNAME, null);
+        String password = sp.getString(KEYPASSWORD, null);
+
+       if(email != null && password != null){
+           // If data is available then directly call on Mainactivity
+           Intent inext = new Intent(Signin.this, MainActivity.class);
+           startActivity(inext);
+       }
+
 
 
         //Password Visibility //
@@ -72,6 +91,8 @@ public class Signin extends AppCompatActivity {
 
                 Intent inext = new Intent(Signin.this, Signup.class);
                 startActivity(inext);
+                finish();
+
 
             }
         });
@@ -142,13 +163,22 @@ public class Signin extends AppCompatActivity {
                 } else {
                     boolean check = db.checkuser(email, password);
                     if (check == true) {
+
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString(KEYNAME,et1.getText().toString());
+                        editor.putString(KEYPASSWORD, et2.getText().toString());
+                        editor.commit();
                         Intent inext = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(inext);
+                        Toast.makeText(Signin.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
-                        Toast.makeText(Signin.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Signin.this, "Please enter valid Credentials ", Toast.LENGTH_SHORT).show();
                     }
 
                 }
+
+
 
             }
         });
@@ -167,73 +197,21 @@ public class Signin extends AppCompatActivity {
                     a--;
                 }
 
-//                if(v == checkbox){
-//                    checkbox.setImageResource(R.drawable.tick);
-//
-//                }
-
             }
         });
 
-
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Signin.this, Landing.class);
+        startActivity(intent);
+        finish();
+    }
 }
 
 
-//    public final static boolean isValidEmail(EditText et1) {
-//        String emailinput = et1.getText().toString();
-//
-//        return !emailinput.isEmpty(et1) && android.util.Patterns.EMAIL_ADDRESS.matcher(et1).matches();
-//    }
-
-//}
-
-
-//       String  email = signintxt.getText().toString();
-//
-//        if(email == emailpattern){
-//            valid.setVisibility(View.VISIBLE);
-//        }else{
-//            Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
-//        }
-//            int temp = 0;
-//            if(temp == 0){
-//                valid.setVisibility(View.VISIBLE);
-//            }
-
-//        et1.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                if(email.matches(emailpattern)){
-//                    valid.setVisibility(View.VISIBLE);
-//                }else{
-//                    Toast.makeText(getApplicationContext(),"Invalid Input", Toast.LENGTH_SHORT);
-//                }
-//            }
-//        });
-
-
-//            et1.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if(et1.equals(emailpattern)){
-//                        valid.setVisibility(View.VISIBLE);
-//                    }else{
-//                        Toast.makeText(getApplicationContext(),"Invalid Input", Toast.LENGTH_SHORT);
-//                    }
-//                }
-//            });
 
 
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +27,11 @@ public class Signup extends AppCompatActivity {
     DBHelper database;
     TextView signintext;
     ImageView valid1, valid2, valid3, eye, eye2;
+    SharedPreferences sp;
+    private  static final  String SPNAME = "mypref";
+    private static final String  KEYNAME = "email";
+    private static final String  KEYPASSWORD = "password";
+
 
 
     @Override
@@ -49,6 +55,21 @@ public class Signup extends AppCompatActivity {
         signintext = findViewById(R.id.signinText);
 
 
+        // Share Preference
+        sp = getSharedPreferences(SPNAME, MODE_PRIVATE );
+        // when open activity first check shared preferance data available  or not
+        String email = sp.getString(KEYNAME, null);
+        String password = sp.getString(KEYPASSWORD, null);
+
+        if(email != null && password != null){
+            // If data is available then directly call on Mainactivity
+            Intent inext = new Intent(Signup.this, MainActivity.class);
+            startActivity(inext);
+        }
+
+
+
+
         // Previous Activity Intent //
         signintext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +77,7 @@ public class Signup extends AppCompatActivity {
 
                 Intent inext = new Intent(Signup.this, Signin.class);
                 startActivity(inext);
+                finish();
 
             }
         });
@@ -155,7 +177,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String phonenumber = ed3.getText().toString();
-                if (phonenumber.length() > 9) {
+                if (phonenumber.length() == 10) {
                     valid3.setImageResource(R.drawable.success);
                     valid3.setVisibility(View.VISIBLE);
                 } else {
@@ -185,7 +207,7 @@ public class Signup extends AppCompatActivity {
                 String confirmpassword = ed5.getText().toString();
 
                 if (name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
-                    Toast.makeText(Signup.this, "Please fill all the mentioned fields correctly", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Signup.this, "Please fill the above field's properly", Toast.LENGTH_SHORT).show();
 
                 }
                 if (phonenumber.length() != 10) {
@@ -194,14 +216,30 @@ public class Signup extends AppCompatActivity {
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(Signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (password.equals(confirmpassword)) {
+                    if (password.equals(confirmpassword) && phonenumber.length() == 10 ) {
                         boolean uservalidation = database.uservalidation(email);
                         if (uservalidation == false) {
                             Boolean registraion = database.registeruser(name, email, phonenumber, password);
+                          //  Toast.makeText(Signup.this, "Please fill the above field's properly", Toast.LENGTH_SHORT).show();
                             if (registraion == true) {
-                                Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
-                                Intent inext = new Intent(Signup.this, MainActivity.class);
+
+
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putString(KEYNAME,ed2.getText().toString());
+                                editor.putString(KEYPASSWORD, ed4.getText().toString());
+                                editor.apply();
+                                Intent inext = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(inext);
+                                Toast.makeText(Signup.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                finish();
+
+
+
+//                                Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
+//
+//                                Intent inext = new Intent(Signup.this, MainActivity.class);
+//                                startActivity(inext);
+//                                finish();
                             } else {
                                 Toast.makeText(Signup.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
                             }
@@ -221,4 +259,10 @@ public class Signup extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Signup.this, Landing.class);
+        startActivity(intent);
+    }
 }

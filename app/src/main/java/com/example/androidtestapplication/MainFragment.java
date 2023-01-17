@@ -46,19 +46,19 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        if (getFragmentManager().getBackStackEntryCount() > 1) {
-            getFragmentManager().popBackStack();
-        } else {
-         //   finish();
-        }
+//        // Inflate the layout for this fragment
+//        if (getFragmentManager().getBackStackEntryCount() > 1) {
+//            getFragmentManager().popBackStack();
+//        } else {
+//         //   finish();
+//        }
 
-//        FragmentManager fm = getFragmentManager();
-//        FragmentManager fm = getFragmentManager();
-//
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.addToBackStack(null);
-//        ft.commit();
+        FragmentManager fm = getFragmentManager();
+     //   FragmentManager fm = getFragmentManager();
+     //   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.commit();
+        ft.addToBackStack(null);
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         data = new CRUD_DATA(getContext());

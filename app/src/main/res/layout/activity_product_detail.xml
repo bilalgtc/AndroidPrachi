@@ -36,7 +36,7 @@
             <ImageView
                 android:id="@+id/productdetailimage"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_240sdp"
+                android:layout_height="@dimen/_220sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img1" />
 
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_100sdp"
                 android:gravity="center"
                 android:text="Details"
@@ -93,31 +93,26 @@
                 android:background="#01A688" />
 
             <TextView
+                android:id="@+id/productdetailtextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_22sdp"
                 android:layout_marginRight="@dimen/_22sdp"
-
+                android:textSize="@dimen/_10sdp"
                 android:background="#00000000"
                 android:fontFamily="@font/poppins"
-                android:text="IMAC SILVER 21,5 INCH MID 2210/2211 RAM 8GB HDD 500GB SECOND"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_22sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_22sdp"
-                android:background="#00000000"
-                android:fontFamily="@font/poppins"
-                android:text="Spesification\n
+                android:lineSpacingExtra="@dimen/_3sdp"
+                android:text="IMAC SILVER 21,5 INCH MID 2210/2211 RAM 8GB HDD 500GB SECOND\n
+Spesification\n
 ~ Processor Core i3\n
 ~ IMAC (Mid 2210)\n
 ~ Memory 4GB 1333 MHz DDR3 (bisa upgrade)\n
-~ Built In Display 21,5 Inch (1922 X 1080 )"
+~ Built In Display 21,5 Inch (1922 X 1080 )
+" android:layout_gravity="center"
                 android:textColor="@color/black" />
+
+
 
             <TextView
                 android:layout_width="match_parent"

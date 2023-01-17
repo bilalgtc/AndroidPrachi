@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ProductDetailActivity extends AppCompatActivity {
 
     ImageView backbtn, productimage;
-    TextView textView1, textView2, textView3;
+    TextView textView1, textView2, textView3, textView4;
     AppCompatButton green, black, blue, silver;
     CRUD_DATA database;
     RecyclerModelAdapter adapter;
@@ -36,6 +37,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         textView1 = findViewById(R.id.productdetailtv1);
         textView2 = findViewById(R.id.productdetailtv2);
         textView3 = findViewById(R.id.productdetailtv3);
+            textView4 = findViewById(R.id.productdetailtextview);
         green = findViewById(R.id.greenbutton);
         black = findViewById(R.id.blackbutton);
         silver = findViewById(R.id.silverbutton);
@@ -57,16 +59,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         String price = i.getStringExtra("Price");
          String image = i.getStringExtra("Image");
         String  COLOR = i.getStringExtra("COLOR");
+        String Details = i.getStringExtra("Details");
 
         textView1.setText(name);
         textView2.setText(price);
         textView3.setText(company);
+        textView4.setText(Details);
 
         productimage.setImageURI(Uri.parse(image));
         if(COLOR.equals("Green")){
 
             green.setBackground(getDrawable(R.drawable.buttonclick));
-           green.setBackgroundColor(Color.parseColor("#06AB8D"));
+            green.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#06AB8D")));
             green.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
             green.setBackground(getDrawable(R.drawable.buttonclick));
@@ -75,7 +79,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         if(COLOR.equals("Black")){
 
              black.setBackground(getDrawable(R.drawable.buttonclick));
-            black.setBackgroundColor(Color.parseColor("#06AB8D"));
+            black.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#06AB8D")));
             blue.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
 
@@ -85,20 +89,19 @@ public class ProductDetailActivity extends AppCompatActivity {
         if(COLOR.equals("Silver")){
 
             silver.setBackground(getDrawable(R.drawable.buttonclick));
-            silver.setBackgroundColor(Color.parseColor("#06AB8D"));
+            silver.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#06AB8D")));
             silver.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
-            silver.setEnabled(false);
+
             silver.setBackground(getDrawable(R.drawable.buttonclick));
             silver.setTextColor(Color.parseColor("#FF000000"));
         }
         if(COLOR.equals("Blue")){
-            blue.setEnabled(true);
            blue.setBackground(getDrawable(R.drawable.buttonclick));
-            blue.setBackgroundColor(Color.parseColor("#06AB8D"));
+            blue.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#06AB8D")));
             blue.setTextColor(Color.parseColor("#FFFFFFFF"));
         }else {
-            blue.setEnabled(false);
+
             blue.setBackground(getDrawable(R.drawable.buttonclick));
             blue.setTextColor(Color.parseColor("#FF000000"));
         }
