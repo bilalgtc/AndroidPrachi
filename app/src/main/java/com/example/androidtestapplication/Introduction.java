@@ -14,7 +14,7 @@ import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 
-public class Introduction extends AppCompatActivity {
+public class Introduction extends AppCompatActivity implements View.OnClickListener {
 
     ViewPager viewpager;
     DotsIndicator dot;
@@ -24,32 +24,15 @@ public class Introduction extends AppCompatActivity {
     int position = 0;
     String[] text = {"Shop online any \ntime any where", "Get your order\nwithin 24 hours", "Exclusive reward\nand cashback"};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.introduction);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.appdefault));
+        oninit();
 
-        viewpager = findViewById(R.id.viewpager);
-        nextbutton = findViewById(R.id.nextbutton);
-        //    startbutton = findViewById(R.id.towelcomescreenbutton);
-        dot = findViewById(R.id.dotindicator);
-        skip = findViewById(R.id.skipped);
-        //  done= findViewById(R.id.done);
-
-        arrayList.add(R.drawable.group1);
-        arrayList.add(R.drawable.group2);
-        arrayList.add(R.drawable.group3);
-
-        skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent inext = new Intent(Introduction.this, Landing.class);
-                startActivity(inext);
-                finish();
-            }
-        });
+        skip.setOnClickListener(this);
+        nextbutton.setOnClickListener(this);
 
 
         MyAdapter myAdapter
@@ -57,6 +40,10 @@ public class Introduction extends AppCompatActivity {
         viewpager.setAdapter(myAdapter);
         dot.attachTo(viewpager);
 
+
+        arrayList.add(R.drawable.group1);
+        arrayList.add(R.drawable.group2);
+        arrayList.add(R.drawable.group3);
 
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -99,11 +86,21 @@ public class Introduction extends AppCompatActivity {
         });
 
 
-        nextbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
 
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.skipped: {
+                Intent inext = new Intent(Introduction.this, Landing.class);
+                startActivity(inext);
+                finish();
+                break;
+            }
+            case R.id.nextbutton: {
                 position = viewpager.getCurrentItem();
                 if (position < arrayList.size()) {
 
@@ -113,21 +110,20 @@ public class Introduction extends AppCompatActivity {
                 }
 
                 if (position == arrayList.size()) {
-//                       skip.setText("Done");
-//                       nextbutton.setText("Start");
-
                     Intent inext = new Intent(Introduction.this, Landing.class);
                     startActivity(inext);
 
                     finish();
                 }
-
-
+                break;
             }
-        });
-
-
+        }
     }
 
-
+    public void oninit() {
+        viewpager = findViewById(R.id.viewpager);
+        nextbutton = findViewById(R.id.nextbutton);
+        dot = findViewById(R.id.dotindicator);
+        skip = findViewById(R.id.skipped);
+    }
 }

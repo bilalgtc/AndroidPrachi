@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.androidtestapplication.Database.DBHelper;
 
-public class Signup extends AppCompatActivity {
+public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     EditText ed1, ed2, ed3, ed4, ed5;
     AppCompatButton signupbutton;
@@ -28,94 +28,36 @@ public class Signup extends AppCompatActivity {
     TextView signintext;
     ImageView valid1, valid2, valid3, eye, eye2;
     SharedPreferences sp;
-    private  static final  String SPNAME = "mypref";
-    private static final String  KEYNAME = "email";
-    private static final String  KEYPASSWORD = "password";
-
-
+    private static final String SPNAME = "mypref";
+    private static final String KEYNAME = "email";
+    private static final String KEYPASSWORD = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-        ed1 = findViewById(R.id.edittxt1signup);
-        ed2 = findViewById(R.id.edittxt2signup);
-        ed3 = findViewById(R.id.edittxt3signup);
-        ed4 = findViewById(R.id.edittxt4signup);
-        ed5 = findViewById(R.id.edittxt5signup);
-        valid1 = findViewById(R.id.imageview1);
-        valid2 = findViewById(R.id.imageview2);
-        valid3 = findViewById(R.id.imageview3);
-        eye = findViewById(R.id.imageview4);
-        eye2 = findViewById(R.id.imageview5);
-        signupbutton = findViewById(R.id.signupbutton);
+        init();
+        eye.setOnClickListener(this);
+        eye2.setOnClickListener(this);
+        signupbutton.setOnClickListener(this);
+        signintext.setOnClickListener(this);
 
 
-        // Next Activity Inent Passing for Previous Activity //
-        signintext = findViewById(R.id.signinText);
-
+        database = new DBHelper(this);
 
         // Share Preference
-        sp = getSharedPreferences(SPNAME, MODE_PRIVATE );
+        sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
         // when open activity first check shared preferance data available  or not
         String email = sp.getString(KEYNAME, null);
         String password = sp.getString(KEYPASSWORD, null);
 
-        if(email != null && password != null){
+        if (email != null && password != null) {
             // If data is available then directly call on Mainactivity
             Intent inext = new Intent(Signup.this, MainActivity.class);
             startActivity(inext);
         }
 
-
-
-
-        // Previous Activity Intent //
-        signintext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent inext = new Intent(Signup.this, Signin.class);
-                startActivity(inext);
-
-            }
-        });
-        //Password Visibility //
-
         eye.setImageResource(R.drawable.eye);
-        eye2.setImageResource(R.drawable.eye);
-        eye.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ed4.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
-                    // If Password is visible then hide //
-                    ed4.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    eye.setImageResource(R.drawable.eye);
-                } else {
-                    ed4.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    eye.setImageResource(R.drawable.invisibleeye);
-                }
-            }
-        });
-        eye2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ed5.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
-                    // If Password is visible then hide //
-                    ed5.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    eye2.setImageResource(R.drawable.eye);
-                } else {
-                    ed5.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    eye2.setImageResource(R.drawable.invisibleeye);
-                }
-            }
-        });
-
-// Password Visibility SetUp//
-
-
-// View Validation //
-
 
         ed1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -194,11 +136,34 @@ public class Signup extends AppCompatActivity {
 // View Validation SetUp //
 
 
-        // SQLite Sign Up part start //
-        database = new DBHelper(this);
-        signupbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    }
+
+    public void init() {
+        ed1 = findViewById(R.id.edittxt1signup);
+        ed2 = findViewById(R.id.edittxt2signup);
+        ed3 = findViewById(R.id.edittxt3signup);
+        ed4 = findViewById(R.id.edittxt4signup);
+        ed5 = findViewById(R.id.edittxt5signup);
+        valid1 = findViewById(R.id.imageview1);
+        valid2 = findViewById(R.id.imageview2);
+        valid3 = findViewById(R.id.imageview3);
+        eye = findViewById(R.id.imageview4);
+        eye2 = findViewById(R.id.imageview5);
+        signupbutton = findViewById(R.id.signupbutton);
+        signintext = findViewById(R.id.signinText);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.signinText: {
+                Intent inext = new Intent(Signup.this, Signin.class);
+                startActivity(inext);
+                break;
+            }
+            case R.id.signupbutton: {
+                database = new DBHelper(this);
                 String name = ed1.getText().toString();
                 String email = ed2.getText().toString();
                 String phonenumber = ed3.getText().toString();
@@ -215,16 +180,16 @@ public class Signup extends AppCompatActivity {
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(Signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (password.equals(confirmpassword) && phonenumber.length() == 10 ) {
+                    if (password.equals(confirmpassword) && phonenumber.length() == 10) {
                         boolean uservalidation = database.uservalidation(email);
                         if (uservalidation == false) {
                             Boolean registraion = database.registeruser(name, email, phonenumber, password);
-                          //  Toast.makeText(Signup.this, "Please fill the above field's properly", Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(Signup.this, "Please fill the above field's properly", Toast.LENGTH_SHORT).show();
                             if (registraion == true) {
 
 
                                 SharedPreferences.Editor editor = sp.edit();
-                                editor.putString(KEYNAME,ed2.getText().toString());
+                                editor.putString(KEYNAME, ed2.getText().toString());
                                 editor.putString(KEYPASSWORD, ed4.getText().toString());
                                 editor.apply();
                                 Toast.makeText(Signup.this, "Login Successful", Toast.LENGTH_SHORT).show();
@@ -242,12 +207,30 @@ public class Signup extends AppCompatActivity {
                         Toast.makeText(Signup.this, "Password don't matches", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
             }
-        });
-
-        // SQLite Sign Up part  end//
-
-
+            case R.id.imageview4: {
+                if (ed4.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
+                    // If Password is visible then hide //
+                    ed4.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    eye.setImageResource(R.drawable.eye);
+                } else {
+                    ed4.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    eye.setImageResource(R.drawable.invisibleeye);
+                }
+                break;
+            }
+            case R.id.imageview5: {
+                if (ed5.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
+                    // If Password is visible then hide //
+                    ed5.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    eye2.setImageResource(R.drawable.eye);
+                } else {
+                    ed5.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    eye2.setImageResource(R.drawable.invisibleeye);
+                }
+                break;
+            }
+        }
     }
-
 }

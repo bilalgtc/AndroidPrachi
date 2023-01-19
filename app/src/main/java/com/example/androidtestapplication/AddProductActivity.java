@@ -36,8 +36,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddProductActivity extends AppCompatActivity {
-
+public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     EditText et1product, et2product, et3product, et4product;
@@ -48,23 +47,16 @@ public class AddProductActivity extends AppCompatActivity {
     AppCompatButton addproductbutton;
     private boolean isEditMode = false;
     int SELECT_IMAGE_CODE = 1;
-    // Permission Constants //
-//    private static final int REQUEST_CAM_CODE = 100;
     private final int CAMERA_REQ_CODE = 1;
     private static final int REQUEST_GALLERY_CODE = 101;
-    // image pick constants //
     private static final int IMAGE_PICK_CAMERA_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_CODE = 103;
-    // arrays of permissions //
-    private String[] camerapermissions;  // CAMERA AND GALLERY
-    private String[] storagepermissions;  // ONLY GALLERY
-    // Variables contain data to save//
+    private String[] camerapermissions;
+    private String[] storagepermissions;
     Uri imageUri;
     String COLOR, IdKey, image;
     Bitmap bitmap;
-    private  String currentPhotoPath;
-
-    // DATABASE
+    private String currentPhotoPath;
     CRUD_DATA database;
 
 
@@ -72,40 +64,17 @@ public class AddProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        et1product = findViewById(R.id.et1product);
-        et2product = findViewById(R.id.et2product);
-        et3product = findViewById(R.id.et3product);
-        radioGroup = findViewById(R.id.radiogroup);
-        rb1 = findViewById(R.id.rb1);
-        rb2 = findViewById(R.id.rb2);
-        rb3 = findViewById(R.id.rb3);
-        rb4 = findViewById(R.id.rb4);
-        et4product = findViewById(R.id.et4product);
-        back = findViewById(R.id.addproductbackbutton);
-        addimage = findViewById(R.id.addimage);
-        addproductbutton = findViewById(R.id.addproductbutton);
-        toviewimageuri = findViewById(R.id.viewimageuri);
-        cloudimage = findViewById(R.id.cloudremove);
-        txtremove = findViewById(R.id.txtremove);
+        oninit();
 
 
-        // Initialize DATABASE
-        database = new CRUD_DATA(this);
+        back.setOnClickListener(this);
+        addproductbutton.setOnClickListener(this);
+        addimage.setOnClickListener(this);
 
 
-        //Init permissions arrays //
         camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-
-        // Intent for Main Activity //
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent inext = new Intent(AddProductActivity.this, MainActivity.class);
-                startActivity(inext);
-            }
-        });
 
         Intent i = getIntent();
         isEditMode = i.getBooleanExtra("isEditMode", false);
@@ -193,102 +162,6 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
 
-// Intent for Main Activity SetUp//
-        // DATABASE //
-
-        addproductbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                String PRODUCTNAME = et1product.getText().toString();
-                String STORE = et2product.getText().toString();
-                String PRICE = et3product.getText().toString();
-                String Details = et4product.getText().toString();
-
-
-                if (isEditMode) {
-
-                    if (imageUri == null) {
-                        Picasso.get().load(image);
-                    } else {
-                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
-                    }
-                    if (PRODUCTNAME.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
-                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    } else if (STORE.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    }else if (PRICE.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (Details.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-                    } else if (image == null){
-                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-
-                        boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(image));
-
-                        if (update) {
-
-                            Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                } else {
-
-                    if (PRODUCTNAME.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
-                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    } else if (STORE.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    }else if (PRICE.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (Details.isEmpty()){
-                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-                    }
-//                    } else if (imageUri == null){
-//                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
-//                    }
-                    //|| STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || imageUri == null) {
-                    //   Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    else {
-
-                        boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(imageUri));
-                        if (addData) {
-                            //  validStr(PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
-                            Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        } else {
-                            Toast.makeText(AddProductActivity.this, "Updation failed none of the field should be empty", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-        });
-
-
-        // DATABASE SETUP//
-
-        // Add Image From Gallery //
-
-        addimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imagepickdialogue();
-            }
-        });
 
     }
 
@@ -311,8 +184,6 @@ public class AddProductActivity extends AppCompatActivity {
                     } else {
                         // Permission already granted
                         pickFromCamera();
-//                        Intent icamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                        startActivityForResult(icamera, CAMERA_REQ_CODE);
                     }
                 } else if (i == 1) {
                     if (!checkstoragepermission()) {
@@ -340,24 +211,25 @@ public class AddProductActivity extends AppCompatActivity {
         // INTENT TO PICK IMAGE FROM CAMERA , THE IMAGE WILL BE RETURNED IN ONACTIVITYRESULT METHOD
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-             imageUri = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
-            }
+        //    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        // Create the File where the photo should go
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
         }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+            imageUri = FileProvider.getUriForFile(this,
+                    "com.example.androidtestapplication.fileprovider",
+                    photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
+        }
+        //      }
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -403,7 +275,6 @@ public class AddProductActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Result of permission allowed/ Denied
-
         switch (requestCode) {
             case CAMERA_REQ_CODE: {
                 if (grantResults.length > 0) {
@@ -414,9 +285,6 @@ public class AddProductActivity extends AppCompatActivity {
                     if (cameraAccepted && storageAccepted) {
                         // both permission allowed
                         pickFromCamera();
-//                        Intent icamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                        startActivityForResult(icamera, CAMERA_REQ_CODE);
-
                     } else {
                         Toast.makeText(this, "Camera & Storage Permissions are required", Toast.LENGTH_SHORT).show();
                     }
@@ -438,7 +306,6 @@ public class AddProductActivity extends AppCompatActivity {
             }
             break;
         }
-
     }
 
     @Override
@@ -453,53 +320,132 @@ public class AddProductActivity extends AppCompatActivity {
                 txtremove.setVisibility(View.GONE);
                 toviewimageuri.setVisibility(View.VISIBLE);
                 toviewimageuri.setImageURI(imageUri);
-
             } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
-
-                //Bundle extra = data.getExtras();
-                //   Bitmap imagebitmap = (Bitmap) extra.get("data");
-//                imageUri = data.getData();
-                //  toviewimageuri.setImageBitmap(imageUri);
-
-
-                //imageUri = data.getData();
-//                try {
-//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                    toviewimageuri.setImageBitmap(bitmap);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                Intent intent = getIntent();
-//                Bundle bundle = intent.getExtras();
-//                Uri uri = (Uri)bundle.get(Intent.EXTRA_STREAM);
-//
-
 
                 Toast.makeText(this, currentPhotoPath, Toast.LENGTH_SHORT).show();
                 Log.e("path", "" + currentPhotoPath);
                 File imgFile = new File(currentPhotoPath);
                 if (imgFile.exists()) {
-//                    ImageView myImage = new ImageView(this);
                     Uri uri = Uri.fromFile(imgFile);
                     toviewimageuri.setVisibility(View.VISIBLE);
                     Picasso.get().load(uri).into(toviewimageuri);
                     toviewimageuri.setImageURI(imageUri);
                     toviewimageuri.setVisibility(View.VISIBLE);
-
                     cloudimage.setVisibility(View.GONE);
                     txtremove.setVisibility(View.GONE);
-
-
                 }
 
 
             } else {
                 Toast.makeText(this, "Blank Image Please Select Image", Toast.LENGTH_SHORT).show();
             }
-            // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
-
         }
 
     }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.addproductbackbutton:
+                Intent inext = new Intent(AddProductActivity.this, MainActivity.class);
+                startActivity(inext);
+                break;
+            case R.id.addimage:
+                imagepickdialogue();
+                break;
+            case R.id.addproductbutton:
+                String PRODUCTNAME = et1product.getText().toString();
+                String STORE = et2product.getText().toString();
+                String PRICE = et3product.getText().toString();
+                String Details = et4product.getText().toString();
+
+
+                if (isEditMode) {
+
+                    if (imageUri == null) {
+                        Picasso.get().load(image);
+                    } else {
+                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
+                    }
+                    if (PRODUCTNAME.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    } else if (STORE.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (PRICE.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (Details.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+                    } else if (image == null) {
+                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+                    } else {
+                        boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(image));
+
+                        if (update) {
+
+                            Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                } else {
+
+                    if (PRODUCTNAME.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    } else if (STORE.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (PRICE.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (Details.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+                    } else if (imageUri == null) {
+                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(imageUri));
+                        if (addData) {
+                            //  validStr(PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
+                            Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            Toast.makeText(AddProductActivity.this, "Updation failed none of the field should be empty", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                break;
+        }
+
+    }
+
+    public void oninit() {
+        et1product = findViewById(R.id.et1product);
+        et2product = findViewById(R.id.et2product);
+        et3product = findViewById(R.id.et3product);
+        radioGroup = findViewById(R.id.radiogroup);
+        rb1 = findViewById(R.id.rb1);
+        rb2 = findViewById(R.id.rb2);
+        rb3 = findViewById(R.id.rb3);
+        rb4 = findViewById(R.id.rb4);
+        et4product = findViewById(R.id.et4product);
+        back = findViewById(R.id.addproductbackbutton);
+        addimage = findViewById(R.id.addimage);
+        addproductbutton = findViewById(R.id.addproductbutton);
+        toviewimageuri = findViewById(R.id.viewimageuri);
+        cloudimage = findViewById(R.id.cloudremove);
+        txtremove = findViewById(R.id.txtremove);
+        database = new CRUD_DATA(this);
+    }
+
 
 }

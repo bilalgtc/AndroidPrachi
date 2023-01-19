@@ -49,12 +49,6 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        if (getFragmentManager().getBackStackEntryCount() > 1) {
-//            getFragmentManager().popBackStack();
-//        } else {
-//         //   finish();
-//        }
 
         FragmentManager fm = getFragmentManager();
         //   FragmentManager fm = getFragmentManager();
@@ -70,34 +64,10 @@ public class MainFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new GridLayoutManager(getContext(), 2);
-
-
-//        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-//                "Applestore", "$999.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img2, "Samsung z flip",
-//                "Samsung store", "$711.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-//                "Uniqlo Store", "$86.00"));
-//      arrdesign.add(new ModelClass(R.drawable.img5, "Eyeglasses Gucci",
-//                "Gucci", "$211.00"));
-//        arrdesign.add(new ModelClass(R.drawable.img1, "Imac 27 Inch 5k",
-//                "Applestore", "$999.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img5, "Samsung z flip",
-//                "Samsung store", "$711.99"));
-//        arrdesign.add(new ModelClass(R.drawable.img3, "Flanell Uniqlo",
-//                "Uniqlo Store", "$86.00"));
-//        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
-//                "Gucci", "$211.00"));
-
-
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
         recyclerView.setAdapter(adapter);
-
-
         //setupOnBackPressed();
         return view;
-
-
     }
 
     @Override
@@ -106,15 +76,10 @@ public class MainFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-//                FragmentManager fm = getFragmentManager();
-//                if (fm != null) {
-//                    fm.popBackStack();
-//
-//                }
+
             }
         };
-
-      //  getActivity().finish();
+        //  getActivity().finish();
         super.onResume();
     }
 }

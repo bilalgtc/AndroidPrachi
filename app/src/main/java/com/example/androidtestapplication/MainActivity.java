@@ -26,16 +26,16 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     AppCompatButton addproductbutton;
     // ArrayList<ModelClass> arrdesign = new ArrayList<>();
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
     ImageView closenav;
-    private  static final  String SPNAME = "mypref";
-    private static final String  KEYNAME = "email";
-    private static final String  KEYPASSWORD = "password";
+    private static final String SPNAME = "mypref";
+    private static final String KEYNAME = "email";
+    private static final String KEYPASSWORD = "password";
     SharedPreferences sp;
     // RecyclerView recyclerView;
     //  RecyclerView.LayoutManager layoutManager;
@@ -46,41 +46,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addproductbutton = findViewById(R.id.addproductbutton);
-        drawerLayout = findViewById(R.id.drawerlayout);
-        navigationView = findViewById(R.id.navigationdrawer);
-        closenav = findViewById(R.id.closenavigation);
+        init();
+        addproductbutton.setOnClickListener(this);
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.linearframelayout, new MainFragment()).addToBackStack(null).commit();
 
         // Share Preference
-        sp = getSharedPreferences(SPNAME, MODE_PRIVATE );
+        sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
         // when open activity first check shared preferance data available  or not
         String email = sp.getString(KEYNAME, null);
         String password = sp.getString(KEYPASSWORD, null);
-        if(email != null || password != null){
+        if (email != null || password != null) {
 
         }
 
 
-
         // CloseNav Drawerlayout//
 
-
-        // Add Product Button //
-        addproductbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
-                startActivity(intent);
-            }
-        });
-
         //Navigation Bar Setup start //
-
-
-        toolbar = findViewById(R.id.toolbar);
         // TO SET TOOLBAR
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -109,33 +93,27 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
 
-        int id= item.getItemId();
-        if(id == R.id.logout){
+                int id = item.getItemId();
+                if (id == R.id.logout) {
 
-            sp = getSharedPreferences(SPNAME, MODE_PRIVATE );
-            SharedPreferences.Editor editor = sp.edit();
-            editor.clear();
-            editor.commit();
-            Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
-            finish();
-         Intent intent = new Intent(MainActivity.this, Signin.class);
-         startActivity(intent);
+                    sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
+                    Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(MainActivity.this, Signin.class);
+                    startActivity(intent);
 
-        }
+                }
 
 
                 return true;
             }
         });
-
-        // Navigation bar Set Up Done //
-
-
-
     }
 
     @Override
-
     public void onBackPressed() {
 
         moveTaskToBack(true);
@@ -144,7 +122,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void init() {
+        addproductbutton = findViewById(R.id.addproductbutton);
+        drawerLayout = findViewById(R.id.drawerlayout);
+        navigationView = findViewById(R.id.navigationdrawer);
+        closenav = findViewById(R.id.closenavigation);
+        toolbar = findViewById(R.id.toolbar);
+    }
 
 
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addproductbutton: {
+                Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
+    }
 }

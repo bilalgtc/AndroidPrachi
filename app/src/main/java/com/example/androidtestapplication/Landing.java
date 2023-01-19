@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class Landing extends AppCompatActivity {
+public class Landing extends AppCompatActivity implements View.OnClickListener {
 
     TextView textView, textfacebook, textgoogle, signin;
     AppCompatButton nextbutton;
@@ -27,15 +27,10 @@ public class Landing extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing);
-
-
         getWindow().setNavigationBarColor(getResources().getColor(R.color.appdefault));
-
-        textView = findViewById(R.id.welcometxt);
-        textfacebook = findViewById(R.id.textfacebook);
-        textgoogle = findViewById(R.id.textgoogle);
-        signin = findViewById(R.id.signinText);
-        nextbutton = findViewById(R.id.nextbutton);
+        init();
+        signin.setOnClickListener(this);
+        nextbutton.setOnClickListener(this);
 
         String text = "Welcome \nto ShopClues";
         SpannableString st = new SpannableString(text);
@@ -54,23 +49,32 @@ public class Landing extends AppCompatActivity {
         st2.setSpan(boldspan2, 14, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         textgoogle.setText(st2);
+    }
 
+    public void init() {
 
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        textView = findViewById(R.id.welcometxt);
+        textfacebook = findViewById(R.id.textfacebook);
+        textgoogle = findViewById(R.id.textgoogle);
+        signin = findViewById(R.id.signinText);
+        nextbutton = findViewById(R.id.nextbutton);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.signinText: {
                 Intent inext = new Intent(Landing.this, Signin.class);
                 startActivity(inext);
+                break;
             }
-        });
-
-        nextbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.nextbutton: {
                 Intent inext = new Intent(Landing.this, Signup.class);
                 startActivity(inext);
             }
-        });
 
+
+        }
     }
 }

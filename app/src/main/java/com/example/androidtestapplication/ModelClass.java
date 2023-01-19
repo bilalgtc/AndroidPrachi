@@ -5,7 +5,7 @@ public class ModelClass {
     public String modelname, comapnyname, price, Details;
 
 
-    public ModelClass(){
+    public ModelClass() {
 
     }
 
@@ -26,7 +26,7 @@ public class ModelClass {
         this.Details = details;
     }
 
-    public ModelClass(String IdKey , String image, String color, String modelname, String comapnyname, String price, String Details) {
+    public ModelClass(String IdKey, String image, String color, String modelname, String comapnyname, String price, String Details) {
         this.image = image;
         this.IdKey = IdKey;
         this.color = color;
@@ -75,7 +75,6 @@ public class ModelClass {
     public void setPrice(String price) {
         this.price = price;
     }
-
 
 
 }

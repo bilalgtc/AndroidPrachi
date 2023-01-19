@@ -35,8 +35,6 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     // DATABASE
     CRUD_DATA database;
 
-
-
     public RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign) {
         this.context = context;
         this.arrdesign = arrdesign;
@@ -51,16 +49,16 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
 
 
         holder.imageview.setOnClickListener(new View.OnClickListener() {
-                 @Override
+            @Override
             public void onClick(View v) {
-               Intent intent  = new Intent(context, ProductDetailActivity.class);
-                     intent.putExtra("Image", arrdesign.get(position).getImage());
-                     intent.putExtra("Name", arrdesign.get(position).getModelname());
-                     intent.putExtra("Company", arrdesign.get(position).getComapnyname());
-                     intent.putExtra("Price", arrdesign.get(position).getPrice());
-                     intent.putExtra("COLOR", arrdesign.get(position).getColor());
-                     intent.putExtra("Details", arrdesign.get(position).getDetails());
-               context.startActivity(intent);
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("Image", arrdesign.get(position).getImage());
+                intent.putExtra("Name", arrdesign.get(position).getModelname());
+                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
+                intent.putExtra("Price", arrdesign.get(position).getPrice());
+                intent.putExtra("COLOR", arrdesign.get(position).getColor());
+                intent.putExtra("Details", arrdesign.get(position).getDetails());
+                context.startActivity(intent);
 
 
             }
@@ -83,19 +81,15 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intent = new Intent(context, AddProductActivity.class);
                 intent.putExtra("IdKey", arrdesign.get(position).getIdKey());
-               Log.e(TAG + "onCreate: ID ", IdKey);
+                Log.e(TAG + "onCreate: ID ", IdKey);
                 intent.putExtra("Image", arrdesign.get(position).getImage());
                 intent.putExtra("Name", arrdesign.get(position).getModelname());
                 intent.putExtra("Company", arrdesign.get(position).getComapnyname());
                 intent.putExtra("Price", arrdesign.get(position).getPrice());
                 intent.putExtra("COLOR", arrdesign.get(position).getColor());
                 intent.putExtra("Details", arrdesign.get(position).getDetails());
-                 //intent.putExtra("COLOR", );
-
                 Log.e("image=====>", arrdesign.get(position).getImage());
                 intent.putExtra("isEditMode", true); // Update existing data
 
@@ -115,7 +109,6 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
 
             }
         });
-
 
 
     }
