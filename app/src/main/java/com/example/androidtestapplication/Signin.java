@@ -168,9 +168,9 @@ public class Signin extends AppCompatActivity {
                         editor.putString(KEYNAME,et1.getText().toString());
                         editor.putString(KEYPASSWORD, et2.getText().toString());
                         editor.commit();
-                        Intent inext = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(inext);
                         Toast.makeText(Signin.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        Intent inext = new Intent(getApplicationContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                        startActivity(inext);
                         finish();
                     } else {
                         Toast.makeText(Signin.this, "Please enter valid Credentials ", Toast.LENGTH_SHORT).show();
@@ -202,13 +202,6 @@ public class Signin extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Signin.this, Landing.class);
-        startActivity(intent);
-        finish();
-    }
 }
 
 

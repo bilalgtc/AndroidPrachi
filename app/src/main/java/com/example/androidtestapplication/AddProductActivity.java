@@ -13,44 +13,49 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidtestapplication.Database.CRUD_DATA;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 public class AddProductActivity extends AppCompatActivity {
 
 
-    LinearLayout toviewimage;
+
     EditText et1product, et2product, et3product, et4product;
     RadioGroup radioGroup;
     RadioButton rb1, rb2, rb3, rb4;
-    ImageView back, addimage;
+    ImageView back, addimage, toviewimageuri, cloudimage;
+    TextView txtremove;
     AppCompatButton addproductbutton;
     private boolean isEditMode = false;
     int SELECT_IMAGE_CODE = 1;
     // Permission Constants //
-    private static final int REQUEST_CAM_CODE = 100;
+//    private static final int REQUEST_CAM_CODE = 100;
+    private final int CAMERA_REQ_CODE = 1;
     private static final int REQUEST_GALLERY_CODE = 101;
     // image pick constants //
     private static final int IMAGE_PICK_CAMERA_CODE = 102;
     private static final int IMAGE_PICK_GALLERY_CODE = 103;
     // arrays of permissions //
-    private String[] camerapermissions;
-    private String[] storagepermissions;
+    private String[] camerapermissions;  // CAMERA AND GALLERY
+    private String[] storagepermissions;  // ONLY GALLERY
     // Variables contain data to save//
     Uri imageUri;
     String COLOR, IdKey, image;
-
+    Bitmap bitmap;
 
     // DATABASE
     CRUD_DATA database;
@@ -72,7 +77,10 @@ public class AddProductActivity extends AppCompatActivity {
         back = findViewById(R.id.addproductbackbutton);
         addimage = findViewById(R.id.addimage);
         addproductbutton = findViewById(R.id.addproductbutton);
-        toviewimage = findViewById(R.id.toviewimage);
+        toviewimageuri = findViewById(R.id.viewimageuri);
+        cloudimage = findViewById(R.id.cloudremove);
+        txtremove = findViewById(R.id.txtremove);
+
 
         // Initialize DATABASE
         database = new CRUD_DATA(this);
@@ -103,6 +111,10 @@ public class AddProductActivity extends AppCompatActivity {
             String company = i.getStringExtra("Company");
             String price = i.getStringExtra("Price");
             image = i.getStringExtra("Image");
+            cloudimage.setVisibility(View.GONE);
+            txtremove.setVisibility(View.GONE);
+            toviewimageuri.setVisibility(View.VISIBLE);
+            toviewimageuri.setImageURI(Uri.parse(image));
 
             // Log.e("image=====>", image);
             if (image == null) {
@@ -146,7 +158,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         } else {
             // Add Data
-            Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
+
         }
 
 
@@ -195,9 +207,20 @@ public class AddProductActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
                     }
-                    if(PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty()  || Details.isEmpty() || image == null){
+                    if (PRODUCTNAME.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+                          //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
                         Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else if (STORE.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    }else if (PRICE.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (Details.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+                    } else if (image == null){
+                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
 
                         boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(image));
 
@@ -206,7 +229,7 @@ public class AddProductActivity extends AppCompatActivity {
                             Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
                             startActivity(intent);
-
+                            finish();
                         } else {
                             Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -214,32 +237,42 @@ public class AddProductActivity extends AppCompatActivity {
 
                 } else {
 
-                    if(PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty()  || Details.isEmpty() || imageUri == null){
+                    if (PRODUCTNAME.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
                         Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else if (STORE.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    }else if (PRICE.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (Details.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+                        }
+//                    } else if (imageUri == null){
+//                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+//                    }
+                            //|| STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || imageUri == null) {
+                     //   Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                     else {
 
                         boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(imageUri));
                         if (addData) {
-                          //  validStr(PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
+                            //  validStr(PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
                             Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
-                            Toast.makeText(AddProductActivity.this, "Updation Failed None of the field should be empty", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddProductActivity.this, "Updation failed none of the field should be empty", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
-               // Toast.makeText(AddProductActivity.this, "Clickeddddd", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-
-
         // DATABASE SETUP//
-
 
         // Add Image From Gallery //
 
@@ -251,9 +284,6 @@ public class AddProductActivity extends AppCompatActivity {
         });
 
     }
-
-
-
 
     private void imagepickdialogue() {
         // Options to Display in Dailogue //
@@ -268,12 +298,14 @@ public class AddProductActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 // handle clicks
                 if (i == 0) {
-                    // Camera Clicked
+                    // Camera    Clicked
                     if (!checkcamerapermissions()) {
                         requestcamerapermission();
                     } else {
                         // Permission already granted
-                        pickFromCamera();
+                       pickFromCamera();
+//                        Intent icamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        startActivityForResult(icamera, CAMERA_REQ_CODE);
                     }
                 } else if (i == 1) {
                     if (!checkstoragepermission()) {
@@ -300,10 +332,17 @@ public class AddProductActivity extends AppCompatActivity {
     private void pickFromCamera() {
         // INTENT TO PICK IMAGE FROM CAMERA , THE IMAGE WILL BE RETURNED IN ONACTIVITYRESULT METHOD
         ContentValues values = new ContentValues();
+
+
         values.put(MediaStore.Images.Media.TITLE, "Image title");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Image description");
         // put image uri
         imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        try {
+             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Intent to open camera for image
         Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -325,14 +364,16 @@ public class AddProductActivity extends AppCompatActivity {
 
     private boolean checkcamerapermissions() {
         // Check if camera permission is enabled or not //
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
-        boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+        boolean result1 = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
 
     private void requestcamerapermission() {
         // request the storage permission //
-        ActivityCompat.requestPermissions(this, camerapermissions, REQUEST_CAM_CODE);
+        ActivityCompat.requestPermissions(this, camerapermissions, CAMERA_REQ_CODE);
     }
 
     @Override
@@ -341,7 +382,7 @@ public class AddProductActivity extends AppCompatActivity {
         // Result of permission allowed/ Denied
 
         switch (requestCode) {
-            case REQUEST_CAM_CODE: {
+            case CAMERA_REQ_CODE: {
                 if (grantResults.length > 0) {
                     // If allowed returns true otherwise false //
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
@@ -349,7 +390,10 @@ public class AddProductActivity extends AppCompatActivity {
 
                     if (cameraAccepted && storageAccepted) {
                         // both permission allowed
-                        pickFromCamera();
+                       pickFromCamera();
+//                        Intent icamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        startActivityForResult(icamera, CAMERA_REQ_CODE);
+
                     } else {
                         Toast.makeText(this, "Camera & Storage Permissions are required", Toast.LENGTH_SHORT).show();
                     }
@@ -382,14 +426,42 @@ public class AddProductActivity extends AppCompatActivity {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 imageUri = data.getData();
              //   toviewimage.setBackgroundResource( imageUri);
+                cloudimage.setVisibility(View.GONE);
+                txtremove.setVisibility(View.GONE);
+                toviewimageuri.setVisibility(View.VISIBLE);
+                toviewimageuri.setImageURI(imageUri);
 
-            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
-                imageUri = data.getData();
+            }
+            else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+
+                Bundle extra = data.getExtras();
+                Bitmap imagebitmap = (Bitmap) extra.get("data");
+                toviewimageuri.setImageBitmap(imagebitmap);
+
+
+                //imageUri = data.getData();
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+//                    toviewimageuri.setImageBitmap(bitmap);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                Intent intent = getIntent();
+//                Bundle bundle = intent.getExtras();
+//                Uri uri = (Uri)bundle.get(Intent.EXTRA_STREAM);
+//
+              toviewimageuri.setImageURI(imageUri);
+                toviewimageuri.setVisibility(View.VISIBLE);
+
+                cloudimage.setVisibility(View.GONE);
+                txtremove.setVisibility(View.GONE);
 
             }
 
+
+
         } else {
-            Toast.makeText(this, "Blank", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Blank Image Please Select Image", Toast.LENGTH_SHORT).show();
         }
         // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
 

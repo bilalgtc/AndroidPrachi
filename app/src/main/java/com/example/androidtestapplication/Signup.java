@@ -77,7 +77,6 @@ public class Signup extends AppCompatActivity {
 
                 Intent inext = new Intent(Signup.this, Signin.class);
                 startActivity(inext);
-                finish();
 
             }
         });
@@ -228,18 +227,10 @@ public class Signup extends AppCompatActivity {
                                 editor.putString(KEYNAME,ed2.getText().toString());
                                 editor.putString(KEYPASSWORD, ed4.getText().toString());
                                 editor.apply();
-                                Intent inext = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(inext);
                                 Toast.makeText(Signup.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                Intent inext = new Intent(getApplicationContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                startActivity(inext);
                                 finish();
-
-
-
-//                                Toast.makeText(Signup.this, "Registraion Successful", Toast.LENGTH_SHORT).show();
-//
-//                                Intent inext = new Intent(Signup.this, MainActivity.class);
-//                                startActivity(inext);
-//                                finish();
                             } else {
                                 Toast.makeText(Signup.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
                             }
@@ -259,10 +250,4 @@ public class Signup extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Signup.this, Landing.class);
-        startActivity(intent);
-    }
 }

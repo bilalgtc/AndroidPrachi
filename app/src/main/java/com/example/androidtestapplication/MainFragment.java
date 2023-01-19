@@ -1,6 +1,9 @@
 package com.example.androidtestapplication;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -31,7 +34,7 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageView delete, update;
-   CRUD_DATA data;
+    CRUD_DATA data;
 
     // Inflater inflater;
     // ViewGroup container;
@@ -40,8 +43,8 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,15 +57,15 @@ public class MainFragment extends Fragment {
 //        }
 
         FragmentManager fm = getFragmentManager();
-     //   FragmentManager fm = getFragmentManager();
-     //   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //   FragmentManager fm = getFragmentManager();
+        //   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         FragmentTransaction ft = fm.beginTransaction();
         ft.commit();
         ft.addToBackStack(null);
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         data = new CRUD_DATA(getContext());
-        ArrayList<ModelClass> arrdesign =  data.FetchData();
+        ArrayList<ModelClass> arrdesign = data.FetchData();
 
 
         recyclerView = view.findViewById(R.id.recyclerview);
@@ -86,33 +89,38 @@ public class MainFragment extends Fragment {
 //        arrdesign.add(new ModelClass(R.drawable.img4, "Eyeglasses Gucci",
 //                "Gucci", "$211.00"));
 
+
         RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
         recyclerView.setAdapter(adapter);
-        //setupOnBackPressed();
 
+
+        //setupOnBackPressed();
         return view;
+
+
     }
 
+    @Override
+    public void onResume() {
 
-
-
-}
-//    MainFragment firstFragment = new MainFragment();
-//    getSupportFragmentManager().beginTransaction()
-//.replace(R.id.article_fragment, firstFragment)
-//.addToBackStack(null).commit();
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+//                FragmentManager fm = getFragmentManager();
+//                if (fm != null) {
+//                    fm.popBackStack();
 //
-////    private void setupOnBackPressed() {
-//        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                if(isEnabled()){
-//                    Toast.makeText(requireContext(), "Back", Toast.LENGTH_SHORT).show();
-//                    setEnabled(false);
-//                    requireActivity().onBackPressed();
 //                }
-//            }
-//        });
+            }
+        };
+
+      //  getActivity().finish();
+        super.onResume();
+    }
+}
+
+
+
 
 
 
