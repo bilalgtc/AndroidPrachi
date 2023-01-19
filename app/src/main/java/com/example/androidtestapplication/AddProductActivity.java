@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -16,7 +17,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +31,10 @@ import android.widget.Toast;
 import com.example.androidtestapplication.Database.CRUD_DATA;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddProductActivity extends AppCompatActivity {
 
@@ -56,6 +62,7 @@ public class AddProductActivity extends AppCompatActivity {
     Uri imageUri;
     String COLOR, IdKey, image;
     Bitmap bitmap;
+    private  String currentPhotoPath;
 
     // DATABASE
     CRUD_DATA database;
@@ -209,7 +216,7 @@ public class AddProductActivity extends AppCompatActivity {
                     }
                     if (PRODUCTNAME.isEmpty()){
                         Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-                          //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
                         Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
                     } else if (STORE.isEmpty()){
                         Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
@@ -247,13 +254,13 @@ public class AddProductActivity extends AppCompatActivity {
                         Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
                     } else if (Details.isEmpty()){
                         Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-                        }
+                    }
 //                    } else if (imageUri == null){
 //                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
 //                    }
-                            //|| STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || imageUri == null) {
-                     //   Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                     else {
+                    //|| STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || imageUri == null) {
+                    //   Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    else {
 
                         boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(imageUri));
                         if (addData) {
@@ -303,7 +310,7 @@ public class AddProductActivity extends AppCompatActivity {
                         requestcamerapermission();
                     } else {
                         // Permission already granted
-                       pickFromCamera();
+                        pickFromCamera();
 //                        Intent icamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //                        startActivityForResult(icamera, CAMERA_REQ_CODE);
                     }
@@ -331,24 +338,40 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void pickFromCamera() {
         // INTENT TO PICK IMAGE FROM CAMERA , THE IMAGE WILL BE RETURNED IN ONACTIVITYRESULT METHOD
-        ContentValues values = new ContentValues();
-
-
-        values.put(MediaStore.Images.Media.TITLE, "Image title");
-        values.put(MediaStore.Images.Media.DESCRIPTION, "Image description");
-        // put image uri
-        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-        try {
-             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+             imageUri = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
+            }
         }
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
-        // Intent to open camera for image
-        Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraintent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(cameraintent, IMAGE_PICK_CAMERA_CODE);
-
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     private boolean checkstoragepermission() {
@@ -390,7 +413,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                     if (cameraAccepted && storageAccepted) {
                         // both permission allowed
-                       pickFromCamera();
+                        pickFromCamera();
 //                        Intent icamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //                        startActivityForResult(icamera, CAMERA_REQ_CODE);
 
@@ -425,18 +448,18 @@ public class AddProductActivity extends AppCompatActivity {
             // picked from gallery //
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 imageUri = data.getData();
-             //   toviewimage.setBackgroundResource( imageUri);
+                //   toviewimage.setBackgroundResource( imageUri);
                 cloudimage.setVisibility(View.GONE);
                 txtremove.setVisibility(View.GONE);
                 toviewimageuri.setVisibility(View.VISIBLE);
                 toviewimageuri.setImageURI(imageUri);
 
-            }
-            else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
 
-                Bundle extra = data.getExtras();
-                Bitmap imagebitmap = (Bitmap) extra.get("data");
-                toviewimageuri.setImageBitmap(imagebitmap);
+                //Bundle extra = data.getExtras();
+                //   Bitmap imagebitmap = (Bitmap) extra.get("data");
+//                imageUri = data.getData();
+                //  toviewimageuri.setImageBitmap(imageUri);
 
 
                 //imageUri = data.getData();
@@ -450,22 +473,33 @@ public class AddProductActivity extends AppCompatActivity {
 //                Bundle bundle = intent.getExtras();
 //                Uri uri = (Uri)bundle.get(Intent.EXTRA_STREAM);
 //
-              toviewimageuri.setImageURI(imageUri);
-                toviewimageuri.setVisibility(View.VISIBLE);
 
-                cloudimage.setVisibility(View.GONE);
-                txtremove.setVisibility(View.GONE);
 
+                Toast.makeText(this, currentPhotoPath, Toast.LENGTH_SHORT).show();
+                Log.e("path", "" + currentPhotoPath);
+                File imgFile = new File(currentPhotoPath);
+                if (imgFile.exists()) {
+//                    ImageView myImage = new ImageView(this);
+                    Uri uri = Uri.fromFile(imgFile);
+                    toviewimageuri.setVisibility(View.VISIBLE);
+                    Picasso.get().load(uri).into(toviewimageuri);
+                    toviewimageuri.setImageURI(imageUri);
+                    toviewimageuri.setVisibility(View.VISIBLE);
+
+                    cloudimage.setVisibility(View.GONE);
+                    txtremove.setVisibility(View.GONE);
+
+
+                }
+
+
+            } else {
+                Toast.makeText(this, "Blank Image Please Select Image", Toast.LENGTH_SHORT).show();
             }
+            // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
 
-
-
-        } else {
-            Toast.makeText(this, "Blank Image Please Select Image", Toast.LENGTH_SHORT).show();
         }
-        // Log.e(TAG, "onActivityResult: Click ", String.valueOf(imageUri) );
 
     }
-
 
 }

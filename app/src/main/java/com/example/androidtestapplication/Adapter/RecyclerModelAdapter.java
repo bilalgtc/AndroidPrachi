@@ -108,7 +108,7 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
             @Override
             public void onClick(View v) {
                 database.deletedata(IdKey);
-               arrdesign.remove(position);
+                arrdesign.remove(position);
                 notifyItemRemoved(position);
 
                 Toast.makeText(context, "Record Deleted", Toast.LENGTH_SHORT).show();
