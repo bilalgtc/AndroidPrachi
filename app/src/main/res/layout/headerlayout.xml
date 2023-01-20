@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/headerlayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_120sdp"
     android:gravity="center">
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_42sdp"
+            android:layout_marginTop="@dimen/_45sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:src="@drawable/close" />
 

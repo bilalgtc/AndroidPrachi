@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:background="#06AB8D">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -22,7 +21,6 @@
                 android:fontFamily="@font/poppins"
                 android:text="Home"
                 android:textColor="@color/white" />
-
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addproductbutton"
