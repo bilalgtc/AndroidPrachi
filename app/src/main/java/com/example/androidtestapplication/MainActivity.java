@@ -48,9 +48,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addproductbutton.setOnClickListener(this);
         fragmentmanager();
         navigation();
-
+        navigationclose();
 
     }
+
+
 
     public void init() {
         addproductbutton = findViewById(R.id.addproductbutton);
@@ -106,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        pannel = headerlayout.findViewById(R.id.closenavigation);
 
 
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -130,6 +131,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public  void navigationclose(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationdrawer);
+        View header = navigationView.getHeaderView(0);
+        ImageView closenav = header.findViewById(R.id.closenavigation);
+        closenav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -139,13 +153,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void headerNav() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationdrawer);
-        View header= navigationView.getHeaderView(0);
-        ImageView closenav = header.findViewById(R.id.closenavigation);
-   //     closenav.closeDrawer();
-
-
-    }
 
 }
