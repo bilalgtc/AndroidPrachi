@@ -68,6 +68,9 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         //setupOnBackPressed();
         return view;
+
+
+
     }
 
     @Override
@@ -76,12 +79,18 @@ public class MainFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-
+                getFragmentManager().popBackStack();
+             //   getActivity().finishAffinity();
             }
         };
         //  getActivity().finish();
         super.onResume();
+
     }
+
+    // ((MainFragment) getActivity()).finish();
+
+
 }
 
 

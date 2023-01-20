@@ -29,7 +29,7 @@ public class MyAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return arraylist.size();
+        return 3;
     }
 
     @Override

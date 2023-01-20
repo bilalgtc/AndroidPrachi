@@ -39,13 +39,24 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin);
         init();
+        validation();
         eye.setOnClickListener(this);
         signuptext.setOnClickListener(this);
         signinbutton.setOnClickListener(this);
         checkbox1.setOnClickListener(this);
         db = new DBHelper(this);
 
+    }
 
+    public void init() {
+        et1 = findViewById(R.id.et1signin);
+        et2 = findViewById(R.id.et2signin);
+        valid = findViewById(R.id.validimg);
+        eye = findViewById(R.id.showpassword);
+        signuptext = findViewById(R.id.signuptext);
+        signinbutton = findViewById(R.id.signinbutton);
+        checkbox1 = findViewById(R.id.checkbox);
+        eye.setImageResource(R.drawable.eye);
         // Share Preference
         sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
         // when open activity first check shared preferance data available  or not
@@ -58,82 +69,7 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
             startActivity(inext);
         }
 
-        eye.setImageResource(R.drawable.eye);
 
-        // EditText String Validation //
-
-        String name = et2.getText().toString();
-
-
-        et1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                Log.e("hh", "" + charSequence.toString());
-                String emailinput = et1.getText().toString();
-
-                if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
-                    valid.setImageResource(R.drawable.success);
-                    valid.setVisibility(View.VISIBLE);
-                } else {
-                    valid.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        et2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String password = et2.getText().toString();
-                if (password.length() < 8) {
-                    Toast.makeText(Signin.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
-                } else {
-
-                }
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-
-        // EditText String Validation SetUp //
-
-
-        // Authentication Part //
-
-
-// Authenticate //
-
-
-    }
-
-    public void init() {
-        et1 = findViewById(R.id.et1signin);
-        et2 = findViewById(R.id.et2signin);
-        valid = findViewById(R.id.validimg);
-        eye = findViewById(R.id.showpassword);
-        signuptext = findViewById(R.id.signuptext);
-        signinbutton = findViewById(R.id.signinbutton);
-        checkbox1 = findViewById(R.id.checkbox);
     }
 
 
@@ -198,6 +134,60 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
 
 
     }
+
+    public void validation() {
+        String name = et2.getText().toString();
+        et1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                Log.e("hh", "" + charSequence.toString());
+                String emailinput = et1.getText().toString();
+
+                if (!emailinput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailinput).matches()) {
+                    valid.setImageResource(R.drawable.success);
+                    valid.setVisibility(View.VISIBLE);
+                } else {
+                    valid.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        et2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String password = et2.getText().toString();
+                if (password.length() < 8) {
+                    // Toast.makeText(Signin.this, "Please Enter Valid Password", Toast.LENGTH_SHORT).show();
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+    }
+
 }
 
 

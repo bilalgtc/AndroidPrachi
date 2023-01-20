@@ -64,104 +64,13 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
+
         oninit();
-
-
         back.setOnClickListener(this);
         addproductbutton.setOnClickListener(this);
         addimage.setOnClickListener(this);
-
-
-        camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
-
-        Intent i = getIntent();
-        isEditMode = i.getBooleanExtra("isEditMode", false);
-
-        if (isEditMode) {
-            // Update Data
-            IdKey = i.getStringExtra("IdKey");
-            //  Log.e(TAG + "onCreate: ID ", IdKey);
-            String name = i.getStringExtra("Name");
-            String company = i.getStringExtra("Company");
-            String price = i.getStringExtra("Price");
-            image = i.getStringExtra("Image");
-            cloudimage.setVisibility(View.GONE);
-            txtremove.setVisibility(View.GONE);
-            toviewimageuri.setVisibility(View.VISIBLE);
-            toviewimageuri.setImageURI(Uri.parse(image));
-
-            // Log.e("image=====>", image);
-            if (image == null) {
-                Toast.makeText(this, "No image", Toast.LENGTH_SHORT).show();
-
-            } else {
-                Picasso.get().load(image);
-            }
-            String Details = i.getStringExtra("Details");
-            COLOR = i.getStringExtra("COLOR");
-            // Set Data
-            et1product.setText(name);
-            et2product.setText(company);
-            et3product.setText(price);
-            et4product.setText(Details);
-
-            if (COLOR.equals("Green")) {
-                rb1.setChecked(true);
-            } else {
-                rb1.setChecked(false);
-            }
-
-            if (COLOR.equals("Black")) {
-                rb2.setChecked(true);
-            } else {
-                rb2.setChecked(false);
-            }
-
-            if (COLOR.equals("Silver")) {
-                rb3.setChecked(true);
-            } else {
-                rb3.setChecked(false);
-            }
-
-            if (COLOR.equals("Blue")) {
-                rb4.setChecked(true);
-            } else {
-                rb4.setChecked(false);
-            }
-
-
-        } else {
-            // Add Data
-
-        }
-
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-
-                switch (i) {
-                    case R.id.rb1:
-                        COLOR = rb1.getText().toString();
-
-                        break;
-                    case R.id.rb2:
-                        COLOR = rb2.getText().toString();
-                        break;
-                    case R.id.rb3:
-                        COLOR = rb3.getText().toString();
-
-                        break;
-                    case R.id.rb4:
-                        COLOR = rb4.getText().toString();
-                        break;
-                }
-
-            }
-        });
-
+        listner();
+        intentextras();
 
     }
 
@@ -180,14 +89,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 if (i == 0) {
                     // Camera    Clicked
                     if (!checkcamerapermissions()) {
-                        requestcamerapermission();
+                        ActivityCompat.requestPermissions(AddProductActivity.this, camerapermissions, CAMERA_REQ_CODE);
                     } else {
                         // Permission already granted
                         pickFromCamera();
                     }
                 } else if (i == 1) {
                     if (!checkstoragepermission()) {
-                        requeststoragepermission();
+                        ActivityCompat.requestPermissions(AddProductActivity.this, storagepermissions, REQUEST_GALLERY_CODE);
                     } else {
                         // Permission already granted
                         pickFromGallery();
@@ -201,25 +110,18 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void pickFromGallery() {
-        // INTENT TO PICK IMAGE FROM GALLERY, THE IMAGE WILL BE RETURNED IN ONACTIVITYRESULT METHOD
         Intent galleryintent = new Intent(Intent.ACTION_PICK);
         galleryintent.setType("image/*"); // we want only iMAGE;
         startActivityForResult(galleryintent, IMAGE_PICK_GALLERY_CODE);
     }
 
     private void pickFromCamera() {
-        // INTENT TO PICK IMAGE FROM CAMERA , THE IMAGE WILL BE RETURNED IN ONACTIVITYRESULT METHOD
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        //    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-        // Create the File where the photo should go
         File photoFile = null;
         try {
             photoFile = createImageFile();
         } catch (IOException ex) {
-            // Error occurred while creating the File
         }
-        // Continue only if the File was successfully created
         if (photoFile != null) {
             imageUri = FileProvider.getUriForFile(this,
                     "com.example.androidtestapplication.fileprovider",
@@ -227,7 +129,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
         }
-        //      }
     }
 
     private File createImageFile() throws IOException {
@@ -252,10 +153,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         return result;
     }
 
-    private void requeststoragepermission() {
-        // request the storage permission //
-        ActivityCompat.requestPermissions(this, storagepermissions, REQUEST_GALLERY_CODE);
-    }
 
     private boolean checkcamerapermissions() {
         // Check if camera permission is enabled or not //
@@ -266,10 +163,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         return result && result1;
     }
 
-    private void requestcamerapermission() {
-        // request the storage permission //
-        ActivityCompat.requestPermissions(this, camerapermissions, CAMERA_REQ_CODE);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -342,6 +235,79 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
+
+    public void oninit() {
+        et1product = findViewById(R.id.et1product);
+        et2product = findViewById(R.id.et2product);
+        et3product = findViewById(R.id.et3product);
+        radioGroup = findViewById(R.id.radiogroup);
+        rb1 = findViewById(R.id.rb1);
+        rb2 = findViewById(R.id.rb2);
+        rb3 = findViewById(R.id.rb3);
+        rb4 = findViewById(R.id.rb4);
+        et4product = findViewById(R.id.et4product);
+        back = findViewById(R.id.addproductbackbutton);
+        addimage = findViewById(R.id.addimage);
+        addproductbutton = findViewById(R.id.addproductbutton);
+        toviewimageuri = findViewById(R.id.viewimageuri);
+        cloudimage = findViewById(R.id.cloudremove);
+        txtremove = findViewById(R.id.txtremove);
+        database = new CRUD_DATA(this);
+        camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    }
+
+    public void intentextras() {
+        Intent i = getIntent();
+        isEditMode = i.getBooleanExtra("isEditMode", false);
+
+        if (isEditMode) {
+            // Update Data
+            IdKey = i.getStringExtra("IdKey");
+            // Set Data
+            et1product.setText(i.getStringExtra("Name"));
+            et2product.setText(i.getStringExtra("Company"));
+            et3product.setText(i.getStringExtra("Price"));
+            et4product.setText(i.getStringExtra("Details"));
+            COLOR = i.getStringExtra("COLOR");
+            if (COLOR.equals("Green")) {
+                rb1.setChecked(true);
+            } else {
+                rb1.setChecked(false);
+            }
+
+            if (COLOR.equals("Black")) {
+                rb2.setChecked(true);
+            } else {
+                rb2.setChecked(false);
+            }
+
+            if (COLOR.equals("Silver")) {
+                rb3.setChecked(true);
+            } else {
+                rb3.setChecked(false);
+            }
+
+            if (COLOR.equals("Blue")) {
+                rb4.setChecked(true);
+            } else {
+                rb4.setChecked(false);
+            }
+            toviewimageuri.setImageURI(Uri.parse(image));
+            image = i.getStringExtra("Image");
+            if (image == null) {
+                Toast.makeText(this, "No image", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Picasso.get().load(image);
+            }
+            cloudimage.setVisibility(View.GONE);
+            txtremove.setVisibility(View.GONE);
+            toviewimageuri.setVisibility(View.VISIBLE);
+        }
+
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -428,23 +394,30 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    public void oninit() {
-        et1product = findViewById(R.id.et1product);
-        et2product = findViewById(R.id.et2product);
-        et3product = findViewById(R.id.et3product);
-        radioGroup = findViewById(R.id.radiogroup);
-        rb1 = findViewById(R.id.rb1);
-        rb2 = findViewById(R.id.rb2);
-        rb3 = findViewById(R.id.rb3);
-        rb4 = findViewById(R.id.rb4);
-        et4product = findViewById(R.id.et4product);
-        back = findViewById(R.id.addproductbackbutton);
-        addimage = findViewById(R.id.addimage);
-        addproductbutton = findViewById(R.id.addproductbutton);
-        toviewimageuri = findViewById(R.id.viewimageuri);
-        cloudimage = findViewById(R.id.cloudremove);
-        txtremove = findViewById(R.id.txtremove);
-        database = new CRUD_DATA(this);
+    public void listner() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                switch (i) {
+                    case R.id.rb1:
+                        COLOR = rb1.getText().toString();
+
+                        break;
+                    case R.id.rb2:
+                        COLOR = rb2.getText().toString();
+                        break;
+                    case R.id.rb3:
+                        COLOR = rb3.getText().toString();
+
+                        break;
+                    case R.id.rb4:
+                        COLOR = rb4.getText().toString();
+                        break;
+                }
+
+            }
+        });
     }
 
 

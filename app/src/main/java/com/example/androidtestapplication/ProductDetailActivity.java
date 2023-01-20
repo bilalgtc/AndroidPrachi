@@ -34,8 +34,36 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_product_detail);
         init();
         backbtn.setOnClickListener(this);
+        intentextras();
+
+    }
+
+    public void init() {
+        productimage = findViewById(R.id.productdetailimage);
+        backbtn = findViewById(R.id.backbtn);
+        textView1 = findViewById(R.id.productdetailtv1);
+        textView2 = findViewById(R.id.productdetailtv2);
+        textView3 = findViewById(R.id.productdetailtv3);
+        textView4 = findViewById(R.id.productdetailtextview);
+        green = findViewById(R.id.greenbutton);
+        black = findViewById(R.id.blackbutton);
+        silver = findViewById(R.id.silverbutton);
+        blue = findViewById(R.id.bluebutton);
+    }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.backbtn: {
+                Intent inext = new Intent(ProductDetailActivity.this, MainActivity.class);
+                startActivity(inext);
+                finish();
+            }
+        }
+    }
+
+    public void intentextras() {
         Intent i = getIntent();
         String name = i.getStringExtra("Name");
         String company = i.getStringExtra("Company");
@@ -87,33 +115,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
             blue.setBackground(getDrawable(R.drawable.buttonclick));
             blue.setTextColor(Color.parseColor("#FF000000"));
-        }
-
-
-    }
-
-    public void init() {
-        productimage = findViewById(R.id.productdetailimage);
-        backbtn = findViewById(R.id.backbtn);
-        textView1 = findViewById(R.id.productdetailtv1);
-        textView2 = findViewById(R.id.productdetailtv2);
-        textView3 = findViewById(R.id.productdetailtv3);
-        textView4 = findViewById(R.id.productdetailtextview);
-        green = findViewById(R.id.greenbutton);
-        black = findViewById(R.id.blackbutton);
-        silver = findViewById(R.id.silverbutton);
-        blue = findViewById(R.id.bluebutton);
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.backbtn: {
-                Intent inext = new Intent(ProductDetailActivity.this, MainActivity.class);
-                startActivity(inext);
-                finish();
-            }
         }
     }
 }

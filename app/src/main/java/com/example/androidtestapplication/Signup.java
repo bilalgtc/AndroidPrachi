@@ -37,104 +37,11 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
         init();
+        validation();
         eye.setOnClickListener(this);
         eye2.setOnClickListener(this);
         signupbutton.setOnClickListener(this);
         signintext.setOnClickListener(this);
-
-
-        database = new DBHelper(this);
-
-        // Share Preference
-        sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
-        // when open activity first check shared preferance data available  or not
-        String email = sp.getString(KEYNAME, null);
-        String password = sp.getString(KEYPASSWORD, null);
-
-        if (email != null && password != null) {
-            // If data is available then directly call on Mainactivity
-            Intent inext = new Intent(Signup.this, MainActivity.class);
-            startActivity(inext);
-        }
-
-        eye.setImageResource(R.drawable.eye);
-
-        ed1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("hh", "" + charSequence.toString());
-                String name = ed1.getText().toString();
-                if (!name.isEmpty()) {
-                    valid1.setImageResource(R.drawable.success);
-                    valid1.setVisibility(View.VISIBLE);
-
-                } else {
-                    valid1.setVisibility(View.INVISIBLE);
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        ed2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("hh", "" + charSequence.toString());
-                String email = ed2.getText().toString();
-                if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    valid2.setImageResource(R.drawable.success);
-                    valid2.setVisibility(View.VISIBLE);
-                } else {
-
-                    valid2.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        ed3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String phonenumber = ed3.getText().toString();
-                if (phonenumber.length() == 10) {
-                    valid3.setImageResource(R.drawable.success);
-                    valid3.setVisibility(View.VISIBLE);
-                } else {
-                    valid3.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-
-// View Validation SetUp //
-
 
     }
 
@@ -151,6 +58,21 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         eye2 = findViewById(R.id.imageview5);
         signupbutton = findViewById(R.id.signupbutton);
         signintext = findViewById(R.id.signinText);
+        eye.setImageResource(R.drawable.eye);
+        eye2.setImageResource(R.drawable.eye);
+        database = new DBHelper(this);
+
+        // Share Preference
+        sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
+        // when open activity first check shared preferance data available  or not
+        String email = sp.getString(KEYNAME, null);
+        String password = sp.getString(KEYPASSWORD, null);
+
+        if (email != null && password != null) {
+            // If data is available then directly call on Mainactivity
+            Intent inext = new Intent(Signup.this, MainActivity.class);
+            startActivity(inext);
+        }
     }
 
 
@@ -233,4 +155,81 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             }
         }
     }
+
+    public void validation() {
+        ed1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.e("hh", "" + charSequence.toString());
+                String name = ed1.getText().toString();
+                if (!name.isEmpty()) {
+                    valid1.setImageResource(R.drawable.success);
+                    valid1.setVisibility(View.VISIBLE);
+
+                } else {
+                    valid1.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        ed2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.e("hh", "" + charSequence.toString());
+                String email = ed2.getText().toString();
+                if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    valid2.setImageResource(R.drawable.success);
+                    valid2.setVisibility(View.VISIBLE);
+                } else {
+
+                    valid2.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        ed3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String phonenumber = ed3.getText().toString();
+                if (phonenumber.length() == 10) {
+                    valid3.setImageResource(R.drawable.success);
+                    valid3.setVisibility(View.VISIBLE);
+                } else {
+                    valid3.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+    }
+
 }
