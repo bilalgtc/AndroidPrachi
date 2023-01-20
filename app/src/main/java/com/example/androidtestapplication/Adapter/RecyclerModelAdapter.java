@@ -17,8 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidtestapplication.AddProductActivity;
-import com.example.androidtestapplication.Database.CRUD_DATA;
-import com.example.androidtestapplication.Database.DataBaseHelper;
 import com.example.androidtestapplication.ModelClass;
 import com.example.androidtestapplication.ProductDetailActivity;
 import com.example.androidtestapplication.R;
@@ -33,16 +31,12 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     String IdKey, image, name, company, price, COLOR, Details;
     boolean isEditMode = false;
     // DATABASE
-    CRUD_DATA database;
 
     public RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign) {
         this.context = context;
         this.arrdesign = arrdesign;
 
-        database = new CRUD_DATA(context);
-
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
@@ -101,7 +95,6 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.deletedata(IdKey);
                 arrdesign.remove(position);
                 notifyItemRemoved(position);
 

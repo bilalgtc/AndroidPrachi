@@ -18,13 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidtestapplication.Database.DBHelper;
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     EditText ed1, ed2, ed3, ed4, ed5;
     AppCompatButton signupbutton;
-    DBHelper database;
     TextView signintext;
     ImageView valid1, valid2, valid3, eye, eye2;
     SharedPreferences sp;
@@ -60,7 +58,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         signintext = findViewById(R.id.signinText);
         eye.setImageResource(R.drawable.eye);
         eye2.setImageResource(R.drawable.eye);
-        database = new DBHelper(this);
 
         // Share Preference
         sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
@@ -85,50 +82,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 break;
             }
             case R.id.signupbutton: {
-                database = new DBHelper(this);
-                String name = ed1.getText().toString();
-                String email = ed2.getText().toString();
-                String phonenumber = ed3.getText().toString();
-                String password = ed4.getText().toString();
-                String confirmpassword = ed5.getText().toString();
 
-                if (name.isEmpty() || email.isEmpty() || phonenumber.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
-                    Toast.makeText(Signup.this, "Please fill the above field's properly", Toast.LENGTH_SHORT).show();
-
-                }
-                if (phonenumber.length() != 10) {
-                    Toast.makeText(Signup.this, "Enter 10 Digit phone number", Toast.LENGTH_SHORT).show();
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(Signup.this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (password.equals(confirmpassword) && phonenumber.length() == 10) {
-                        boolean uservalidation = database.uservalidation(email);
-                        if (uservalidation == false) {
-                            Boolean registraion = database.registeruser(name, email, phonenumber, password);
-                            //  Toast.makeText(Signup.this, "Please fill the above field's properly", Toast.LENGTH_SHORT).show();
-                            if (registraion == true) {
-
-
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putString(KEYNAME, ed2.getText().toString());
-                                editor.putString(KEYPASSWORD, ed4.getText().toString());
-                                editor.apply();
-                                Toast.makeText(Signup.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                Intent inext = new Intent(getApplicationContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                                startActivity(inext);
-                                finish();
-                            } else {
-                                Toast.makeText(Signup.this, "Registration Failed \n Try again", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(Signup.this, "User already exists \n Please Sign in", Toast.LENGTH_SHORT).show();
-                        }
-
-                    } else {
-                        Toast.makeText(Signup.this, "Password don't matches", Toast.LENGTH_SHORT).show();
-                    }
-                }
                 break;
             }
             case R.id.imageview4: {

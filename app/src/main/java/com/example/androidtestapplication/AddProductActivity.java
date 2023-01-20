@@ -28,7 +28,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidtestapplication.Database.CRUD_DATA;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -57,7 +56,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     String COLOR, IdKey, image;
     Bitmap bitmap;
     private String currentPhotoPath;
-    CRUD_DATA database;
 
 
     @Override
@@ -252,7 +250,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         toviewimageuri = findViewById(R.id.viewimageuri);
         cloudimage = findViewById(R.id.cloudremove);
         txtremove = findViewById(R.id.txtremove);
-        database = new CRUD_DATA(this);
         camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
     }
@@ -347,17 +344,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                     } else if (image == null) {
                         Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
                     } else {
-                        boolean update = database.updatedata(IdKey, PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(image));
 
-                        if (update) {
 
-                            Toast.makeText(AddProductActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
                     }
 
                 } else {
@@ -376,17 +364,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                         Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        boolean addData = database.addData(PRODUCTNAME, STORE, PRICE, COLOR, Details, String.valueOf(imageUri));
-                        if (addData) {
-                            //  validStr(PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
-                            Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        } else {
-                            Toast.makeText(AddProductActivity.this, "Updation failed none of the field should be empty", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 }
                 break;

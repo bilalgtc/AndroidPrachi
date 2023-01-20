@@ -21,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
-import com.example.androidtestapplication.Database.CRUD_DATA;
-import com.example.androidtestapplication.Database.DataBaseHelper;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -34,7 +32,6 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageView delete, update;
-    CRUD_DATA data;
 
     // Inflater inflater;
     // ViewGroup container;
@@ -58,14 +55,12 @@ public class MainFragment extends Fragment {
         ft.addToBackStack(null);
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        data = new CRUD_DATA(getContext());
-        ArrayList<ModelClass> arrdesign = data.FetchData();
 
 
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new GridLayoutManager(getContext(), 2);
-        RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
-        recyclerView.setAdapter(adapter);
+//        RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
+//        recyclerView.setAdapter(adapter);
         //setupOnBackPressed();
         return view;
 

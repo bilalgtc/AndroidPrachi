@@ -18,14 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidtestapplication.Database.DBHelper;
 
 public class Signin extends AppCompatActivity implements View.OnClickListener {
 
     TextView signuptext;
     ImageView valid, eye, checkbox1, tick;
     EditText et1, et2;
-    DBHelper db;
     int a = 0;
     AppCompatButton signinbutton;
     private static final String SPNAME = "mypref";
@@ -44,7 +42,6 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         signuptext.setOnClickListener(this);
         signinbutton.setOnClickListener(this);
         checkbox1.setOnClickListener(this);
-        db = new DBHelper(this);
 
     }
 
@@ -105,27 +102,13 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                 break;
             }
             case R.id.signinbutton: {
-                db = new DBHelper(this);
                 String email = et1.getText().toString();
                 String password = et2.getText().toString();
 
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(Signin.this, "Please enter Credentials", Toast.LENGTH_SHORT).show();
                 } else {
-                    boolean check = db.checkuser(email, password);
-                    if (check == true) {
 
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString(KEYNAME, et1.getText().toString());
-                        editor.putString(KEYPASSWORD, et2.getText().toString());
-                        editor.commit();
-                        Toast.makeText(Signin.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        Intent inext = new Intent(getApplicationContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                        startActivity(inext);
-                        finish();
-                    } else {
-                        Toast.makeText(Signin.this, "Please enter valid Credentials ", Toast.LENGTH_SHORT).show();
-                    }
                 }
                 break;
             }

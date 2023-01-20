@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
-import com.example.androidtestapplication.Database.CRUD_DATA;
-
 import java.util.ArrayList;
 
 public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener {
@@ -23,7 +21,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     ImageView backbtn, productimage;
     TextView textView1, textView2, textView3, textView4;
     AppCompatButton green, black, blue, silver;
-    CRUD_DATA database;
     RecyclerModelAdapter adapter;
     public ArrayList<ModelClass> arrdesign;
 
