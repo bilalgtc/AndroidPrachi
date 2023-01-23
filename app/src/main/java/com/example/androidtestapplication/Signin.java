@@ -1,5 +1,6 @@
 package com.example.androidtestapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -18,18 +19,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class Signin extends AppCompatActivity implements View.OnClickListener {
 
     TextView signuptext;
     ImageView valid, eye, checkbox1, tick;
     EditText et1, et2;
+    String email, password;
     int a = 0;
     AppCompatButton signinbutton;
     private static final String SPNAME = "mypref";
     private static final String KEYNAME = "email";
     private static final String KEYPASSWORD = "password";
     SharedPreferences sp;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -54,6 +62,8 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
         signinbutton = findViewById(R.id.signinbutton);
         checkbox1 = findViewById(R.id.checkbox);
         eye.setImageResource(R.drawable.eye);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
         // Share Preference
         sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
         // when open activity first check shared preferance data available  or not
@@ -65,7 +75,6 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
             Intent inext = new Intent(Signin.this, MainActivity.class);
             startActivity(inext);
         }
-
 
     }
 
@@ -102,19 +111,38 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
                 break;
             }
             case R.id.signinbutton: {
-                String email = et1.getText().toString();
-                String password = et2.getText().toString();
+                 email = et1.getText().toString();
+                 password = et2.getText().toString();
 
-                if (email.isEmpty() || password.isEmpty()) {
+                if (email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches() || password.isEmpty()) {
                     Toast.makeText(Signin.this, "Please enter Credentials", Toast.LENGTH_SHORT).show();
                 } else {
-
+                        SigninUser();
                 }
                 break;
             }
 
         }
 
+
+    }
+
+   private void SigninUser() {
+
+        mAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(Signin.this, "Signin Successful", Toast.LENGTH_SHORT).show();
+                Intent inext = new Intent(Signin.this, MainActivity.class);
+                startActivity(inext);
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Signin.this, "Signin Failed \n Please check creditnals", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -35,9 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     NavigationView navigationView;
     Toolbar toolbar;
     ImageView closenav;
-    private static final String SPNAME = "mypref";
-    private static final String KEYNAME = "email";
-    private static final String KEYPASSWORD = "password";
     SharedPreferences sp;
 
     @Override
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigation();
         navigationclose();
 
-    }
 
+    }
 
 
     public void init() {
@@ -69,14 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.drawericon);
-
-        // Share Preference
-        sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
-        // when open activity first check shared preferance data available  or not
-        String email = sp.getString(KEYNAME, null);
-        String password = sp.getString(KEYPASSWORD, null);
-        if (email != null || password != null) {
-        }
 
     }
 
@@ -99,14 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void navigation() {
 
-//        View headerLayout =
-//                navigationView.inflateHeaderView(R.layout.navigation_header);
-//        panel = headerLayout.findViewById(R.id.viewId);
-//        ImageView pannel;
-//        View headerlayout = navigationView.inflateHeaderView(R.layout.headerlayout);
-//      LayoutInflater layoutInflater = LayoutInflater.from(getContext()).inflate(R.layout.headerlayout, navigationView);
-//        pannel = headerlayout.findViewById(R.id.closenavigation);
-
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -116,14 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int id = item.getItemId();
                 if (id == R.id.logout) {
 
-                    sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.clear();
-                    editor.commit();
+                 //   sp = getSharedPreferences(SPNAME, MODE_PRIVATE);
+                  //  SharedPreferences.Editor editor = sp.edit();
+                  //  editor.clear();
+                  //  editor.commit();
+                    FirebaseAuth.getInstance().signOut();
+                   // startActivity(new Intent(MainActivity.this, Signin.class));
                     Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
-                    finish();
-                    Intent intent = new Intent(MainActivity.this, Signin.class);
-                    startActivity(intent);
+                   // finish();
+                  //  Intent intent = new Intent(MainActivity.this, Signin.class);
+                  //  startActivity(intent);
                 }
                 return true;
             }
