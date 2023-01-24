@@ -17,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -32,6 +34,9 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageView delete, update;
+    Adapter Myadapter;
+
+     ArrayList<ModelClass> arrdesign = new ArrayList<>();
 
     // Inflater inflater;
     // ViewGroup container;
@@ -59,8 +64,10 @@ public class MainFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new GridLayoutManager(getContext(), 2);
-//        RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
-//        recyclerView.setAdapter(adapter);
+       // FirebaseRecyclerOptions<ModelClass> options = new FirebaseRecyclerOptions.Builder<ModelClass>().setQuery
+         //       (FirebaseDatabase.getInstance().getReference("Products"),ModelClass.class).build();
+        RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
+        recyclerView.setAdapter(adapter);
         //setupOnBackPressed();
         return view;
 

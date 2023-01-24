@@ -46,25 +46,25 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductDetailActivity.class);
-                intent.putExtra("Image", arrdesign.get(position).getImage());
-                intent.putExtra("Name", arrdesign.get(position).getModelname());
-                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
-                intent.putExtra("Price", arrdesign.get(position).getPrice());
-                intent.putExtra("COLOR", arrdesign.get(position).getColor());
-                intent.putExtra("Details", arrdesign.get(position).getDetails());
+//                intent.putExtra("Image", arrdesign.get(position).getImage());
+//                intent.putExtra("Name", arrdesign.get(position).getModelname());
+//                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
+//                intent.putExtra("Price", arrdesign.get(position).getPrice());
+//                intent.putExtra("COLOR", arrdesign.get(position).getColor());
+//                intent.putExtra("Details", arrdesign.get(position).getDetails());
                 context.startActivity(intent);
 
 
             }
         });
         ModelClass model = arrdesign.get(position);
-        IdKey = model.getIdKey();
+       // IdKey = model.getIdKey();
         image = model.getImage();
         name = model.getModelname();
         company = model.getComapnyname();
         price = model.getPrice();
         COLOR = model.getColor();
-        Details = model.getDetails();
+      //  Details = model.getDetails();
 
         Picasso.get().load(image).into(holder.imageview);
         holder.productname.setText(name);
@@ -76,16 +76,16 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddProductActivity.class);
-                intent.putExtra("IdKey", arrdesign.get(position).getIdKey());
-                Log.e(TAG + "onCreate: ID ", IdKey);
-                intent.putExtra("Image", arrdesign.get(position).getImage());
-                intent.putExtra("Name", arrdesign.get(position).getModelname());
-                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
-                intent.putExtra("Price", arrdesign.get(position).getPrice());
-                intent.putExtra("COLOR", arrdesign.get(position).getColor());
-                intent.putExtra("Details", arrdesign.get(position).getDetails());
-                Log.e("image=====>", arrdesign.get(position).getImage());
-                intent.putExtra("isEditMode", true); // Update existing data
+//                intent.putExtra("IdKey", arrdesign.get(position).getIdKey());
+//                Log.e(TAG + "onCreate: ID ", IdKey);
+//                intent.putExtra("Image", arrdesign.get(position).getImage());
+//                intent.putExtra("Name", arrdesign.get(position).getModelname());
+//                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
+//                intent.putExtra("Price", arrdesign.get(position).getPrice());
+//                intent.putExtra("COLOR", arrdesign.get(position).getColor());
+//                intent.putExtra("Details", arrdesign.get(position).getDetails());
+//                Log.e("image=====>", arrdesign.get(position).getImage());
+//                intent.putExtra("isEditMode", true); // Update existing data
 
                 context.startActivity(intent);
             }

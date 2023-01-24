@@ -15,11 +15,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,12 +31,24 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,9 +68,12 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private String[] camerapermissions;
     private String[] storagepermissions;
     Uri imageUri;
-    String COLOR, IdKey, image;
-    Bitmap bitmap;
+    String COLOR, IdKey, image, PRODUCTNAME, STORE, PRICE, Details;
     private String currentPhotoPath;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    private String ProductID;
+
 
 
     @Override
@@ -71,6 +89,30 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         intentextras();
 
     }
+    public void oninit() {
+        et1product = findViewById(R.id.et1product);
+        et2product = findViewById(R.id.et2product);
+        et3product = findViewById(R.id.et3product);
+        radioGroup = findViewById(R.id.radiogroup);
+        rb1 = findViewById(R.id.rb1);
+        rb2 = findViewById(R.id.rb2);
+        rb3 = findViewById(R.id.rb3);
+        rb4 = findViewById(R.id.rb4);
+        et4product = findViewById(R.id.et4product);
+        back = findViewById(R.id.addproductbackbutton);
+        addimage = findViewById(R.id.addimage);
+        addproductbutton = findViewById(R.id.addproductbutton);
+        toviewimageuri = findViewById(R.id.viewimageuri);
+        cloudimage = findViewById(R.id.cloudremove);
+        txtremove = findViewById(R.id.txtremove);
+        camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        firebaseDatabase = firebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("ProductDetails");
+
+
+    }
+
 
     private void imagepickdialogue() {
         // Options to Display in Dailogue //
@@ -234,26 +276,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    public void oninit() {
-        et1product = findViewById(R.id.et1product);
-        et2product = findViewById(R.id.et2product);
-        et3product = findViewById(R.id.et3product);
-        radioGroup = findViewById(R.id.radiogroup);
-        rb1 = findViewById(R.id.rb1);
-        rb2 = findViewById(R.id.rb2);
-        rb3 = findViewById(R.id.rb3);
-        rb4 = findViewById(R.id.rb4);
-        et4product = findViewById(R.id.et4product);
-        back = findViewById(R.id.addproductbackbutton);
-        addimage = findViewById(R.id.addimage);
-        addproductbutton = findViewById(R.id.addproductbutton);
-        toviewimageuri = findViewById(R.id.viewimageuri);
-        cloudimage = findViewById(R.id.cloudremove);
-        txtremove = findViewById(R.id.txtremove);
-        camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    }
-
     public void intentextras() {
         Intent i = getIntent();
         isEditMode = i.getBooleanExtra("isEditMode", false);
@@ -318,58 +340,149 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                 imagepickdialogue();
                 break;
             case R.id.addproductbutton:
-                String PRODUCTNAME = et1product.getText().toString();
-                String STORE = et2product.getText().toString();
-                String PRICE = et3product.getText().toString();
-                String Details = et4product.getText().toString();
+                 PRODUCTNAME = et1product.getText().toString();
+                 STORE = et2product.getText().toString();
+                 PRICE = et3product.getText().toString();
+                 Details = et4product.getText().toString();
 
+                String id = databaseReference.push().getKey();
 
-                if (isEditMode) {
-
-                    if (imageUri == null) {
-                        Picasso.get().load(image);
-                    } else {
-                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
+                HashMap<String, Object> map = new HashMap<>();
+//                map.put("ID", id);
+                map.put("PRODUCT", PRODUCTNAME);
+                databaseReference.child(id).setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
                     }
-                    if (PRODUCTNAME.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
-                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    } else if (STORE.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (PRICE.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (Details.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-                    } else if (image == null) {
-                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
-                    } else {
-
-
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     }
+                });
 
-                } else {
 
-                    if (PRODUCTNAME.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
-                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-                    } else if (STORE.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (PRICE.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (Details.isEmpty()) {
-                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-                    } else if (imageUri == null) {
-                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
-                    } else {
 
-                    }
-                }
+//                if (isEditMode) {
+//
+//                    if (imageUri == null) {
+//                        Picasso.get().load(image);
+//                    } else {
+//                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
+//                    }
+//                    if (PRODUCTNAME.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+//                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+//                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+//                    } else if (STORE.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+//                    } else if (PRICE.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+//                    } else if (Details.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+//                    } else if (image == null) {
+//                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+//                    } else {
+//
+//
+//                    }
+
+            //    } else {
+
+//                    if (PRODUCTNAME.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+//                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+//                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+//                    } else if (STORE.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+//                    } else if (PRICE.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+//                    } else if (Details.isEmpty()) {
+//                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+//                    } else if (imageUri == null) {
+//                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+//                    } else {
+
+                  //      AddStudentData();
+
+
+                     //   ModelClass modelClass= new ModelClass( ProductID ,PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
+                   //     DocumentReference documentReference = db.collection("Users").document(UserId);
+
+               //         firebaseDatabase = FirebaseDatabase.getInstance();
+//                        databaseReference = FirebaseDatabase.getInstance().getReference("ProductData");
+//                    //    databaseReference = firebaseDatabase.getReference("ProductData");
+//                        ProductID = databaseReference.push().getKey();
+//                        HashMap<String, Object> map = new HashMap<>();
+//                        map.put("PRODUCT ID", ProductID);
+//                        map.put("PRODUCT NAME", PRODUCTNAME);
+//                        map.put("STORE", STORE);
+//                        map.put("PRICE", PRICE);
+//                        map.put("COLOR", COLOR);
+//                        map.put("DETAILS", Details);
+//                        map.put("IMAGE", imageUri);
+//                        FirebaseDatabase.getInstance().getReference().child("Product Data").push()
+//                                .setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//
+//                                        Toast.makeText(AddProductActivity.this, "Data added successfully", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(AddProductActivity.this, "Failed to add data", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+                        //databaseReference.child(ProductID).setValue(map);
+
+
+                      //   Toast.makeText(this, "Data Added", Toast.LENGTH_SHORT).show();
+
+
+                        //  databaseReference.child(ProductID).setValue(modelClass);
+
+                   //     DocumentReference documentReference = db.collection("Users").document(UserId);
+//                        private FirebaseAuth mAuth;
+//                        FirebaseFirestore db;
+
+//                        databaseReference.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                databaseReference.child(ProductID).setValue(modelClass);
+//                                Toast.makeText(AddProductActivity.this, "Data Added Successfully", Toast.LENGTH_SHORT).show();
+//                                Intent i = new Intent(AddProductActivity.this, MainActivity.class);
+//                                startActivity(i);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//                                Toast.makeText(AddProductActivity.this, "Error \n Try Again", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+
+
+             //    }
+     //   }
                 break;
         }
 
     }
+
+    private void addproductname() {
+
+
+
+
+
+    }
+
+    // private void AddStudentData() {
+
+
+
+    //  }
 
     public void listner() {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

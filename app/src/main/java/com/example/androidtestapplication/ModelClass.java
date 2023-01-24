@@ -1,15 +1,13 @@
 package com.example.androidtestapplication;
 
 public class ModelClass {
-    public String image, IdKey, color;
-    public String modelname, comapnyname, price, Details;
+    public String image, IdKey, color, modelname, comapnyname, price, Details;
 
 
-    public ModelClass() {
+    public ModelClass(){
+
 
     }
-
-
     public String getIdKey() {
         return IdKey;
     }

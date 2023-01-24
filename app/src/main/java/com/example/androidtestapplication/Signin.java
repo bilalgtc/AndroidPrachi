@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import javax.security.auth.login.LoginException;
 
 
 public class Signin extends AppCompatActivity implements View.OnClickListener {
@@ -199,6 +202,17 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        FirebaseUser user = mAuth.getCurrentUser();
+//        if(user != null){
+//            Intent i = new Intent(Signin.this,
+//                    MainActivity.class);
+//            startActivity(i);
+//            this.finish();
+//        }
+//    }
 }
 
 
