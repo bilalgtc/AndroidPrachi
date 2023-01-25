@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     NavigationView navigationView;
     Toolbar toolbar;
     ImageView closenav;
-    SharedPreferences sp;
-
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         closenav = findViewById(R.id.closenavigation);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
+        mAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
@@ -104,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                   //  editor.clear();
                   //  editor.commit();
                     FirebaseAuth.getInstance().signOut();
-                   // startActivity(new Intent(MainActivity.this, Signin.class));
+                    startActivity(new Intent(MainActivity.this, Signin.class));
                     Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
-                   // finish();
+                    finish();
                   //  Intent intent = new Intent(MainActivity.this, Signin.class);
                   //  startActivity(intent);
                 }

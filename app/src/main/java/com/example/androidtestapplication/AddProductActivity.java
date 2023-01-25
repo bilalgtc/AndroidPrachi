@@ -31,9 +31,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +44,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -68,11 +74,14 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private String[] camerapermissions;
     private String[] storagepermissions;
     Uri imageUri;
-    String COLOR, IdKey, image, PRODUCTNAME, STORE, PRICE, Details;
+    String COLOR, IdKey, image, PRODUCTNAME, STORE, PRICE, DETAILS;
     private String currentPhotoPath;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     private String ProductID;
+    FirebaseAuth mAuth;
+    FirebaseUser currentuser;
+    String email;
 
 
 
@@ -107,8 +116,20 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         txtremove = findViewById(R.id.txtremove);
         camerapermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagepermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        firebaseDatabase = firebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("ProductDetails");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentuser = mAuth.getCurrentUser();
+        if(currentuser != null){
+             email = currentuser.getEmail();
+        } else {
+            Toast.makeText(this, "User Not Found", Toast.LENGTH_SHORT).show();
+        }
+        Log.e("ID", String.valueOf(currentuser));
+      //  String ID = email;
+        String originalstring = email;
+        String newemail = originalstring.replace(".", "");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Product Details / " + newemail);
 
 
     }
@@ -343,146 +364,44 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                  PRODUCTNAME = et1product.getText().toString();
                  STORE = et2product.getText().toString();
                  PRICE = et3product.getText().toString();
-                 Details = et4product.getText().toString();
+                  DETAILS = et4product.getText().toString();
+                if (PRODUCTNAME.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    } else if (STORE.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (PRICE.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (DETAILS.isEmpty()) {
+                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+                    } else if (imageUri == null) {
+                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+                    } else {
+                    ProductID = databaseReference.push().getKey();
+                    Exampleclass exampleclass = new Exampleclass(ProductID, PRODUCTNAME, STORE, PRICE, COLOR, DETAILS, imageUri.toString());
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            databaseReference.child(ProductID).setValue(exampleclass);
+                            Toast.makeText(AddProductActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(AddProductActivity.this, MainActivity.class);
+                            startActivity(i);
+                        }
 
-                String id = databaseReference.push().getKey();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                HashMap<String, Object> map = new HashMap<>();
-//                map.put("ID", id);
-                map.put("PRODUCT", PRODUCTNAME);
-                databaseReference.child(id).setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(AddProductActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
 
-
-
-//                if (isEditMode) {
-//
-//                    if (imageUri == null) {
-//                        Picasso.get().load(image);
-//                    } else {
-//                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
-//                    }
-//                    if (PRODUCTNAME.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-//                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
-//                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-//                    } else if (STORE.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
-//                    } else if (PRICE.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-//                    } else if (Details.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-//                    } else if (image == null) {
-//                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
-//                    } else {
-//
-//
-//                    }
-
-            //    } else {
-
-//                    if (PRODUCTNAME.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
-//                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
-//                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
-//                    } else if (STORE.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
-//                    } else if (PRICE.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-//                    } else if (Details.isEmpty()) {
-//                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
-//                    } else if (imageUri == null) {
-//                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
-//                    } else {
-
-                  //      AddStudentData();
-
-
-                     //   ModelClass modelClass= new ModelClass( ProductID ,PRODUCTNAME, STORE, PRICE, COLOR, Details, image);
-                   //     DocumentReference documentReference = db.collection("Users").document(UserId);
-
-               //         firebaseDatabase = FirebaseDatabase.getInstance();
-//                        databaseReference = FirebaseDatabase.getInstance().getReference("ProductData");
-//                    //    databaseReference = firebaseDatabase.getReference("ProductData");
-//                        ProductID = databaseReference.push().getKey();
-//                        HashMap<String, Object> map = new HashMap<>();
-//                        map.put("PRODUCT ID", ProductID);
-//                        map.put("PRODUCT NAME", PRODUCTNAME);
-//                        map.put("STORE", STORE);
-//                        map.put("PRICE", PRICE);
-//                        map.put("COLOR", COLOR);
-//                        map.put("DETAILS", Details);
-//                        map.put("IMAGE", imageUri);
-//                        FirebaseDatabase.getInstance().getReference().child("Product Data").push()
-//                                .setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void unused) {
-//
-//                                        Toast.makeText(AddProductActivity.this, "Data added successfully", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(AddProductActivity.this, "Failed to add data", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-                        //databaseReference.child(ProductID).setValue(map);
-
-
-                      //   Toast.makeText(this, "Data Added", Toast.LENGTH_SHORT).show();
-
-
-                        //  databaseReference.child(ProductID).setValue(modelClass);
-
-                   //     DocumentReference documentReference = db.collection("Users").document(UserId);
-//                        private FirebaseAuth mAuth;
-//                        FirebaseFirestore db;
-
-//                        databaseReference.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                databaseReference.child(ProductID).setValue(modelClass);
-//                                Toast.makeText(AddProductActivity.this, "Data Added Successfully", Toast.LENGTH_SHORT).show();
-//                                Intent i = new Intent(AddProductActivity.this, MainActivity.class);
-//                                startActivity(i);
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//                                Toast.makeText(AddProductActivity.this, "Error \n Try Again", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-
-
-             //    }
-     //   }
                 break;
         }
 
     }
 
-    private void addproductname() {
-
-
-
-
-
-    }
-
-    // private void AddStudentData() {
-
-
-
-    //  }
 
     public void listner() {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

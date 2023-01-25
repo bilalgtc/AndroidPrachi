@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -22,6 +24,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
+import com.firebase.ui.database.FirebaseArray;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -34,16 +42,16 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageView delete, update;
-    Adapter Myadapter;
+    RecyclerModelAdapter adapter;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+     ArrayList<Exampleclass> arrdesign = new ArrayList<>();
 
-     ArrayList<ModelClass> arrdesign = new ArrayList<>();
-
-    // Inflater inflater;
-    // ViewGroup container;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("Product Details / ");
 
     }
 
@@ -53,22 +61,48 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         FragmentManager fm = getFragmentManager();
-        //   FragmentManager fm = getFragmentManager();
-        //   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         FragmentTransaction ft = fm.beginTransaction();
         ft.commit();
         ft.addToBackStack(null);
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-
         recyclerView = view.findViewById(R.id.recyclerview);
         layoutManager = new GridLayoutManager(getContext(), 2);
-       // FirebaseRecyclerOptions<ModelClass> options = new FirebaseRecyclerOptions.Builder<ModelClass>().setQuery
-         //       (FirebaseDatabase.getInstance().getReference("Products"),ModelClass.class).build();
-        RecyclerModelAdapter adapter = new RecyclerModelAdapter(getContext(), arrdesign);
+        recyclerView.setLayoutManager(layoutManager);
+
+         adapter = new RecyclerModelAdapter(getContext(), arrdesign);
         recyclerView.setAdapter(adapter);
-        //setupOnBackPressed();
+
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Exampleclass exampleclass = snapshot.getValue(Exampleclass.class);
+                arrdesign.add(exampleclass);
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         return view;
 
 
@@ -82,16 +116,11 @@ public class MainFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 getFragmentManager().popBackStack();
-             //   getActivity().finishAffinity();
             }
         };
-        //  getActivity().finish();
         super.onResume();
 
     }
-
-    // ((MainFragment) getActivity()).finish();
-
 
 }
 

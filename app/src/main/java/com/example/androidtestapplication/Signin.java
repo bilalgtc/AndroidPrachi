@@ -202,17 +202,17 @@ public class Signin extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        if(user != null){
-//            Intent i = new Intent(Signin.this,
-//                    MainActivity.class);
-//            startActivity(i);
-//            this.finish();
-//        }
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            Intent i = new Intent(Signin.this,
+                    MainActivity.class);
+            startActivity(i);
+            this.finish();
+        }
+    }
 }
 
 

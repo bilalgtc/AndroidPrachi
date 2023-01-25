@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidtestapplication.AddProductActivity;
+import com.example.androidtestapplication.Exampleclass;
 import com.example.androidtestapplication.ModelClass;
 import com.example.androidtestapplication.ProductDetailActivity;
 import com.example.androidtestapplication.R;
@@ -26,13 +28,13 @@ import java.util.ArrayList;
 
 public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdapter.ViewHolder> {
     public Context context;
-    public ArrayList<ModelClass> arrdesign;
+    public ArrayList<Exampleclass> arrdesign;
     ImageView delete, update;
     String IdKey, image, name, company, price, COLOR, Details;
     boolean isEditMode = false;
     // DATABASE
 
-    public RecyclerModelAdapter(Context context, ArrayList<ModelClass> arrdesign) {
+    public RecyclerModelAdapter(Context context, ArrayList<Exampleclass> arrdesign) {
         this.context = context;
         this.arrdesign = arrdesign;
 
@@ -41,35 +43,44 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
+        Exampleclass exampleclass = arrdesign.get(position);
+        holder.productname.setText(exampleclass.getName());
+        holder.companyname.setText(exampleclass.getStore());
+        holder.price.setText(exampleclass.getPrice());
+        image = exampleclass.getImage();
+        Picasso.get().load(image).into(holder.imageview);
+      //  holder.imageview.setImageURI(Uri.parse(exampleclass.getImage()));
+      //  Picasso.get().load(image).into(holder.imageview);
 
-        holder.imageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ProductDetailActivity.class);
-//                intent.putExtra("Image", arrdesign.get(position).getImage());
-//                intent.putExtra("Name", arrdesign.get(position).getModelname());
-//                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
-//                intent.putExtra("Price", arrdesign.get(position).getPrice());
-//                intent.putExtra("COLOR", arrdesign.get(position).getColor());
-//                intent.putExtra("Details", arrdesign.get(position).getDetails());
-                context.startActivity(intent);
-
-
-            }
-        });
-        ModelClass model = arrdesign.get(position);
+//        holder.imageview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+//              //  Intent intent = new Intent(context, ProductDetailActivity.class);
+////                intent.putExtra("Image", arrdesign.get(position).getImage());
+////                intent.putExtra("Name", arrdesign.get(position).getModelname());
+////                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
+////                intent.putExtra("Price", arrdesign.get(position).getPrice());
+////                intent.putExtra("COLOR", arrdesign.get(position).getColor());
+////                intent.putExtra("Details", arrdesign.get(position).getDetails());
+//              //  context.startActivity(intent);
+//
+//
+//            }
+//        });
+   //     ModelClass model = arrdesign.get(position);
        // IdKey = model.getIdKey();
-        image = model.getImage();
-        name = model.getModelname();
-        company = model.getComapnyname();
-        price = model.getPrice();
-        COLOR = model.getColor();
+//        image = model.getImage();
+//        name = model.getModelname();
+//        company = model.getComapnyname();
+//        price = model.getPrice();
+//        COLOR = model.getColor();
       //  Details = model.getDetails();
 
-        Picasso.get().load(image).into(holder.imageview);
-        holder.productname.setText(name);
-        holder.companyname.setText(company);
-        holder.price.setText(price);
+//        Picasso.get().load(image).into(holder.imageview);
+//        holder.productname.setText(name);
+//        holder.companyname.setText(company);
+//        holder.price.setText(price);
 
 
         update.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +121,7 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.shoprow, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shoprow, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;

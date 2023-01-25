@@ -1,24 +1,81 @@
 package com.example.androidtestapplication;
 
 public class Exampleclass {
-    String id;
+    String Id;
+    String Name;
+    String  Store;
+    String Price;
+    String Color;
+    String Details;
+    String Image;
+
+    public  Exampleclass(){
+
+    }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
-    public String getPRODUCTNAME() {
-        return PRODUCTNAME;
+    public String getName() {
+        return Name;
     }
 
-    public Exampleclass(String id, String PRODUCTNAME) {
-        this.id = id;
-        this.PRODUCTNAME = PRODUCTNAME;
+    public String getStore() {
+        return Store;
     }
 
-    String PRODUCTNAME;
+    public String getPrice() {
+        return Price;
+    }
 
-    public Exampleclass(){
+    public String getColor() {
+        return Color;
+    }
 
+    public String getDetails() {
+        return Details;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setStore(String store) {
+        Store = store;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
+
+    public void setColor(String color) {
+        Color = color;
+    }
+
+    public void setDetails(String details) {
+        Details = details;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public Exampleclass(String Id, String Name, String Store, String Price, String Color, String Details, String Image) {
+        this.Id = Id;
+        this.Name = Name;
+        this.Store = Store;
+        this.Price = Price;
+        this.Color = Color;
+        this.Details = Details;
+        this.Image = Image;
     }
 }
