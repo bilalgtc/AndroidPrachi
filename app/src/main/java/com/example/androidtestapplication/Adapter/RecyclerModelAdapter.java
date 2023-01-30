@@ -22,6 +22,14 @@ import com.example.androidtestapplication.Exampleclass;
 import com.example.androidtestapplication.ModelClass;
 import com.example.androidtestapplication.ProductDetailActivity;
 import com.example.androidtestapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,11 +40,17 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
     ImageView delete, update;
     String IdKey, image, name, company, price, COLOR, Details;
     boolean isEditMode = false;
-    // DATABASE
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
+    FirebaseUser currentuser;
+
 
     public RecyclerModelAdapter(Context context, ArrayList<Exampleclass> arrdesign) {
         this.context = context;
         this.arrdesign = arrdesign;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -49,55 +63,22 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         holder.price.setText(exampleclass.getPrice());
         image = exampleclass.getImage();
         Picasso.get().load(image).into(holder.imageview);
-      //  holder.imageview.setImageURI(Uri.parse(exampleclass.getImage()));
-      //  Picasso.get().load(image).into(holder.imageview);
 
-//        holder.imageview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
-//              //  Intent intent = new Intent(context, ProductDetailActivity.class);
-////                intent.putExtra("Image", arrdesign.get(position).getImage());
-////                intent.putExtra("Name", arrdesign.get(position).getModelname());
-////                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
-////                intent.putExtra("Price", arrdesign.get(position).getPrice());
-////                intent.putExtra("COLOR", arrdesign.get(position).getColor());
-////                intent.putExtra("Details", arrdesign.get(position).getDetails());
-//              //  context.startActivity(intent);
-//
-//
-//            }
-//        });
-   //     ModelClass model = arrdesign.get(position);
-       // IdKey = model.getIdKey();
-//        image = model.getImage();
-//        name = model.getModelname();
-//        company = model.getComapnyname();
-//        price = model.getPrice();
-//        COLOR = model.getColor();
-      //  Details = model.getDetails();
-
-//        Picasso.get().load(image).into(holder.imageview);
-//        holder.productname.setText(name);
-//        holder.companyname.setText(company);
-//        holder.price.setText(price);
 
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddProductActivity.class);
-//                intent.putExtra("IdKey", arrdesign.get(position).getIdKey());
-//                Log.e(TAG + "onCreate: ID ", IdKey);
-//                intent.putExtra("Image", arrdesign.get(position).getImage());
-//                intent.putExtra("Name", arrdesign.get(position).getModelname());
-//                intent.putExtra("Company", arrdesign.get(position).getComapnyname());
-//                intent.putExtra("Price", arrdesign.get(position).getPrice());
-//                intent.putExtra("COLOR", arrdesign.get(position).getColor());
-//                intent.putExtra("Details", arrdesign.get(position).getDetails());
-//                Log.e("image=====>", arrdesign.get(position).getImage());
-//                intent.putExtra("isEditMode", true); // Update existing data
-
+                intent.putExtra("IdKey", arrdesign.get(position).getId());
+                intent.putExtra("Image", arrdesign.get(position).getImage());
+                intent.putExtra("Name", arrdesign.get(position).getName());
+                intent.putExtra("Company", arrdesign.get(position).getStore());
+                intent.putExtra("Price", arrdesign.get(position).getPrice());
+                intent.putExtra("COLOR", arrdesign.get(position).getColor());
+                intent.putExtra("Details", arrdesign.get(position).getDetails());
+                Log.e("image=====>", arrdesign.get(position).getImage());
+                intent.putExtra("isEditMode", true); // Update existing data
                 context.startActivity(intent);
             }
         });
@@ -106,12 +87,64 @@ public class RecyclerModelAdapter extends RecyclerView.Adapter<RecyclerModelAdap
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrdesign.remove(position);
-                notifyItemRemoved(position);
 
-                Toast.makeText(context, "Record Deleted", Toast.LENGTH_SHORT).show();
+                FirebaseDatabase.getInstance().getReference().child("Product Description")
+                        .child(exampleclass.getId()).removeValue();
+
+
+
+
+//                String userid = mAuth.getUid();
+//                databaseReference = FirebaseDatabase.getInstance().getReference()
+//                        .child("Product Details / " + userid ).child(exampleclass.getId());
+//                databaseReference.child(exampleclass.getId()).removeValue();
+//
+//            // String productid = String.valueOf(FirebaseDatabase.getInstance().getReference().getRef());
+//                String productid = FirebaseDatabase.getInstance().getReference().getKey();
+//           //  Log.e(TAG, productid);
+//                String userid = mAuth.getUid();
+//              FirebaseDatabase.getInstance().getReference()
+//                      //.child(productid)
+//                      .removeValue();
+              //  Exampleclass exampleclass = new Exampleclass();
+              //  int id = Integer.parseInt(arrdesign.get(position).getId());
+              //  String id = arrdesign.get(position).getId();
+             //   databaseReference.child("Product Details").child(id).removeValue();
+
+
+
+            //  FirebaseDatabase database = FirebaseDatabase.getInstance();
+             // DatabaseReference databaseReference = database.getReference().child();
+//                String idbase = databaseReference.getKey();
+//                mAuth = FirebaseAuth.getInstance();
+//                String userid = mAuth.getUid();
+//                String id = databaseReference.getPath("Product Details / " + userid );
+//                databaseReference.child(id).removeValue();
+//                Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+//                notify();
+
+//                FirebaseDatabase.getInstance().getReference().child("Product Details \n")
+//                        .child()
+
+                // \\***********\\ //
+
+//                DatabaseReference dbref= FirebaseDatabase.getInstance().getReference().child("Product Details \n");
+//
+//              //  databaseReference = FirebaseDatabase.getInstance().getReference("Product Details \n");
+//                dbref.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void unused) {
+//                        Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(context, "Failed to delete data", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
             }
+
         });
 
 

@@ -75,16 +75,16 @@
 
                 <ImageView
                     android:id="@+id/imageviewpencil"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:src="@drawable/pencil" />
 
                 <ImageView
                     android:id="@+id/imageviewdustbin"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
+                    android:layout_width="@dimen/_14sdp"
+                    android:layout_height="@dimen/_14sdp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_9sdp"
                     android:gravity="end"

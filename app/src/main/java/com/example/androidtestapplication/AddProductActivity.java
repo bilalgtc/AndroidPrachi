@@ -37,6 +37,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +52,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.DataTruncation;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -119,17 +121,10 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
         mAuth = FirebaseAuth.getInstance();
         currentuser = mAuth.getCurrentUser();
-        if(currentuser != null){
-             email = currentuser.getEmail();
-        } else {
-            Toast.makeText(this, "User Not Found", Toast.LENGTH_SHORT).show();
-        }
+        String userid = mAuth.getUid();
         Log.e("ID", String.valueOf(currentuser));
-      //  String ID = email;
-        String originalstring = email;
-        String newemail = originalstring.replace(".", "");
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Product Details / " + newemail);
+        databaseReference = firebaseDatabase.getReference("Product Details / " + userid );
 
 
     }
@@ -333,7 +328,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             } else {
                 rb4.setChecked(false);
             }
-            toviewimageuri.setImageURI(Uri.parse(image));
+//            toviewimageuri.setImageURI(Uri.parse(image));
             image = i.getStringExtra("Image");
             if (image == null) {
                 Toast.makeText(this, "No image", Toast.LENGTH_SHORT).show();
@@ -344,6 +339,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             cloudimage.setVisibility(View.GONE);
             txtremove.setVisibility(View.GONE);
             toviewimageuri.setVisibility(View.VISIBLE);
+            toviewimageuri.setImageURI(Uri.parse(image));
         }
 
     }
@@ -365,7 +361,48 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                  STORE = et2product.getText().toString();
                  PRICE = et3product.getText().toString();
                   DETAILS = et4product.getText().toString();
-                if (PRODUCTNAME.isEmpty()) {
+
+                if (isEditMode) {
+                    String id = getIntent().getStringExtra("IdKey");
+                    if (imageUri == null) {
+                        Picasso.get().load(image);
+                    } else {
+                        Toast.makeText(AddProductActivity.this, "Image not Updated", Toast.LENGTH_SHORT).show();
+                    }
+                    if (PRODUCTNAME.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
+                        //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
+                        Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
+                    } else if (STORE.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    }else if (PRICE.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
+                    } else if (DETAILS.isEmpty()){
+                        Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
+                    } else if (image == null){
+                        Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Exampleclass exampleclass = new Exampleclass(ProductID, PRODUCTNAME, STORE, PRICE, COLOR, DETAILS, image);
+                        databaseReference.child(id).setValue(exampleclass);
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Toast.makeText(AddProductActivity.this, "Data Successfully Updated", Toast.LENGTH_SHORT).show();
+                                Intent inext = new Intent(AddProductActivity.this, MainActivity.class);
+                                startActivity(inext);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(AddProductActivity.this, "Failed to Update Data", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                } else {
+
+                    if (PRODUCTNAME.isEmpty()) {
                         Toast.makeText(AddProductActivity.this, "PRODUCT NAME IS EMPTY", Toast.LENGTH_SHORT).show();
                         //  PRODUCTNAME.isEmpty() || STORE.isEmpty() || PRICE.isEmpty() || Details.isEmpty() || image == null) {
                         Toast.makeText(AddProductActivity.this, "None of the field should be empty", Toast.LENGTH_SHORT).show();
@@ -373,28 +410,31 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                         Toast.makeText(AddProductActivity.this, "STORE IS EMPTY", Toast.LENGTH_SHORT).show();
                     } else if (PRICE.isEmpty()) {
                         Toast.makeText(AddProductActivity.this, "PRICE IS EMPTY", Toast.LENGTH_SHORT).show();
-                    } else if (DETAILS.isEmpty()) {
+                    }
+
+                    else if (DETAILS.isEmpty()) {
                         Toast.makeText(AddProductActivity.this, "Details is Empty", Toast.LENGTH_SHORT).show();
                     } else if (imageUri == null) {
                         Toast.makeText(AddProductActivity.this, "PLEASE INSERT PRODUCT IMAGE", Toast.LENGTH_SHORT).show();
                     } else {
-                    ProductID = databaseReference.push().getKey();
-                    Exampleclass exampleclass = new Exampleclass(ProductID, PRODUCTNAME, STORE, PRICE, COLOR, DETAILS, imageUri.toString());
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            databaseReference.child(ProductID).setValue(exampleclass);
-                            Toast.makeText(AddProductActivity.this, "Data added", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(AddProductActivity.this, MainActivity.class);
-                            startActivity(i);
-                        }
+                        ProductID = databaseReference.push().getKey();
+                        Exampleclass exampleclass = new Exampleclass(ProductID, PRODUCTNAME, STORE, PRICE, COLOR, DETAILS, imageUri.toString());
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                databaseReference.child(ProductID).setValue(exampleclass);
+                                Toast.makeText(AddProductActivity.this, "Data added", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(AddProductActivity.this, MainActivity.class);
+                                startActivity(i);
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(AddProductActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
+                    }
                 }
 
                 break;

@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.example.androidtestapplication.Adapter.RecyclerModelAdapter;
 import com.firebase.ui.database.FirebaseArray;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,17 +43,21 @@ public class MainFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    ImageView delete, update;
     RecyclerModelAdapter adapter;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-     ArrayList<Exampleclass> arrdesign = new ArrayList<>();
+    FirebaseAuth mAuth;
+    FirebaseUser currentuser;
+     ArrayList<Exampleclass> arrdesign = new ArrayList<Exampleclass>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("Product Details / ");
+        mAuth = FirebaseAuth.getInstance();
+        currentuser = mAuth.getCurrentUser();
+        String userid = mAuth.getUid();
+        databaseReference = firebaseDatabase.getReference().child("Product Details / " + userid  );
 
     }
 
@@ -65,15 +71,15 @@ public class MainFragment extends Fragment {
         ft.commit();
         ft.addToBackStack(null);
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        recyclerView = view.findViewById(R.id.recyclerview);
-        layoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
+            View view = inflater.inflate(R.layout.fragment_main, container, false);
+            recyclerView = view.findViewById(R.id.recyclerview);
+            layoutManager = new GridLayoutManager(getContext(), 2);
+            recyclerView.setLayoutManager(layoutManager);
 
-         adapter = new RecyclerModelAdapter(getContext(), arrdesign);
-        recyclerView.setAdapter(adapter);
+             adapter = new RecyclerModelAdapter(getContext(), arrdesign);
+            recyclerView.setAdapter(adapter);
 
-        databaseReference.addChildEventListener(new ChildEventListener() {
+            databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Exampleclass exampleclass = snapshot.getValue(Exampleclass.class);
